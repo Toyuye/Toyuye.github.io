@@ -36,9 +36,7 @@ import Aside from './Aside.vue'
     }
 })
 export default class Layout extends Vue {
-    private created(): void{
-        
-    }
+    @Provide() isCollapse: Boolean = false
 }
 </script>  
 <style lang="scss">
