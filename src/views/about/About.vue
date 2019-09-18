@@ -4,17 +4,12 @@
 	</div>
 </template>
 <script lang="ts"> 
-	import {Vue, Component, Prop} from 'vue-property-decorator';
-	import HelloWorld from '@/components/HelloWorld.vue';
-	@Component({
-		components: {
+import {Vue, Component, Prop} from 'vue-property-decorator';
+import HelloWorld from '../../components/HelloWorld.vue';
+@Component({
+	components: {
 		HelloWorld
-		}
-	})
-	export default class About extends Vue{
-		constructor() {
-		super()
-		}
-		// @Prop(Number) propA!: number
-	}
-</script>  
+  	}
+})
+export default class About extends Vue {}
+</script>

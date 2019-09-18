@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="toyuye-view">
         <router-view></router-view>
     </div>
 </template>
@@ -9,9 +9,11 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({})
 
 export default class AppMain extends Vue { 
-	created():void {
-        console.log(111333333334444441111)
-    }
+	
 }
 </script>
-<style lang="scss" >
+<style lang="scss" scoped>
+.toyuye-view {
+    background: #fff;
+}
+</style>

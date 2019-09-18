@@ -1,26 +1,98 @@
 <template>
-    <div>
-        <div id="nav">
-            <router-link to="/home">Home</router-link>|
-            <router-link to="/about">About</router-link>
-        </div>
-        <div>
-            <app-main></app-main>
-        </div>
+    <div style="height:100%;">
+        <el-container style="min-height:100%;">
+            <div class="toyuye-layout-left">
+                <el-aside width="256px;">
+                    <Aside></Aside>   
+                </el-aside>
+            </div>
+            <div class="toyuye-layout-right">
+                <el-header height="64px">
+                    <Header></Header>
+                </el-header>
+                <el-main>
+                    <app-main></app-main>
+                </el-main>
+                <el-footer height="auto">
+                    <Footer></Footer>
+                </el-footer>
+            </div>
+        </el-container>
     </div>
 </template> 
 
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator'
+import {Component, Vue, Provide} from 'vue-property-decorator'
 import AppMain from './AppMain.vue'
+import Footer from './Footer.vue'
+import Header from './Header.vue'
+import Aside from './Aside.vue'
 @Component({
     components:{
-        AppMain
+        AppMain,
+        Footer,
+        Header,
+        Aside
     }
 })
 export default class Layout extends Vue {
-    created(): void{
-        console.log(this.$route)
+    private created(): void{
+        
     }
 }
 </script>  
+<style lang="scss">
+    @import '../../assets/_reset.scss';
+    .el-submenu__title{
+        height:40px;
+        line-height: 40px;
+    }
+    .el-submenu .el-menu-item{
+        height: 40px;
+        line-height: 40px
+    }
+    .el-menu-item-group__title{
+        padding:0 20px;
+    }
+    .el-aside{
+        width: 256px; 
+        box-shadow: rgba(0, 21, 41, 0.35) 2px 0px 6px; 
+        height: 100%;
+        background-color:#001529;
+        position: relative;
+        z-index: 10;
+    }
+    .el-header{
+        position: relative;
+        height: 64px;
+        padding: 0;
+        background: #fff;   
+        box-shadow: 0 1px 4px rgba(0,21,41,.08);
+        position: relative;
+        z-index: 2;
+    }
+    .el-menu{
+        border: 0;
+        background-color:#001529;
+    }
+    .el-submenu__title:hover{
+        color: #fff;
+        background-color: transparent;
+    }
+    .el-menu-item:focus, .el-menu-item:hover {
+        color:#fff;
+        background-color: transparent;
+    }
+    .el-footer{
+        text-align: center;
+        background: #f0f2f5;
+    }
+</style>
+
+<style lang="scss" scoped>
+    .toyuye-layout-right{
+        flex:1; 
+        display:flex;
+        flex-direction: column;
+    }
+</style>
