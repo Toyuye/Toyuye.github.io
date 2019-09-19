@@ -17,25 +17,44 @@ export default new Router({
       },
       children: [
         {
-          path: "/home",
-          name: "home",
+          path: "/dashboard",
+          name: "dashboard",
           meta: {
-            title: "首页"
+            title: "Dashboard",
+            icon: "stopwatch"
           },
-          component: () =>
-            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+          children:[
+            {
+              path:"/dashboard/analysis",
+              name:"分析页",
+              meta: {
+                title:"分析页",
+                icon: false
+              },
+              component: () =>
+                import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+            }
+          ]
         },
         {
-          path: "/about",
+          path: "/form",
           name: "about",
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
           meta: {
-            title: "关于"
+            title: "表单页",
+            icon:'edit-outline'
           },
-          component: () =>
-            import(/* webpackChunkName: "about" */ "../views/about/About.vue")
+          children:[
+            {
+              path:"/form/basic-form",
+              name:"基础表单",
+              meta:{
+                title:"基础表单页",
+                icon:false
+              },
+              component: () =>
+                import(/* webpackChunkName: "about" */ "../views/about/About.vue")
+            }
+          ]
         }
       ]
     }

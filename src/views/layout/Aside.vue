@@ -15,39 +15,18 @@
       active-text-color="#fff"
       :unique-opened="true"
       :collapse="isCollapse"
+      :router="true"
     >
-      <el-submenu index="1">
+      <el-submenu v-for="(item, idx) in meunArr" :index="`${item.path}${idx}`" :key="idx">
         <template slot="title">
-          <i class="el-icon-view"></i><span slot="title">Dashboard</span>
+          <i :class="`el-icon-${item.meta.icon}`"></i><span slot="title">{{item.meta.title}}</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-          <el-menu-item index="1-3">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-edit-outline"></i><span slot="title">表单页</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-          <el-menu-item index="2-3">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-s-grid"></i><span slot="title">列表页</span>
-        </template>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-        <el-menu-item-group>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
-          <el-menu-item index="3-3">选项3</el-menu-item>
+          <el-menu-item
+            v-for="(val,inx) in item.children"
+            :index="`${val.path}`"
+            :key="inx"
+          >{{val.meta.title}}</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -58,9 +37,12 @@ import { Component, Vue, Provide, Prop } from "vue-property-decorator";
 @Component({})
 export default class Aside extends Vue {
   meunArr: Array<any> = [];
+  private $router$: any;
   @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
   public created(): void {
-    // this.meunArr = this.$router.options.routes[0].children;
+    this.$router$ = this.$router;
+    this.meunArr = this.$router$.options.routes[0].children;
+    console.log(this.meunArr)
   }
 }
 </script>
@@ -93,5 +75,8 @@ export default class Aside extends Vue {
 }
 .el-menu-vertical-toyuye:not(.el-menu--collapse) {
   width: 256px;
+} 
+.el-submenu [class^=el-icon-] {
+  font-size: 14px;
 }
 </style>
