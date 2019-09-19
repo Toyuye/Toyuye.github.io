@@ -8,19 +8,19 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path:'/',
-      name:'layout',
-      component:()=>
-        import (/* webpackChunkName: "layout" */ "../views/layout/index.vue"),
-      meta:{
-        title:'欢迎登陆Toyuye系统'
+      path: "/",
+      name: "layout",
+      component: () =>
+        import(/* webpackChunkName: "layout" */ "../views/layout/index.vue"),
+      meta: {
+        title: "欢迎登陆Toyuye系统"
       },
-      children:[
+      children: [
         {
           path: "/home",
           name: "home",
-          meta:{
-            title:'首页'
+          meta: {
+            title: "首页"
           },
           component: () =>
             import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
@@ -31,13 +31,13 @@ export default new Router({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          meta:{
-            title:'关于'
+          meta: {
+            title: "关于"
           },
           component: () =>
             import(/* webpackChunkName: "about" */ "../views/about/About.vue")
         }
       ]
     }
-  ]  
+  ]
 });

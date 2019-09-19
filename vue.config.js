@@ -1,12 +1,11 @@
-const path  = require('path')
-
+const path = require("path");
 
 function resolve(dir) {
-    return path.join(__dirname, './')
+  return path.join(__dirname, "./");
 }
-module.exports = {    
-    devServer: {
-        port:8080,
-        open:true
-    },
-}
+module.exports = {
+  devServer: {
+    port: 8888,
+    open: true
+  }
+};

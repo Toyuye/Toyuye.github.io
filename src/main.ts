@@ -2,42 +2,37 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import $fetchs from './fetch'
+import $fetchs from "./fetch";
 //import { prototype } from 'mocha';
 
 Vue.config.productionTip = false;
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI)
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+Vue.use(ElementUI);
 
-/** 
- *@auth Toyuye 
-*/
-Vue.use(v=>{
-  v.prototype.$HTTP = $fetchs
-})
-
-declare module 'vue/types/vue' {
+declare module "vue/types/vue" {
   interface Vue {
-    $HTTP: any
+    $HTTP: any;
   }
 }
-
-import { setTKD } from './utils'
-
+/**
+ *@auth Toyuye
+ */
+Vue.use(v => {
+  v.prototype.$HTTP = $fetchs;
+});
+import { setTKD } from "./utils";
 router.beforeEach((to, from, next) => {
-  setTKD(to)
-  next()
-})
+  setTKD(to);
+  next();
+});
 router.afterEach((to, from) => {
-  console.log(`${to.meta.title}>>>>>>>>>>>>>>>>>>>>>`)
-})
-
+  console.log(`${to.meta.title}>>>>>>>>>>>>>>>>>>>>>`);
+});
 
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount("#app");
-

@@ -1,25 +1,28 @@
-import axios from 'axios';
-import qs from 'qs';
+import axios from "axios";
+import qs from "qs";
 
 const service: any = axios.create({
-  baseURL:process.env.VUE_APP_HTTP_ROOT,
+  baseURL: process.env.VUE_APP_HTTP_ROOT,
   timeout: 10000
 });
 // request
-service.interceptors.request.use((config: any) =>{
-    if(config.method === "form") {
-      config.method = 'post';
+service.interceptors.request.use(
+  (config: any) => {
+    if (config.method === "form") {
+      config.method = "post";
       config.data = qs.stringify(config.data);
-      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+      config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    if(config.method === 'post') {
-      config.data = qs.stringify(config.data)
-      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    if (config.method === "post") {
+      config.data = qs.stringify(config.data);
+      config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    if(config.method === 'get') {
-      config.params ? config.params._ = new Date().getTime() : config.params = {_: new Date().getTime()}
+    if (config.method === "get") {
+      config.params
+        ? (config.params._ = new Date().getTime())
+        : (config.params = { _: new Date().getTime() });
     }
-    return config
+    return config;
   },
   (error: any) => {
     return Promise.reject(error);
