@@ -1,60 +1,59 @@
 import Vue from "vue";
 import Router from "vue-router";
-
 Vue.use(Router);
+
+const Layout = () =>
+  import(/* webpackChunkName: "layout" */ "../views/layout/index.vue");
 
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "layout",
-      component: () =>
-        import(/* webpackChunkName: "layout" */ "../views/layout/index.vue"),
+      path: "/dashboard",
+      name: "dashboard",
+      component: Layout,
       meta: {
-        title: "欢迎登陆Toyuye系统"
+        hidden: false,
+        title: "仪表盘",
+        icon: "stopwatch"
       },
       children: [
         {
-          path: "/dashboard",
-          name: "dashboard",
+          path: "analysis",
+          name: "analysis",
           meta: {
-            title: "Dashboard",
-            icon: "stopwatch"
+            hidden: false,
+            title: "分析页",
+            icon: false,
+            roles: ["admin"]
           },
-          children:[
-            {
-              path:"/dashboard/analysis",
-              name:"分析页",
-              meta: {
-                title:"分析页",
-                icon: false
-              },
-              component: () =>
-                import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
-            }
-          ]
-        },
+          component: () =>
+            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+        }
+      ]
+    },
+    {
+      path: "/form",
+      name: "form",
+      component: Layout,
+      meta: {
+        hidden: false,
+        title: "表单",
+        icon: "edit-outline"
+      },
+      children: [
         {
-          path: "/form",
-          name: "about",
+          path: "basic-form",
+          name: "basic-form",
           meta: {
-            title: "表单页",
-            icon:'edit-outline'
+            hidden: false,
+            title: "基础表单",
+            icon: false,
+            roles: ["admin"]
           },
-          children:[
-            {
-              path:"/form/basic-form",
-              name:"基础表单",
-              meta:{
-                title:"基础表单页",
-                icon:false
-              },
-              component: () =>
-                import(/* webpackChunkName: "about" */ "../views/about/About.vue")
-            }
-          ]
+          component: () =>
+            import(/* webpackChunkName: "about" */ "../views/about/About.vue")
         }
       ]
     }

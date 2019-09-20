@@ -2,7 +2,7 @@
   <div style="height:100%;">
     <el-container style="min-height:100%;">
       <div class="toyuye-layout-left">
-        <el-aside :width="isCollapse ? '80px' : '256px'">
+        <el-aside :width="isCollapse ? '64px' : '256px'">
           <Aside :isCollapse="isCollapse"></Aside>
         </el-aside>
       </div>

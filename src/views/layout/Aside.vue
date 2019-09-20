@@ -9,40 +9,64 @@
         <p>TOYUYE</p>
       </div>
     </div>
-    <el-menu
-      class="el-menu-vertical-toyuye"
-      text-color="#909399"
-      active-text-color="#fff"
-      :unique-opened="true"
-      :collapse="isCollapse"
-      :router="true"
-    >
-      <el-submenu v-for="(item, idx) in meunArr" :index="`${item.path}${idx}`" :key="idx">
-        <template slot="title">
-          <i :class="`el-icon-${item.meta.icon}`"></i><span slot="title">{{item.meta.title}}</span>
-        </template>
-        <el-menu-item-group>
+    <el-scrollbar wrapClass="scrollbar-wrapper">
+      <el-menu
+        mode="vertical"
+        class="el-menu-vertical-toyuye"
+        background-color="#001529"
+        text-color="#909399"
+        active-text-color="#409EFF"
+        :unique-opened="true"
+        :collapse="isCollapse"
+        :router="true"
+        :show-timeout="200"
+        :default-active="$route.path"
+      >
+        <sidebarTreeMenu :routes="meunArr"></sidebarTreeMenu>
+        <!-- <template v-for="item in meunArr">
           <el-menu-item
-            v-for="(val,inx) in item.children"
-            :index="`${val.path}`"
-            :key="inx"
-          >{{val.meta.title}}</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-    </el-menu>
+            v-if="hasOneShowingChildren(item.children)"
+            :index="`${item.path}/${item.children[0].path}`"
+            :key="`${item.path}/${item.children[0].path}`"
+          >
+            <template slot="title">
+              <i :class="`el-icon-${item.meta.icon}`"></i>
+              <span slot="title">{{ item.children[0].meta.title }}</span>
+            </template>
+          </el-menu-item>
+          <el-submenu v-if="true" :index="item.name || item.path" :key="item.name">
+            <template slot="title">
+              <i :class="`el-icon-${item.meta.icon}`"></i>
+              <span slot="title">{{ item.meta.title }}</span>
+            </template>
+            <el-menu-item :index="`${item.path}/${item.children[0].path}`">{{item.meta.title}}</el-menu-item>
+          </el-submenu>
+        </template> -->
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Provide, Prop } from "vue-property-decorator";
-@Component({})
+import sidebarTreeMenu from './sidebarTreeMenu.vue';
+@Component({
+  components:{
+    sidebarTreeMenu
+  }
+})
 export default class Aside extends Vue {
   meunArr: Array<any> = [];
   private $router$: any;
-  @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
   public created(): void {
     this.$router$ = this.$router;
-    this.meunArr = this.$router$.options.routes[0].children;
-    console.log(this.meunArr)
+    this.meunArr = this.$router$.options.routes;
+  }
+  @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
+  private hasOneShowingChildren(children: Array<any>): Boolean {
+    if (children.length === 1) {
+      return true;
+    }
+    return false;
   }
 }
 </script>
@@ -59,6 +83,7 @@ export default class Aside extends Vue {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  width: 100%;
   .toyuye-describe {
     margin-left: 8px;
     overflow: hidden;
@@ -75,8 +100,8 @@ export default class Aside extends Vue {
 }
 .el-menu-vertical-toyuye:not(.el-menu--collapse) {
   width: 256px;
-} 
-.el-submenu [class^=el-icon-] {
-  font-size: 14px;
+}
+.el-submenu [class^="el-icon-"] {
+  font-size: 16px;
 }
 </style>
