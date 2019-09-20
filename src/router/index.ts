@@ -10,6 +10,16 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/",
+      name: "Layout",
+      component: Layout,
+      meta: {
+        hidden: true,
+        title: "首页",
+        icon: false
+      }
+    },
+    {
       path: "/dashboard",
       name: "dashboard",
       component: Layout,
@@ -25,6 +35,18 @@ export default new Router({
           meta: {
             hidden: false,
             title: "分析页",
+            icon: false,
+            roles: ["admin"]
+          },
+          component: () =>
+            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+        },
+        {
+          path: "monitor",
+          name: "monitor",
+          meta: {
+            hidden: false,
+            title: "监控页",
             icon: false,
             roles: ["admin"]
           },
@@ -49,6 +71,18 @@ export default new Router({
           meta: {
             hidden: false,
             title: "基础表单",
+            icon: false,
+            roles: ["admin"]
+          },
+          component: () =>
+            import(/* webpackChunkName: "about" */ "../views/about/About.vue")
+        },
+        {
+          path: "step-form",
+          name: "step-form",
+          meta: {
+            hidden: false,
+            title: "分布表单页",
             icon: false,
             roles: ["admin"]
           },

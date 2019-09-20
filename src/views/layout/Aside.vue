@@ -9,48 +9,17 @@
         <p>TOYUYE</p>
       </div>
     </div>
-    <el-scrollbar wrapClass="scrollbar-wrapper">
-      <el-menu
-        mode="vertical"
-        class="el-menu-vertical-toyuye"
-        background-color="#001529"
-        text-color="#909399"
-        active-text-color="#409EFF"
-        :unique-opened="true"
-        :collapse="isCollapse"
-        :router="true"
-        :show-timeout="200"
-        :default-active="$route.path"
-      >
-        <sidebarTreeMenu :routes="meunArr"></sidebarTreeMenu>
-        <!-- <template v-for="item in meunArr">
-          <el-menu-item
-            v-if="hasOneShowingChildren(item.children)"
-            :index="`${item.path}/${item.children[0].path}`"
-            :key="`${item.path}/${item.children[0].path}`"
-          >
-            <template slot="title">
-              <i :class="`el-icon-${item.meta.icon}`"></i>
-              <span slot="title">{{ item.children[0].meta.title }}</span>
-            </template>
-          </el-menu-item>
-          <el-submenu v-if="true" :index="item.name || item.path" :key="item.name">
-            <template slot="title">
-              <i :class="`el-icon-${item.meta.icon}`"></i>
-              <span slot="title">{{ item.meta.title }}</span>
-            </template>
-            <el-menu-item :index="`${item.path}/${item.children[0].path}`">{{item.meta.title}}</el-menu-item>
-          </el-submenu>
-        </template> -->
-      </el-menu>
-    </el-scrollbar>
+    <sidebarTreeMenu
+      :routes="meunArr"
+      :isCollapse="isCollapse"
+    ></sidebarTreeMenu>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Provide, Prop } from "vue-property-decorator";
-import sidebarTreeMenu from './sidebarTreeMenu.vue';
+import sidebarTreeMenu from "./sidebarTreeMenu.vue";
 @Component({
-  components:{
+  components: {
     sidebarTreeMenu
   }
 })
