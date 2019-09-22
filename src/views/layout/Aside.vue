@@ -9,10 +9,23 @@
         <p>TOYUYE</p>
       </div>
     </div>
-    <sidebarTreeMenu
-      :routes="meunArr"
-      :isCollapse="isCollapse"
-    ></sidebarTreeMenu>
+    <el-scrollbar wrapClass="scrollbar-wrapper">
+      <el-menu
+        class="el-menu-vertical-toyuye"
+        background-color="#001529"
+        text-color="#909399"
+        active-text-color="#409EFF"
+        :unique-opened="true"
+        :collapse="isCollapse"
+        :default-active="$route.path"
+      >
+      
+      </el-menu>
+      <sidebarTreeMenu
+        :routes="meunArr"
+        :isCollapse="isCollapse"
+      ></sidebarTreeMenu>
+    </el-scrollbar>
   </div>
 </template>
 <script lang="ts">
@@ -29,6 +42,7 @@ export default class Aside extends Vue {
   public created(): void {
     this.$router$ = this.$router;
     this.meunArr = this.$router$.options.routes;
+    this.whileRouters(this.meunArr)
   }
   @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
   private hasOneShowingChildren(children: Array<any>): Boolean {
@@ -36,6 +50,16 @@ export default class Aside extends Vue {
       return true;
     }
     return false;
+  }
+  private whileRouters (router:Array<any>) {
+    router.map(item => {
+      console.log(item,'父级')
+      if(item.children !== undefined) {
+        item.children.map((children: any) => {
+          console.log(children,'子集')
+        })
+      }
+    })
   }
 }
 </script>
