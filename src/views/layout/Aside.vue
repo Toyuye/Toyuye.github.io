@@ -5,8 +5,8 @@
         class="toyuye-logo"
         :src="require('../../assets/logo.png')"
       ></el-image>
-      <div v-show="!isCollapse" class="toyuye-describe">
-        <p>TOYUYE</p>
+      <div class="toyuye-describe">
+        <p :class="{ 'logo-is-collapse': isCollapse }">TOYUYE</p>
       </div>
     </div>
     <el-scrollbar wrapClass="scrollbar-wrapper">
@@ -17,14 +17,10 @@
         active-text-color="#409EFF"
         :unique-opened="true"
         :collapse="isCollapse"
-        :default-active="$route.path"
+        :default-active="$route.name"
       >
-      
+        <sidebarTreeMenu :routes="meunArr"></sidebarTreeMenu>
       </el-menu>
-      <sidebarTreeMenu
-        :routes="meunArr"
-        :isCollapse="isCollapse"
-      ></sidebarTreeMenu>
     </el-scrollbar>
   </div>
 </template>
@@ -42,7 +38,6 @@ export default class Aside extends Vue {
   public created(): void {
     this.$router$ = this.$router;
     this.meunArr = this.$router$.options.routes;
-    this.whileRouters(this.meunArr)
   }
   @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
   private hasOneShowingChildren(children: Array<any>): Boolean {
@@ -50,16 +45,6 @@ export default class Aside extends Vue {
       return true;
     }
     return false;
-  }
-  private whileRouters (router:Array<any>) {
-    router.map(item => {
-      console.log(item,'父级')
-      if(item.children !== undefined) {
-        item.children.map((children: any) => {
-          console.log(children,'子集')
-        })
-      }
-    })
   }
 }
 </script>
@@ -84,6 +69,14 @@ export default class Aside extends Vue {
       width: 170px;
       color: #fff;
       font-size: 20px;
+      transition: all 0.2s;
+      &.logo-is-collapse {
+        width: 0;
+        height: 0;
+        font-size: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
     }
   }
 }
@@ -96,5 +89,24 @@ export default class Aside extends Vue {
 }
 .el-submenu [class^="el-icon-"] {
   font-size: 16px;
+}
+</style>
+
+<style lang="scss">
+.el-menu--collapse {
+  .el-submenu {
+    & > .el-submenu__title {
+      & > .el-submenu__icon-arrow {
+        display: none;
+      }
+      & > span {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        visibility: hidden;
+        display: inline-block;
+      }
+    }
+  }
 }
 </style>

@@ -62,14 +62,12 @@ const _storage = () => {
   }
 };
 const setTKD = (to: any): void => {
-  let t: any = to.meta.title || "欢迎登陆Toyuye系统";
-  document.title = t;
-  // let d: any = document.querySelector("meta[name=description]")
-  // let k: any = document.querySelector("meta[name=keywords]")
-  // d.setAttribute("content", to.meta.description)
-  // k.setAttribute("content", to.meta.keywords)
+  let t: any[]=[]
+  to.matched.forEach((item: any) => {
+      t.push(item.meta.title)
+  });
+  document.title = t.join('-') + '-欢迎登录Toyuye系统';
 };
-
 const checkPhone = (num: string): Boolean => {
   let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
   return Reg.test(num);
@@ -83,5 +81,6 @@ export {
   OS,
   throttle,
   _storage,
-  setTKD
+  setTKD,
+  checkPhone
 };

@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../../assets/logo.png" />
+    <i class="iconfont icon-diagnose"></i>
     <HelloWorld />
   </div>
 </template>

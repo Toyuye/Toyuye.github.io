@@ -3,10 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import $fetchs from "./fetch";
-//import { prototype } from 'mocha';
-
 Vue.config.productionTip = false;
 
+import "./assets/_reset.css";
+import "./assets/iconfonts/iconfont.css";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);

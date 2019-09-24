@@ -68,7 +68,6 @@ export default class Layout extends Vue {
 }
 </script>
 <style lang="scss">
-@import "../../assets/_reset.scss";
 .el-submenu__title {
   height: 40px;
   line-height: 40px;

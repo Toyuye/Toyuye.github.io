@@ -14,15 +14,16 @@ export default new Router({
       name: "Layout",
       component: Layout,
       meta: {
-        hidden: true,
+        hidden: false,
         title: "首页",
-        icon: false
+        icon: "s-promotion"
       }
     },
     {
       path: "/dashboard",
       name: "dashboard",
       component: Layout,
+      redirect: "/dashboard/analysis",
       meta: {
         hidden: false,
         title: "仪表盘",
