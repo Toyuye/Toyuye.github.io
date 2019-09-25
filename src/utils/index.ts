@@ -62,11 +62,11 @@ const _storage = () => {
   }
 };
 const setTKD = (to: any): void => {
-  let t: any[]=[]
+  let t: any[] = [];
   to.matched.forEach((item: any) => {
-      t.push(item.meta.title)
+    t.push(item.meta.title);
   });
-  document.title = t.join('-') + '-欢迎登录Toyuye系统';
+  document.title = t.join("-") + "-欢迎登录Toyuye系统";
 };
 const checkPhone = (num: string): Boolean => {
   let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/;

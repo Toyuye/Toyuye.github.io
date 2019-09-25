@@ -1,6 +1,6 @@
 <template>
   <div style="height:100%;">
-    <el-container style="min-height:100%;">
+    <el-container style="height:100%;min-height:100%;">
       <div class="toyuye-layout-left">
         <el-aside :width="isCollapse ? '64px' : '256px'">
           <Aside :isCollapse="isCollapse"></Aside>
@@ -15,10 +15,10 @@
         </el-header>
         <el-main>
           <app-main></app-main>
+          <el-footer height="auto">
+            <Footer></Footer>
+          </el-footer>
         </el-main>
-        <el-footer height="auto">
-          <Footer></Footer>
-        </el-footer>
       </div>
     </el-container>
   </div>
@@ -96,6 +96,11 @@ export default class Layout extends Vue {
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   position: relative;
   z-index: 2;
+}
+.el-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .el-menu {
   border: 0;

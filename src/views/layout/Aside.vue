@@ -53,12 +53,13 @@ export default class Aside extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 .toyuye-design-pro {
   background: #001529;
   height: 64px;
   display: flex;
-  justify-content: center;
+  padding-left: 20px;
   align-items: center;
   overflow: hidden;
   width: 100%;
@@ -93,6 +94,12 @@ export default class Aside extends Vue {
 </style>
 
 <style lang="scss">
+.scrollbar-wrapper {
+  overflow-x: hidden !important;
+}
+.el-scrollbar {
+  flex: 1;
+}
 .el-menu--collapse {
   .el-submenu {
     & > .el-submenu__title {

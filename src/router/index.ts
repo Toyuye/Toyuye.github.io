@@ -10,29 +10,40 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/login",
+      name: "Login",
+      component: () =>
+        import(/* webpackChunkName: "home" */ "../views/login/Login.vue"),
+      meta: {
+        hidden: false,
+        title: "切换用户",
+        icon: "user-group-fill"
+      }
+    },
+    {
       path: "/",
       name: "Layout",
       component: Layout,
       meta: {
         hidden: false,
         title: "首页",
-        icon: "s-promotion"
+        icon: "home"
       }
     },
     {
       path: "/dashboard",
-      name: "dashboard",
+      name: "Dashboard",
       component: Layout,
       redirect: "/dashboard/analysis",
       meta: {
         hidden: false,
-        title: "仪表盘",
-        icon: "stopwatch"
+        title: "数据",
+        icon: "chart-line"
       },
       children: [
         {
           path: "analysis",
-          name: "analysis",
+          name: "Analysis",
           meta: {
             hidden: false,
             title: "分析页",
@@ -44,7 +55,7 @@ export default new Router({
         },
         {
           path: "monitor",
-          name: "monitor",
+          name: "Monitor",
           meta: {
             hidden: false,
             title: "监控页",
@@ -58,17 +69,17 @@ export default new Router({
     },
     {
       path: "/form",
-      name: "form",
+      name: "Form",
       component: Layout,
       meta: {
         hidden: false,
         title: "表单",
-        icon: "edit-outline"
+        icon: "save"
       },
       children: [
         {
           path: "basic-form",
-          name: "basic-form",
+          name: "Basic-form",
           meta: {
             hidden: false,
             title: "基础表单",
@@ -80,7 +91,7 @@ export default new Router({
         },
         {
           path: "step-form",
-          name: "step-form",
+          name: "Step-form",
           meta: {
             hidden: false,
             title: "分布表单页",
@@ -89,6 +100,43 @@ export default new Router({
           },
           component: () =>
             import(/* webpackChunkName: "about" */ "../views/about/About.vue")
+        }
+      ]
+    },
+    {
+      path: "/user",
+      name: "User",
+      component: Layout,
+      redirect: "/user/info",
+      meta: {
+        hidden: false,
+        title: "用户",
+        icon: "user-fill"
+      },
+      children: [
+        {
+          path: "info",
+          name: "Info",
+          meta: {
+            hidden: false,
+            title: "个人信息",
+            icon: false,
+            roles: ["admin"]
+          },
+          component: () =>
+            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+        },
+        {
+          path: "settings",
+          name: "Settings",
+          meta: {
+            hidden: false,
+            title: "个人设置",
+            icon: false,
+            roles: ["admin"]
+          },
+          component: () =>
+            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
         }
       ]
     }

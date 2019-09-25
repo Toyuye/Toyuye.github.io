@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="../../assets/logo.png" />
     <i class="iconfont icon-diagnose"></i>
     <HelloWorld />
+    <div style="height:10000px;">222222222222222</div>
   </div>
 </template>
 

@@ -351,5 +351,5 @@
   /**
    * Custom
    */
-   body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea {font:12px/1.14 arial; margin: 0; padding: 0; border: 0; outline:none; backface-visibility:hidden;-webkit-overflow-scrolling: touch;list-style-type:none}
+   body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea {font:12px/1.14 -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji; margin: 0; padding: 0; border: 0; outline:none; backface-visibility:hidden;-webkit-overflow-scrolling: touch;list-style-type:none}
   html { color: rgba(0,0,0,.65); touch-action: none; background: #f4f4f4;height:100%;}

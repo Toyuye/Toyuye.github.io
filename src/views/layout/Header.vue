@@ -2,12 +2,12 @@
   <div class="toyuye-header-view">
     <div class="toyuye-header-view-left">
       <i
-        class="el-icon-s-fold fold"
+        class="iconfont icon-outdent fold"
         v-if="!isCollapse"
         @click="sendIsCollapse(true)"
       ></i>
       <i
-        class="el-icon-s-unfold fold"
+        class="iconfont icon-indent fold"
         v-else
         @click="sendIsCollapse(false)"
       ></i>
@@ -36,18 +36,18 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <div><i class="el-icon-user"></i>个人中心</div>
+            <div><i class="iconfont icon-user-fill"></i>个人中心</div>
           </el-dropdown-item>
           <el-dropdown-item>
-            <div><i class="el-icon-setting"></i>个人设置</div>
+            <div><i class="iconfont icon-cog-fill"></i>个人设置</div>
           </el-dropdown-item>
           <el-dropdown-item>
-            <div><i class="el-icon-switch-button"></i>退出登录</div>
+            <div><i class="iconfont icon-poweroff"></i>退出登录</div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-dropdown>
-        <i class="el-icon-help  toyuye-tab-language"></i>
+        <i class="iconfont icon-language  toyuye-tab-language"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>CN 中文简体</el-dropdown-item>
           <el-dropdown-item>HK 繁体中文</el-dropdown-item>
@@ -96,8 +96,8 @@ export default class Header extends Vue {
 }
 .toyuye-header-view-left {
   .fold {
-    font-size: 24px;
-    color: rgba(0, 0, 0, 0.4);
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.8);
     padding: 20px;
   }
 }
