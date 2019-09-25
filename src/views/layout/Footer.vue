@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="toyuye-footer-view">
     <div class="toyuye-pro-global-footer-links">
       <a title="Toyuye" target="_blank" href="https://github.com">Toyuye</a>
       <a
@@ -77,6 +77,12 @@ export default class Footer extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.toyuye-footer-view{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .toyuye-pro-global-footer-links {
   margin-bottom: 8px;
   margin-top: 24px;

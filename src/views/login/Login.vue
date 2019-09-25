@@ -63,11 +63,20 @@
           />
         </div>
       </div>
+      <div class="login-copyright">
+        <Footer></Footer>
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import Footer from '../layout/Footer.vue'
+@Component({
+  components: {
+    Footer
+  }
+})
 export default class Login extends Vue {
   public created(): void {
     console.log(11111111);
@@ -197,5 +206,8 @@ export default class Login extends Vue {
       }
     }
   }
+}
+.login-copyright{
+  margin-top: 120px;
 }
 </style>
