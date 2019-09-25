@@ -71,7 +71,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Footer from '../layout/Footer.vue'
+import Footer from "../layout/Footer.vue";
 @Component({
   components: {
     Footer
@@ -207,7 +207,7 @@ export default class Login extends Vue {
     }
   }
 }
-.login-copyright{
+.login-copyright {
   margin-top: 120px;
 }
 </style>

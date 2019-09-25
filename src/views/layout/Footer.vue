@@ -77,7 +77,7 @@ export default class Footer extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.toyuye-footer-view{
+.toyuye-footer-view {
   display: flex;
   justify-content: center;
   align-items: center;
