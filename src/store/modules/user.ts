@@ -44,6 +44,7 @@ const mutations: MutationTree<any> = {
 };
 
 export default {
+  namespaced: true,
   state,
   actions,
   getters,

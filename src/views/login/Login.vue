@@ -87,11 +87,11 @@ import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 export default class Login extends Vue {
   isErrorMsg: Boolean = true;
   errorMsg: String = "Incorrect username or password.";
-  // @State(state=> state.user.token) token: String | null;
-  // @Action('login') login: any;
-  // private mounted() {
-  //   console.log(this.token)
-  // }
+  @(namespace("user").State("token")) token!: String | null;
+  @(namespace("user").Action("login")) login!: Function;
+  private mounted() {
+    console.log(this.token);
+  }
 }
 </script>
 <style lang="scss" scoped>
