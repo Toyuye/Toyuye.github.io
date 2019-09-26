@@ -28,6 +28,13 @@
         <div class="auth-form-header">
           <h1>Sign in to Toyuye</h1>
         </div>
+        <div class="auth-form-error" v-if="isErrorMsg">
+          <p>{{ errorMsg }}</p>
+          <i
+            class="iconfont icon-times"
+            @click="() => (isErrorMsg = false)"
+          ></i>
+        </div>
         <div class="auth-form-body">
           <label for="login_field">
             Username or email address
@@ -62,25 +69,29 @@
             data-disable-with="Signing in…"
           />
         </div>
-      </div>
-      <div class="login-copyright">
-        <Footer></Footer>
+        <div class="new-toyuye-auth">
+          New to Toyuye? <a href="/join">Create an account</a>
+        </div>
+        <div class="login-copyright"></div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import Footer from "../layout/Footer.vue";
+import { Vue, Component, Provide } from "vue-property-decorator";
+import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 @Component({
-  components: {
-    Footer
-  }
+  name: "Login",
+  components: {}
 })
 export default class Login extends Vue {
-  public created(): void {
-    console.log(11111111);
-  }
+  isErrorMsg: Boolean = true;
+  errorMsg: String = "Incorrect username or password.";
+  // @State(state=> state.user.token) token: String | null;
+  // @Action('login') login: any;
+  // private mounted() {
+  //   console.log(this.token)
+  // }
 }
 </script>
 <style lang="scss" scoped>
@@ -97,7 +108,7 @@ export default class Login extends Vue {
 }
 .login-auth-from {
   margin: 0 auto;
-  width: 300px;
+  width: 308px;
   .auth-form-header {
     text-align: center;
     margin-bottom: 15px;
@@ -108,8 +119,34 @@ export default class Login extends Vue {
       letter-spacing: -0.5px;
     }
   }
+  .auth-form-error {
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    background: #ffdce0;
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-bottom: 16px;
+    p {
+      display: inline-block;
+      width: 220px;
+      color: #86181d;
+      font-size: 12px;
+      line-height: 20px;
+      word-break: break-all;
+    }
+    i {
+      padding: 4px 0 0 0;
+      color: rgba(134, 24, 29, 0.7);
+      font-size: 12px;
+      float: right;
+      cursor: default;
+      font-weight: 900;
+      &:hover {
+        color: rgba(134, 24, 29, 1);
+      }
+    }
+  }
   .auth-form-body {
-    padding: 16px;
+    padding: 20px;
     font-size: 14px;
     background-color: #fff;
     border: 1px solid #d8dee2;
@@ -206,8 +243,23 @@ export default class Login extends Vue {
       }
     }
   }
+  .new-toyuye-auth {
+    padding: 15px 20px;
+    text-align: center;
+    border: 1px solid #d8dee2;
+    border-radius: 5px;
+    margin: 16px 0 10px 0;
+    font-size: 14px;
+    a {
+      color: #0366d6;
+      background-color: initial;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 .login-copyright {
-  margin-top: 120px;
+  height: 10px;
 }
 </style>

@@ -16,8 +16,10 @@ export default new Router({
         import(/* webpackChunkName: "home" */ "../views/login/Login.vue"),
       meta: {
         hidden: false,
-        title: "切换用户",
-        icon: "user-group-fill"
+        title: "登录Toyuye",
+        icon: "user-group-fill",
+        isLogin: false,
+        roles: []
       }
     },
     {
@@ -27,7 +29,9 @@ export default new Router({
       meta: {
         hidden: false,
         title: "首页",
-        icon: "home"
+        icon: "home",
+        isLogin: true,
+        roles: ["admin"]
       }
     },
     {
@@ -38,7 +42,9 @@ export default new Router({
       meta: {
         hidden: false,
         title: "数据",
-        icon: "chart-line"
+        icon: "chart-line",
+        isLogin: false,
+        roles: ["admin"]
       },
       children: [
         {
@@ -48,6 +54,7 @@ export default new Router({
             hidden: false,
             title: "分析页",
             icon: false,
+            isLogin: false,
             roles: ["admin"]
           },
           component: () =>
@@ -60,6 +67,7 @@ export default new Router({
             hidden: false,
             title: "监控页",
             icon: false,
+            isLogin: true,
             roles: ["admin"]
           },
           component: () =>
@@ -74,7 +82,9 @@ export default new Router({
       meta: {
         hidden: false,
         title: "表单",
-        icon: "save"
+        icon: "save",
+        isLogin: true,
+        roles: ["admin"]
       },
       children: [
         {
@@ -84,6 +94,7 @@ export default new Router({
             hidden: false,
             title: "基础表单",
             icon: false,
+            isLogin: true,
             roles: ["admin"]
           },
           component: () =>
@@ -96,6 +107,7 @@ export default new Router({
             hidden: false,
             title: "分布表单页",
             icon: false,
+            isLogin: true,
             roles: ["admin"]
           },
           component: () =>
@@ -110,8 +122,10 @@ export default new Router({
       redirect: "/user/info",
       meta: {
         hidden: false,
-        title: "用户",
-        icon: "user-fill"
+        title: "个人页",
+        icon: "user-fill",
+        isLogin: true,
+        roles: ["admin"]
       },
       children: [
         {
@@ -121,6 +135,7 @@ export default new Router({
             hidden: false,
             title: "个人信息",
             icon: false,
+            isLogin: true,
             roles: ["admin"]
           },
           component: () =>
@@ -133,6 +148,7 @@ export default new Router({
             hidden: false,
             title: "个人设置",
             icon: false,
+            isLogin: true,
             roles: ["admin"]
           },
           component: () =>

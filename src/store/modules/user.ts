@@ -1,10 +1,12 @@
+import { MutationTree, ActionTree, GetterTree } from "vuex";
 import * as types from "../types";
 import { login } from "@/fetch/api";
-import { MutationTree, ActionTree, GetterTree } from "vuex";
-
-const state: any = {
-  loginStatus: localStorage.getItem("loginStatus") === "true" || false,
-  bblinkToken: localStorage.getItem("bblinkToken") || ""
+import { getToken } from "@/utils/user";
+interface State {
+  token: String | null;
+}
+const state: State = {
+  token: getToken() || null
 };
 
 const actions: ActionTree<any, any> = {

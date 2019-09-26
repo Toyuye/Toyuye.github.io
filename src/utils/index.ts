@@ -1,5 +1,5 @@
 import { getCookie, setCookie, delCookie, clearCookie } from "./cookie";
-
+import { getToken, setToken } from "./user";
 const OS = (): any => {
   let u = navigator.userAgent;
   return {
@@ -61,18 +61,17 @@ const _storage = () => {
     return storage;
   }
 };
-const setTKD = (to: any): void => {
+const setPageTKD = (to: any): void => {
   let t: any[] = [];
   to.matched.forEach((item: any) => {
     t.push(item.meta.title);
   });
-  document.title = t.join("-") + "-欢迎登录Toyuye系统";
+  document.title = t.join("-") + "-欢迎来到Toyuye系统";
 };
 const checkPhone = (num: string): Boolean => {
   let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
   return Reg.test(num);
 };
-
 export {
   getCookie,
   setCookie,
@@ -81,6 +80,8 @@ export {
   OS,
   throttle,
   _storage,
-  setTKD,
-  checkPhone
+  setPageTKD,
+  checkPhone,
+  getToken,
+  setToken
 };
