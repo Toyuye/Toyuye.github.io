@@ -1,30 +1,31 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import * as types from "../types";
 import { login } from "@/fetch/api";
-import { getToken } from "@/utils/user";
+
+import { getToken, setToken, _storage } from "@/utils";
+
 interface State {
   token: String | null;
 }
+
 const state: State = {
   token: getToken() || null
 };
 
 const actions: ActionTree<any, any> = {
-  login({ commit }: any, { userInfo, login_URL }: any) {
+  login({ commit }: any, userInfo: any) {
     return new Promise((resovle, reject) => {
       login(userInfo)
-        .then((res: any) => {
-          if (res.data.code === "0000") {
-            localStorage.setItem("loginStatus", "true");
-            localStorage.setItem("bblinkToken", res.data.data.bblinkToken);
-            commit(types.SET_LOGIN_STATUS, true);
-          } else {
-            console.log(`${res.data.msg}>>>>>>>>>>>>>>>`);
+        .then(({ data }: any) => {
+          console.log(data);
+          if (data.code === "0000") {
+            setToken("TOYUYE_SYS_TOKEN_VALUE");
+            commit(types.SET_LOGIN_TOKEN, "TOYUYE_SYS_TOKEN_VALUE");
           }
-          resovle(res);
+          resovle(data);
         })
         .catch((error: any) => {
-          console.log("服务器异常，稍后再试>>>>>>>");
+          console.log("网络异常，请稍后再试>>>>>>>");
           reject(error);
         });
     });
@@ -32,14 +33,14 @@ const actions: ActionTree<any, any> = {
 };
 
 const getters: GetterTree<any, any> = {
-  loginStatus(state: any): any {
-    return state.loginStatus;
+  getStateToken(state: State): any {
+    return state.token;
   }
 };
 
 const mutations: MutationTree<any> = {
-  [types.SET_LOGIN_STATUS](state: any, status: any): void {
-    state.loginStatus = status;
+  [types.SET_LOGIN_TOKEN](state: State, status: String): void {
+    state.token = status;
   }
 };
 

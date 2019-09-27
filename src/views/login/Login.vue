@@ -1,5 +1,17 @@
 <template>
   <div class="toyuye-login-view">
+    <div class="language">
+      <el-dropdown trigger="click">
+        <i class="iconfont  icon-language"></i>
+        <el-dropdown-menu slot="dropdown">
+          <div>
+            <el-dropdown-item>CN 中文简体</el-dropdown-item>
+            <el-dropdown-item>HK 繁体中文</el-dropdown-item>
+            <el-dropdown-item>US English</el-dropdown-item>
+          </div>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
     <div class="login-container">
       <div class="header">
         <div class="header-box">
@@ -26,7 +38,7 @@
       </div>
       <div class="login-auth-from">
         <div class="auth-form-header">
-          <h1>Sign in to Toyuye</h1>
+          <h1 @click="urlGo">Sign in to Toyuye</h1>
         </div>
         <div class="auth-form-error" v-if="isErrorMsg">
           <p>{{ errorMsg }}</p>
@@ -48,6 +60,7 @@
             autocapitalize="off"
             autocorrect="off"
             autofocus="autofocus"
+            v-model="userInfo.username"
           />
           <label for="password">
             Password
@@ -59,14 +72,21 @@
             id="password"
             class="form-control form-control input-block"
             tabindex="2"
+            v-model="userInfo.password"
           />
           <input
-            type="submit"
+            type="button"
             name="commit"
-            value="Sign in"
+            :value="Signing ? 'Signing in…' : 'Sigin in'"
             tabindex="3"
-            class="btn btn-primary btn-block"
-            data-disable-with="Signing in…"
+            :class="[
+              'btn',
+              'btn-primary',
+              'btn-block',
+              { 'Signing-in': Signing }
+            ]"
+            :disabled="Signing"
+            @click="submitUserInfo"
           />
         </div>
         <div class="new-toyuye-auth">
@@ -80,17 +100,42 @@
 <script lang="ts">
 import { Vue, Component, Provide } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
+
+const userModule = namespace("user");
+
+interface USERINFO {
+  username: String;
+  password: String;
+}
+
 @Component({
-  name: "Login",
-  components: {}
+  name: "Login"
 })
 export default class Login extends Vue {
-  isErrorMsg: Boolean = true;
+  userInfo: USERINFO = {
+    username: "",
+    password: ""
+  };
+  Signing: Boolean = false;
+  isErrorMsg: Boolean = false;
   errorMsg: String = "Incorrect username or password.";
-  @(namespace("user").State("token")) token!: String | null;
-  @(namespace("user").Action("login")) login!: Function;
-  private mounted() {
-    console.log(this.token);
+  // @userModule.State("token") token!: String | null;
+  // @userModule.Action("login") login!: Function;
+  public mounted() {}
+  public urlGo() {
+    this.$router.push("/");
+  }
+  public submitUserInfo() {
+    const _this = this.$router;
+    _this.push("/");
+    this.Signing = true;
+    // this.login(this.userInfo).then((res: any) => {
+    //   // setTimeout(() => {
+    //   //   this["$router"].push("/");
+    //   //   this.Signing = false;
+    //   // }, 2000);
+
+    // });
   }
 }
 </script>
@@ -98,6 +143,19 @@ export default class Login extends Vue {
 .toyuye-login-view {
   background: #f9f9f9;
   height: 100%;
+}
+.language {
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: right;
+  font-size: 14px;
+  color: black;
+  padding: 20px;
+  line-height: 20px;
+  i {
+    font-size: 20px;
+  }
 }
 .header {
   padding: 32px 0px 24px 0;
@@ -129,12 +187,12 @@ export default class Login extends Vue {
       display: inline-block;
       width: 220px;
       color: #86181d;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 20px;
       word-break: break-all;
     }
     i {
-      padding: 4px 0 0 0;
+      padding: 4px 0 0 10px;
       color: rgba(134, 24, 29, 0.7);
       font-size: 12px;
       float: right;
@@ -240,6 +298,9 @@ export default class Login extends Vue {
         border: 1px solid rgba(27, 31, 35, 0.2);
         border-radius: 0.25em;
         -webkit-appearance: none;
+      }
+      &.Signing-in {
+        opacity: 0.5;
       }
     }
   }

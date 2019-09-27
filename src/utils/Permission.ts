@@ -15,6 +15,6 @@ export default (router: any) => {
     }
   });
   router.afterEach((to: any, from: any) => {
-    console.log(`${to.meta.title}>>>>>>>>>>>>>>>>>>>>>`);
+    // console.log(`${to.meta.title}>>>>>>>>>>>>>>>>>>>>>`);
   });
 };

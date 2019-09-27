@@ -1,11 +1,18 @@
-import $http from "./";
+import fetch from "./";
 
-export const login = (userInfo: any) => {
-  return $http.post("/User/Register/local_web", userInfo);
+// 用户登录
+export const login = (data: any) => {
+  return fetch({
+    url: "/Users/login",
+    method: "post",
+    data
+  });
 };
 
-export const getAuthCode = (userInfo: any) => {
-  return $http.get("/User/Authcode", {
-    params: userInfo
+export const getUserInfo = (data: any) => {
+  return fetch({
+    url: "/users/info",
+    method: "get",
+    data
   });
 };

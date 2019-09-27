@@ -1,1 +1,1 @@
-export const SET_LOGIN_STATUS: string = "SET_LOGIN_STATUS";
+export const SET_LOGIN_TOKEN: string = "SET_LOGIN_TOKEN";

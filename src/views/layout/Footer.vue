@@ -51,19 +51,6 @@
       </i>
       2019 Toyuye个人出品
     </div>
-    <div style="padding: 0px 24px 24px; text-align: center;">
-      <a
-        href="https://github.com/Toyuye"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
-          width="82px"
-          alt="Toyuye logo"
-        />
-      </a>
-    </div>
   </div>
 </template>
 
