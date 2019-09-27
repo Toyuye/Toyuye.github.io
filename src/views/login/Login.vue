@@ -38,7 +38,7 @@
       </div>
       <div class="login-auth-from">
         <div class="auth-form-header">
-          <h1 @click="urlGo">Sign in to Toyuye</h1>
+          <h1>Sign in to Toyuye</h1>
         </div>
         <div class="auth-form-error" v-if="isErrorMsg">
           <p>{{ errorMsg }}</p>
@@ -119,23 +119,16 @@ export default class Login extends Vue {
   Signing: Boolean = false;
   isErrorMsg: Boolean = false;
   errorMsg: String = "Incorrect username or password.";
-  // @userModule.State("token") token!: String | null;
-  // @userModule.Action("login") login!: Function;
-  public mounted() {}
-  public urlGo() {
-    this.$router.push("/");
-  }
+  @userModule.State("token") token!: String | null;
+  @userModule.Action("login") login!: Function;
   public submitUserInfo() {
-    const _this = this.$router;
-    _this.push("/");
     this.Signing = true;
-    // this.login(this.userInfo).then((res: any) => {
-    //   // setTimeout(() => {
-    //   //   this["$router"].push("/");
-    //   //   this.Signing = false;
-    //   // }, 2000);
-
-    // });
+    this.login(this.userInfo).then((res: any) => {
+      setTimeout(() => {
+        this.$router.push("/");
+        this.Signing = false;
+      }, 2000);
+    });
   }
 }
 </script>
