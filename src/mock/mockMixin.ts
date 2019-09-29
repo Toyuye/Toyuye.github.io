@@ -10,4 +10,27 @@ const getParams = (url: String, name: String): String | null => {
   return null;
 };
 
-export { getParams };
+const getParamsObj = (url: String): any => {
+  let obj: any = {};
+  let r =
+    url.split("?").length > 1
+      ? url.split("?")[1].split("&")
+      : url.split("?")[0].split("&");
+  r.forEach(item => {
+    item.split("=")[0];
+    obj[item.split("=")[0]] = item.split("=")[1];
+  });
+
+  return obj;
+};
+
+const hasUersFn = (user: any, List: any[]): Boolean => {
+  let hasUers = false;
+  List.forEach(item => {
+    item.username == user.username && item.password == user.password
+      ? (hasUers = true)
+      : "";
+  });
+  return hasUers;
+};
+export { getParams, getParamsObj, hasUersFn };

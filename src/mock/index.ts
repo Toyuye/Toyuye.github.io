@@ -1,27 +1,36 @@
 import Mock from "mockjs";
-import { getParams } from "./mockMixin";
+import { getParams, getParamsObj, hasUersFn } from "./mockMixin";
+
 const asscessToken = "TOYUYEASSCESSTOKEN";
+
 const userList = [
   {
     username: "Toyuye",
     password: "Toyuye",
     avatar: "https://github.com/Toyuye.com",
     age: "18",
-    email: "toyue.xiao@bblink.cn"
+    email: "toyue.xiao@bblink.cn",
+    roles: ["admin"]
   }
 ];
 
 const loginToken = (opt: any) => {
-  let username = getParams(opt.body, "username");
-  let password = getParams(opt.body, "password");
-  console.log(username, password);
-  let data = {
-    code: "0000",
-    data: {
-      token: "TOYUYE_SYS_TOKEN_VALUE"
-    },
-    msg: "success"
-  };
+  let data = {};
+  if (hasUersFn(getParamsObj(opt.body), userList)) {
+    data = {
+      code: "0000",
+      data: {
+        token: "TOYUYE_SYS_TOKEN_VALUE"
+      },
+      msg: "success"
+    };
+  } else {
+    data = {
+      code: "1001",
+      data: {},
+      msg: "failed"
+    };
+  }
   return data;
 };
 const userInfo = (opt: any) => {

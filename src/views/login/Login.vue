@@ -121,13 +121,24 @@ export default class Login extends Vue {
   errorMsg: String = "Incorrect username or password.";
   @userModule.State("token") token!: String | null;
   @userModule.Action("login") login!: Function;
-  public submitUserInfo() {
+  private submitUserInfo(): any {
     this.Signing = true;
-    this.login(this.userInfo).then((res: any) => {
-      setTimeout(() => {
-        this.$router.push("/");
-        this.Signing = false;
-      }, 2000);
+    let isKong: Boolean = Object.values(this.userInfo).some(
+      (val: String): Boolean => {
+        return val === "";
+      }
+    );
+    if (isKong) {
+      return (this.Signing = false), (this.isErrorMsg = true);
+    }
+    this.login(this.userInfo).then((data: any) => {
+      if (data.code === "0000") {
+        return setTimeout(() => {
+          this.Signing = false;
+          this["$router"].push("/");
+        }, 500);
+      }
+      return (this.isErrorMsg = true), (this.Signing = false);
     });
   }
 }

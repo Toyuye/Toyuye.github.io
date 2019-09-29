@@ -4,12 +4,30 @@ import { login } from "@/fetch/api";
 
 import { getToken, setToken, _storage } from "@/utils";
 
+interface UserInfo {
+  username: String;
+  password: String;
+  avatar: String;
+  age: String;
+  email: String;
+  roles: String[];
+}
+
 interface State {
   token: String | null;
+  userInfo: UserInfo;
 }
 
 const state: State = {
-  token: getToken() || null
+  token: getToken() || null,
+  userInfo: {
+    username: "",
+    password: "",
+    avatar: "",
+    age: "",
+    email: "",
+    roles: []
+  }
 };
 
 const actions: ActionTree<any, any> = {
