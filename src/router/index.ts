@@ -135,7 +135,23 @@ export default new Router({
         isLogin: true,
         roles: ["admin"]
       },
-      children: []
+      children: [
+        {
+          path: "403",
+          name: "403",
+          meta: {
+            hidden: false,
+            title: "403",
+            icon: false,
+            isLogin: true,
+            roles: ["admin"]
+          },
+          component: () =>
+            import(
+              /* webpackChunkName: "step-form" */ "../views/exception/403.vue"
+            )
+        }
+      ]
     },
     {
       path: "/account",
