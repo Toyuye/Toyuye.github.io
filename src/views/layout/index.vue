@@ -87,6 +87,8 @@ export default class Layout extends Vue {
   position: relative;
   z-index: 10;
   transition: all 0.3s;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .el-header {
   position: relative;
