@@ -41,7 +41,7 @@ export default new Router({
       redirect: "/dashboard/analysis",
       meta: {
         hidden: false,
-        title: "数据",
+        title: "数据页",
         icon: "chart-line",
         isLogin: false,
         roles: ["admin"]
@@ -58,7 +58,9 @@ export default new Router({
             roles: ["admin"]
           },
           component: () =>
-            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+            import(
+              /* webpackChunkName: "analysis" */ "../views/dashboard/Analysis.vue"
+            )
         },
         {
           path: "monitor",
@@ -71,7 +73,9 @@ export default new Router({
             roles: ["admin"]
           },
           component: () =>
-            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+            import(
+              /* webpackChunkName: "monitor" */ "../views/dashboard/Monitor.vue"
+            )
         }
       ]
     },
@@ -79,10 +83,11 @@ export default new Router({
       path: "/form",
       name: "Form",
       component: Layout,
+      redirect: "/form/basic-form",
       meta: {
         hidden: false,
-        title: "表单",
-        icon: "save",
+        title: "表单页",
+        icon: "database-plus",
         isLogin: true,
         roles: ["admin"]
       },
@@ -98,7 +103,9 @@ export default new Router({
             roles: ["admin"]
           },
           component: () =>
-            import(/* webpackChunkName: "about" */ "../views/about/About.vue")
+            import(
+              /* webpackChunkName: "basic-form" */ "../views/form/BasicForm.vue"
+            )
         },
         {
           path: "step-form",
@@ -111,15 +118,30 @@ export default new Router({
             roles: ["admin"]
           },
           component: () =>
-            import(/* webpackChunkName: "about" */ "../views/about/About.vue")
+            import(
+              /* webpackChunkName: "step-form" */ "../views/form/StepForm.vue"
+            )
         }
       ]
     },
     {
-      path: "/user",
-      name: "User",
+      path: "/exception",
+      name: "Exception",
       component: Layout,
-      redirect: "/user/info",
+      meta: {
+        hidden: false,
+        title: "异常页",
+        icon: "new-releases",
+        isLogin: true,
+        roles: ["admin"]
+      },
+      children: []
+    },
+    {
+      path: "/account",
+      name: "Account",
+      component: Layout,
+      redirect: "/account/center",
       meta: {
         hidden: false,
         title: "个人页",
@@ -129,17 +151,19 @@ export default new Router({
       },
       children: [
         {
-          path: "info",
-          name: "Info",
+          path: "center",
+          name: "Center",
           meta: {
             hidden: false,
-            title: "个人信息",
+            title: "个人中心",
             icon: false,
             isLogin: true,
             roles: ["admin"]
           },
           component: () =>
-            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+            import(
+              /* webpackChunkName: "userCenter" */ "../views/account/UserCenter.vue"
+            )
         },
         {
           path: "settings",
@@ -152,7 +176,9 @@ export default new Router({
             roles: ["admin"]
           },
           component: () =>
-            import(/* webpackChunkName: "home" */ "../views/home/Home.vue")
+            import(
+              /* webpackChunkName: "userSettings" */ "../views/account/UserSettings.vue"
+            )
         }
       ]
     }

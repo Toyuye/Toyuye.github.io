@@ -1,28 +1,25 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import * as types from "../types";
-import { login } from "@/fetch/api";
-
+import { login, getUserInfo } from "@/fetch/api";
 import { getToken, setToken, _storage } from "@/utils";
 
 interface UserInfo {
   username: String;
-  password: String;
   avatar: String;
   age: String;
   email: String;
   roles: String[];
 }
 
-interface State {
+interface InState {
   token: String | null;
   userInfo: UserInfo;
 }
 
-const state: State = {
+const state: InState = {
   token: getToken() || null,
   userInfo: {
     username: "",
-    password: "",
     avatar: "",
     age: "",
     email: "",
@@ -31,11 +28,10 @@ const state: State = {
 };
 
 const actions: ActionTree<any, any> = {
-  login({ commit }: any, userInfo: any) {
+  loginFn({ commit }: any, userInfo: any) {
     return new Promise((resovle, reject) => {
       login(userInfo)
         .then(({ data }: any) => {
-          console.log(data);
           if (data.code === "0000") {
             setToken("TOYUYE_SYS_TOKEN_VALUE");
             commit(types.SET_LOGIN_TOKEN, "TOYUYE_SYS_TOKEN_VALUE");
@@ -47,18 +43,35 @@ const actions: ActionTree<any, any> = {
           reject(error);
         });
     });
+  },
+  setUserInfoFn({ commit }: any) {
+    return new Promise((resovle, reject) => {
+      getUserInfo()
+        .then(({ data }: any) => {
+          if (data.code === "0000") {
+            commit(types.SET_USER_INFO, data.data);
+          }
+          resovle(data);
+        })
+        .catch((error: any) => {
+          console.log("网络异常，请稍后再试>>>>>>>>");
+          reject(error);
+        });
+    });
   }
 };
 
 const getters: GetterTree<any, any> = {
-  getStateToken(state: State): any {
-    return state.token;
-  }
+  token: (state: InState): String | null => state.token,
+  userInfo: (state: InState): UserInfo => state.userInfo
 };
 
 const mutations: MutationTree<any> = {
-  [types.SET_LOGIN_TOKEN](state: State, status: String): void {
-    state.token = status;
+  [types.SET_LOGIN_TOKEN](state: InState, payload: String): void {
+    state.token = payload;
+  },
+  [types.SET_USER_INFO](state: InState, payload: UserInfo): void {
+    state.userInfo = payload;
   }
 };
 

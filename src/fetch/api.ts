@@ -9,10 +9,9 @@ export const login = (data: any) => {
   });
 };
 
-export const getUserInfo = (data: any) => {
+export const getUserInfo = () => {
   return fetch({
-    url: "/users/info",
-    method: "get",
-    data
+    url: "/Users/info",
+    method: "post"
   });
 };

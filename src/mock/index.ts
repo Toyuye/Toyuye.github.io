@@ -1,4 +1,5 @@
 import Mock from "mockjs";
+
 import { getParams, getParamsObj, hasUersFn } from "./mockMixin";
 
 const asscessToken = "TOYUYEASSCESSTOKEN";
@@ -41,7 +42,7 @@ const userInfo = (opt: any) => {
       avatar: "https://github.com/Toyuye.com",
       age: "18",
       email: "toyue.xiao@bblink.cn",
-      password: "Toyuye"
+      roles: ["admin"]
     },
     msg: "suceess"
   };

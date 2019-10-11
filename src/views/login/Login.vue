@@ -119,8 +119,10 @@ export default class Login extends Vue {
   Signing: Boolean = false;
   isErrorMsg: Boolean = false;
   errorMsg: String = "Incorrect username or password.";
-  @userModule.State("token") token!: String | null;
-  @userModule.Action("login") login!: Function;
+
+  @userModule.Action("loginFn") loginFn!: Function;
+  @userModule.Action("setUserInfoFn") setUserInfoFn!: Function;
+
   private submitUserInfo(): any {
     this.Signing = true;
     let isKong: Boolean = Object.values(this.userInfo).some(
@@ -131,8 +133,10 @@ export default class Login extends Vue {
     if (isKong) {
       return (this.Signing = false), (this.isErrorMsg = true);
     }
-    this.login(this.userInfo).then((data: any) => {
+
+    this.loginFn(this.userInfo).then((data: any) => {
       if (data.code === "0000") {
+        this.setUserInfoFn();
         return setTimeout(() => {
           this.Signing = false;
           this["$router"].push("/");
