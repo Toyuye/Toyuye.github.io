@@ -29,14 +29,14 @@ const state: InState = {
 
 const actions: ActionTree<any, any> = {
   loginFn({ commit }: any, userInfo: any) {
-    return new Promise((resovle, reject) => {
+    return new Promise((resolve, reject) => {
       login(userInfo)
         .then(({ data }: any) => {
           if (data.code === "0000") {
-            setToken("TOYUYE_SYS_TOKEN_VALUE");
-            commit(types.SET_LOGIN_TOKEN, "TOYUYE_SYS_TOKEN_VALUE");
+            setToken(data.data.token);
+            commit(types.SET_LOGIN_TOKEN, data.data.token);
           }
-          resovle(data);
+          resolve(data);
         })
         .catch((error: any) => {
           console.log("网络异常，请稍后再试>>>>>>>");
@@ -45,13 +45,13 @@ const actions: ActionTree<any, any> = {
     });
   },
   setUserInfoFn({ commit }: any) {
-    return new Promise((resovle, reject) => {
+    return new Promise((resolve, reject) => {
       getUserInfo()
         .then(({ data }: any) => {
           if (data.code === "0000") {
             commit(types.SET_USER_INFO, data.data);
           }
-          resovle(data);
+          resolve(data);
         })
         .catch((error: any) => {
           console.log("网络异常，请稍后再试>>>>>>>>");

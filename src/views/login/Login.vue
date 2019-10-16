@@ -136,7 +136,6 @@ export default class Login extends Vue {
 
     this.loginFn(this.userInfo).then((data: any) => {
       if (data.code === "0000") {
-        this.setUserInfoFn();
         return setTimeout(() => {
           this.Signing = false;
           this["$router"].push("/");
