@@ -133,7 +133,6 @@ export default class Login extends Vue {
     if (isKong) {
       return (this.Signing = false), (this.isErrorMsg = true);
     }
-
     this.loginFn(this.userInfo).then((data: any) => {
       if (data.code === "0000") {
         return setTimeout(() => {

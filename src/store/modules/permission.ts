@@ -2,7 +2,6 @@ import { MutationTree, ActionTree, GetterTree } from "vuex";
 const asyncRoutes: any[] = [];
 const constantRoutes: any[] = [];
 
-
 interface InState {
   routes: Array<any>;
   addRoutes: Array<any>;
@@ -16,9 +15,9 @@ const state: InState = {
 const actions: ActionTree<any, any> = {
   generateRoutes({ commit }: any, roles: any[]) {
     return new Promise((resolve, reject) => {
-			let accessedRoutes: any[] = [];
+      let accessedRoutes: any[] = [];
       if (roles.includes("admin")) {
-				accessedRoutes = asyncRoutes || [];
+        accessedRoutes = asyncRoutes || [];
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
       }

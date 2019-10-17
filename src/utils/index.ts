@@ -61,7 +61,7 @@ const _storage = () => {
     return storage;
   }
 };
-const setPageTKD = (to: any): void => {
+const setPageTitle = (to: any): void => {
   let t: any[] = [];
   to.matched.forEach((item: any) => {
     t.push(item.meta.title);
@@ -80,7 +80,7 @@ export {
   OS,
   throttle,
   _storage,
-  setPageTKD,
+  setPageTitle,
   checkPhone,
   getToken,
   setToken

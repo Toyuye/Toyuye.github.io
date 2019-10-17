@@ -36,6 +36,7 @@ const actions: ActionTree<any, any> = {
             setToken(data.data.token);
             commit(types.SET_LOGIN_TOKEN, data.data.token);
           }
+
           resolve(data);
         })
         .catch((error: any) => {
