@@ -17,7 +17,6 @@ const actions: ActionTree<any, any> = {
       let accessedRoutes: any[] = [];
       if (roles.includes("admin")) {
         accessedRoutes = asyncRoutes || [];
-        console.log(accessedRoutes);
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
       }

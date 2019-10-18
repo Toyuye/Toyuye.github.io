@@ -11,7 +11,7 @@ const userList = [
     avatar: "https://github.com/Toyuye.com",
     age: "18",
     email: "toyue.xiao@bblink.cn",
-    roles: ["admin"]
+    roles: ["amdmin"]
   }
 ];
 
