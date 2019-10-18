@@ -6,18 +6,18 @@ import { setPageTitle, getToken } from "@/utils";
 router.beforeEach(async (to: Route, from: Route, next: any) => {
   if (getToken()) {
     if (to.path === "/login") {
-      next({ path: "/" });
+      next();
     } else {
       const hasRoles = store.state.user.userInfo.roles.length === 0;
       if (hasRoles) {
         try {
-          const data = await store.dispatch("user/setUserInfoFn");
-          // 根据返回code 进行跳转
-          if (data.code == "0000") {
-            next({ ...to, replace: true });
-          } else {
-            next(`/login?redirect=${to.path}`);
-          }
+          const { data } = await store.dispatch("user/GetUserInfo");
+          const asyncRoutes = await store.dispatch(
+            "permission/GenerateRoutes",
+            data.roles
+          );
+          router.addRoutes(asyncRoutes);
+          next({ ...to, replace: true });
         } catch (error) {
           next(`/login?redirect=${to.path}`);
         }
@@ -27,11 +27,7 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
     }
   } else {
     /* has no token*/
-    if (!to.meta.isLogin) {
-      next();
-    } else {
-      next(`/login?redirect=${to.path}`);
-    }
+    to.meta.isLogin ? next(`/login?redirect=${to.path}`) : next();
   }
 });
 router.afterEach((to: Route, from: Route) => {

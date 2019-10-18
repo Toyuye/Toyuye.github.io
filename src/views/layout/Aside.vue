@@ -19,7 +19,7 @@
         :collapse="isCollapse"
         :default-active="$route.name"
       >
-        <sidebarTreeMenu :routes="meunArr"></sidebarTreeMenu>
+        <sidebarTreeMenu :routes="routes"></sidebarTreeMenu>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -27,25 +27,19 @@
 <script lang="ts">
 import { Component, Vue, Provide, Prop } from "vue-property-decorator";
 import sidebarTreeMenu from "./sidebarTreeMenu.vue";
+import { namespace, State, Action, Mutation, Getter } from "vuex-class";
+
+const permissionModule = namespace("permission");
+
 @Component({
   components: {
     sidebarTreeMenu
   }
 })
 export default class Aside extends Vue {
-  meunArr: Array<any> = [];
   private $router$: any;
-  public created(): void {
-    this.$router$ = this.$router;
-    this.meunArr = this.$router$.options.routes;
-  }
   @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
-  private hasOneShowingChildren(children: Array<any>): Boolean {
-    if (children.length === 1) {
-      return true;
-    }
-    return false;
-  }
+  @permissionModule.Getter("routes") routes!: any[];
 }
 </script>
 <style lang="scss" scoped>

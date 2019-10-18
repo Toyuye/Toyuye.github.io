@@ -1,23 +1,23 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-const asyncRoutes: any[] = [];
-const constantRoutes: any[] = [];
+import { asyncRoutes, constantRoutes } from "@/router";
 
-interface InState {
+interface InPemissionState {
   routes: Array<any>;
   addRoutes: Array<any>;
 }
 
-const state: InState = {
+const state: InPemissionState = {
   routes: [],
   addRoutes: []
 };
 
 const actions: ActionTree<any, any> = {
-  generateRoutes({ commit }: any, roles: any[]) {
+  GenerateRoutes({ commit }: any, roles: any[]) {
     return new Promise((resolve, reject) => {
       let accessedRoutes: any[] = [];
       if (roles.includes("admin")) {
         accessedRoutes = asyncRoutes || [];
+        console.log(accessedRoutes);
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
       }
@@ -28,8 +28,8 @@ const actions: ActionTree<any, any> = {
 };
 
 const getters: GetterTree<any, any> = {
-  routes: (state: InState): any[] => state.routes,
-  addRoutes: (state: InState): any[] => state.addRoutes
+  routes: (state: InPemissionState): any[] => state.routes,
+  addRoutes: (state: InPemissionState): any[] => state.addRoutes
 };
 
 const mutations: MutationTree<any> = {

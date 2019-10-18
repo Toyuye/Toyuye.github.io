@@ -1,7 +1,7 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import * as types from "../types";
 import { login, getUserInfo } from "@/fetch/api";
-import { getToken, setToken, _storage } from "@/utils";
+import { getToken, setToken } from "@/utils";
 
 interface UserInfo {
   username: String;
@@ -28,7 +28,7 @@ const state: InState = {
 };
 
 const actions: ActionTree<any, any> = {
-  loginFn({ commit }: any, userInfo: any) {
+  Login({ commit }: any, userInfo: any) {
     return new Promise((resolve, reject) => {
       login(userInfo)
         .then(({ data }: any) => {
@@ -36,7 +36,6 @@ const actions: ActionTree<any, any> = {
             setToken(data.data.token);
             commit(types.SET_LOGIN_TOKEN, data.data.token);
           }
-
           resolve(data);
         })
         .catch((error: any) => {
@@ -45,7 +44,7 @@ const actions: ActionTree<any, any> = {
         });
     });
   },
-  setUserInfoFn({ commit }: any) {
+  GetUserInfo({ commit }: any) {
     return new Promise((resolve, reject) => {
       getUserInfo()
         .then(({ data }: any) => {

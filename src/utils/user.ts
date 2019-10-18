@@ -1,9 +1,11 @@
-import { _storage } from "./";
+import { $storage } from "./";
 
 const getToken = (): String | null => {
-  return _storage().getItem("TOYUYE_SYS_TOKEN") || null;
+  return $storage().getItem("TOYUYE_SYS_TOKEN") || null;
 };
+
 const setToken = (val: String) => {
-  return _storage().setItem("TOYUYE_SYS_TOKEN", val);
+  return $storage().setItem("TOYUYE_SYS_TOKEN", val);
 };
+
 export { getToken, setToken };

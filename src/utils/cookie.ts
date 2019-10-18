@@ -30,6 +30,7 @@ const setCookie = (name: string, value: string, time: string = "d1"): void => {
   exp.setTime(exp.getTime() + strsec * 1);
   document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()};`;
 };
+
 const delCookie = (name: string): void => {
   let exp: any = new Date();
   let cval: string | null = getCookie(name);

@@ -1,6 +1,8 @@
 import { getCookie, setCookie, delCookie, clearCookie } from "./cookie";
+
 import { getToken, setToken } from "./user";
-const OS = (): any => {
+
+const systemWeb = (): any => {
   let u = navigator.userAgent;
   return {
     webKit: u.indexOf("AppleWebKit") > -1, //苹果、谷歌内核
@@ -15,6 +17,7 @@ const OS = (): any => {
     isQQBuiltIn: `${u.toLowerCase().match(/qq/i)}` === "qq" ? true : false // 判断是否为qq 内置浏览器
   };
 };
+
 const throttle = function(fn: any, interval: number, _this: any = window) {
   let _self = fn,
     timer: any,
@@ -37,7 +40,7 @@ const throttle = function(fn: any, interval: number, _this: any = window) {
   };
 };
 
-const _storage = () => {
+const $storage = () => {
   let testKey: string = "_LOCALSTORAGETEST",
     storage: any = window.localStorage;
   try {
@@ -77,9 +80,9 @@ export {
   setCookie,
   delCookie,
   clearCookie,
-  OS,
+  systemWeb,
   throttle,
-  _storage,
+  $storage,
   setPageTitle,
   checkPhone,
   getToken,
