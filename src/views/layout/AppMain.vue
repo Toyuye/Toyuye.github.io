@@ -9,8 +9,4 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({})
 export default class AppMain extends Vue {}
 </script>
-<style lang="scss" scoped>
-.toyuye-view {
-  background: #fff;
-}
-</style>
+

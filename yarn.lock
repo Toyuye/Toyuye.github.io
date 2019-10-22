@@ -668,6 +668,12 @@
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.3.tgz#419477a3d5202bad19e14c787940a61dc9ea6407"
 
+"@types/echarts@^4.1.15":
+  version "4.1.15"
+  resolved "https://registry.yarnpkg.com/@types/echarts/-/echarts-4.1.15.tgz#00ec3a3af3c486b6b1b13edc26a4676d4e6cc668"
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -711,6 +717,10 @@
 "@types/webpack-env@^1.13.9":
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.14.1.tgz#0d8a53f308f017c53a5ddc3d07f4d6fa76b790d7"
+
+"@types/zrender@*":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/zrender/-/zrender-4.0.0.tgz#a6806f12ec4eccaaebd9b0d816f049aca6188fbd"
 
 "@typescript-eslint/eslint-plugin@^1.1.0":
   version "1.13.0"
@@ -2895,6 +2905,12 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/echarts/-/echarts-4.4.0.tgz#d5260566cef0b98f5a00baf1b5010e92c1c23661"
+  dependencies:
+    zrender "4.1.1"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -8555,3 +8571,7 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zrender@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/zrender/-/zrender-4.1.1.tgz#201e58a55cf1a7e973e1dbad3c15596ef8779f54"

@@ -12,7 +12,7 @@ export const constantRoutes: RouteConfig[] = [
     component: () =>
       import(/* webpackChunkName: "home" */ "../views/login/Login.vue"),
     meta: {
-      hidden: false,
+      hidden: true,
       title: "登录Toyuye",
       icon: "user-group-fill",
       isLogin: false,
