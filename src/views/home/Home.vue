@@ -19,4 +19,3 @@ export default class Home extends Vue {
   mounted(): void {}
 }
 </script>
-<style lang="scss"></style>
