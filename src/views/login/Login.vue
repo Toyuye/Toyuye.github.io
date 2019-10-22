@@ -99,6 +99,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Provide } from "vue-property-decorator";
+
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 
 const userModule = namespace("user");

@@ -8,7 +8,7 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
     if (to.path === "/login") {
       next();
     } else {
-      const hasRoles = store.state.user.userInfo.roles.length === 0;
+      const hasRoles = store.state.user.roles.length === 0;
       if (hasRoles) {
         try {
           const { data } = await store.dispatch("user/GetUserInfo");
@@ -30,6 +30,7 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
     to.meta.isLogin ? next(`/login?redirect=${to.path}`) : next();
   }
 });
+
 router.afterEach((to: Route, from: Route) => {
   setPageTitle(to);
 });

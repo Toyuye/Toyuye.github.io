@@ -8,4 +8,10 @@ const setToken = (val: String) => {
   return $storage().setItem("TOYUYE_SYS_TOKEN", val);
 };
 
-export { getToken, setToken };
+const removeToken = () => {
+  return $storage().removeItem("TOYUYE_SYS_TOKEN");
+};
+const clearStorage = () => {
+  return $storage().clear();
+};
+export { getToken, setToken, removeToken, clearStorage };

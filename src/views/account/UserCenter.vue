@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ userInfo }}
+    {{ username }}
   </div>
 </template>
 
@@ -12,6 +12,6 @@ const userModule = namespace("user");
   name: "UserInfo"
 })
 export default class UserInfo extends Vue {
-  @userModule.Getter("userInfo") userInfo!: any;
+  @userModule.Getter("username") username!: string;
 }
 </script>

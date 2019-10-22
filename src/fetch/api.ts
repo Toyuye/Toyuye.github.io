@@ -15,3 +15,10 @@ export const getUserInfo = () => {
     method: "post"
   });
 };
+
+export const logout = () => {
+  return fetch({
+    url: "Users/logout",
+    method: "post"
+  });
+};

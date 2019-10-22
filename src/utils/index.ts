@@ -1,6 +1,6 @@
 import { getCookie, setCookie, delCookie, clearCookie } from "./cookie";
 
-import { getToken, setToken } from "./user";
+import { getToken, setToken, removeToken, clearStorage } from "./user";
 
 const systemWeb = (): any => {
   let u = navigator.userAgent;
@@ -86,5 +86,7 @@ export {
   setPageTitle,
   checkPhone,
   getToken,
-  setToken
+  setToken,
+  removeToken,
+  clearStorage
 };

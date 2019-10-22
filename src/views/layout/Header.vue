@@ -13,7 +13,7 @@
       ></i>
     </div>
     <div class="toyuye-header-view-right">
-      <el-dropdown>
+      <!-- <el-dropdown>
         <el-badge :value="3339" :max="99" class="item toyue-header-info-fixed">
           <i class="el-icon-message-solid  toyuye-tab-info"></i>
         </el-badge>
@@ -24,25 +24,42 @@
             <el-dropdown-item>US English</el-dropdown-item>
           </div>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
       <el-dropdown>
         <div class="user-name-logo">
-          <el-image
+          <el-avatar
             :src="require('../../assets/Toyuye_pic.jpg')"
             class="user-logo"
-          >
-          </el-image>
-          <span>{{ name }}</span>
+          ></el-avatar>
+          <span>{{ username }}</span>
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <div><i class="iconfont icon-user-fill"></i>个人中心</div>
+            <div
+              @click="
+                () => {
+                  $router.push('/account/center');
+                }
+              "
+            >
+              <i class="iconfont icon-user-fill"></i>个人中心
+            </div>
           </el-dropdown-item>
           <el-dropdown-item>
-            <div><i class="iconfont icon-cog-fill"></i>个人设置</div>
+            <div
+              @click="
+                () => {
+                  $router.push('/account/settings');
+                }
+              "
+            >
+              <i class="iconfont icon-cog-fill"></i>个人设置
+            </div>
           </el-dropdown-item>
           <el-dropdown-item>
-            <div><i class="iconfont icon-poweroff"></i>退出登录</div>
+            <div @click="logout">
+              <i class="iconfont icon-poweroff"></i>退出登录
+            </div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -59,18 +76,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Provide, Prop, Emit } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+
+import { State, Mutation, Getter, Action, namespace } from "vuex-class";
+
+const userModule = namespace("user");
 
 @Component({})
 export default class Header extends Vue {
-  constructor() {
-    super();
-  }
-  @Provide() name: string = "Toyuye";
+  @userModule.Getter("username") username!: String;
+  @userModule.Getter("avatar") avatar!: String;
+  @userModule.Action("Logout") Logout!: Function;
   @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
   @Emit("sendIsCollaps")
   sendIsCollapse(val: Boolean) {
     return val;
+  }
+  public logout() {
+    this.Logout().then((data: any) => {
+      if (data.code === "0000") {
+        this.$router.push("/login");
+      }
+    });
   }
 }
 </script>

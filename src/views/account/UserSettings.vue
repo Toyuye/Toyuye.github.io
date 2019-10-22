@@ -1,5 +1,5 @@
 <template>
-  <div>{{ userInfo }}</div>
+  <div>{{ username }}</div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
@@ -9,6 +9,6 @@ const userModule = namespace("user");
   name: "UserSettings"
 })
 export default class UserSettings extends Vue {
-  @userModule.State("userInfo") userInfo!: any;
+  @userModule.State("username") username!: string;
 }
 </script>

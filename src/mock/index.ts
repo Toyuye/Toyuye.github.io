@@ -8,7 +8,7 @@ const userList = [
   {
     username: "Toyuye",
     password: "Toyuye",
-    avatar: "https://github.com/Toyuye.com",
+    avatar: "../../assets/Toyuye_pic.jpg",
     age: "18",
     email: "toyue.xiao@bblink.cn",
     roles: ["amdmin"]
@@ -39,7 +39,7 @@ const userInfo = (opt: any) => {
     code: "0000",
     data: {
       username: "Toyuye",
-      avatar: "https://github.com/Toyuye.com",
+      avatar: "../../assets/Toyuye_pic.jpg",
       age: "18",
       email: "toyue.xiao@bblink.cn",
       roles: ["admin"]
@@ -48,6 +48,15 @@ const userInfo = (opt: any) => {
   };
   return data;
 };
+const logout = (opt: any) => {
+  let data = {
+    code: "0000",
+    data: {},
+    msg: "suceess"
+  };
+  return data;
+};
 Mock.mock(/\/Users\/login/, "post", loginToken);
 Mock.mock(/\/Users\/info/, "post", userInfo);
+Mock.mock(/\/Users\/logout/, "post", logout);
 export default Mock;
