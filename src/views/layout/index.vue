@@ -55,13 +55,13 @@ export default class Layout extends Vue {
    */
   public onresizeFn(): void {
     this.isCollapseFn();
-    window.onresize = throttle(this.isCollapseFn, 200);
+    window.addEventListener("resize", throttle(this.isCollapseFn, 200));
   }
   /**
    * isCollapseFn
    */
   public isCollapseFn(): void {
-    document.documentElement.clientWidth <= 1000
+    document.documentElement.clientWidth <= 1280
       ? (this.isCollapse = true)
       : (this.isCollapse = false);
   }
