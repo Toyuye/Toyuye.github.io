@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :style="{ height: height, width: width }" />
+  <div :class="className" :style="{ height: height, width: width }"></div>
 </template>
 <script lang="ts">
 import echarts, { EChartOption } from "echarts";
@@ -20,7 +20,9 @@ export default class extends mixins(resizeChart) {
   }
   mounted() {
     this.$nextTick(() => {
-      this.initChart();
+      setTimeout(() => {
+        this.initChart();
+      },500)
     });
   }
   beforeDestroy() {

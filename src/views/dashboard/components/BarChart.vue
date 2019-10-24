@@ -10,17 +10,19 @@ import resizeChart from "@/components/Charts/resizeChart";
   name: "BarChart"
 })
 export default class extends mixins(resizeChart) {
-  @Prop({ required: true }) chartData!: any[];
-  @Prop({ default: "chart" }) className!: String;
-  @Prop({ default: "100%" }) width!: String;
-  @Prop({ default: "100%" }) height!: String;
+  @Prop({ required: true }) private chartData!: any[];
+  @Prop({ default: "chart" }) private className!: String;
+  @Prop({ default: "100%" }) private width!: String;
+  @Prop({ default: "100%" }) private height!: String;
   @Watch("chartData", { deep: true })
   private onChartDataChange(value: any[]) {
     this.setOptions(value);
   }
   mounted() {
     this.$nextTick(() => {
-      this.initChart();
+      setTimeout(() => {
+        this.initChart();
+      },500)
     });
   }
   beforeDestroy() {

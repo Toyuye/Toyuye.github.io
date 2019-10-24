@@ -25,10 +25,9 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Provide, Prop } from "vue-property-decorator";
+import { Component, Vue, Provide, Prop, Watch } from "vue-property-decorator";
 import sidebarTreeMenu from "./sidebarTreeMenu.vue";
 import { namespace, State, Action, Mutation, Getter } from "vuex-class";
-
 const permissionModule = namespace("permission");
 
 @Component({

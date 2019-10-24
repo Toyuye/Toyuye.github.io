@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PanelGroup ref="PanelGroupChild"></PanelGroup>
+    <PanelGroup></PanelGroup>
   </div>
 </template>
 
@@ -14,15 +14,7 @@ import PanelGroup from "./components/panelGroup.vue";
     PanelGroup
   }
 })
-export default class Analysis extends Vue {
-  private mounted() {
-    this.$nextTick(() => {
-      // 放在父组件调用防止子组件为渲染
-      const PanelGroupChildMethod: any = this.$refs.PanelGroupChild;
-      PanelGroupChildMethod.onresizeFn();
-    });
-  }
-}
+export default class Analysis extends Vue {}
 </script>
 <style lang="scss" scoped>
 .panel-group {

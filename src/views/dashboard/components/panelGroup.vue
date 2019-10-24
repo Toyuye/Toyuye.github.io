@@ -1,5 +1,5 @@
 <template>
-  <div ref="panelGroup">
+  <div>
     <el-row :gutter="0" class="panel-group" v-loading="loading">
       <el-col :xs="xs" :sm="12" :lg="6" class="card-panel-col">
         <el-card class="card">
@@ -74,7 +74,7 @@
             <span>6,560</span>
           </div>
           <div class="card-canvas">
-            <div class="canvas-item-box">
+            <div class="canvas-item-box"> 
               <BarChart :chartData="[]"></BarChart>
             </div>
           </div>
@@ -147,19 +147,22 @@ export default class PanelGroup extends Vue {
     setTimeout(() => {
       this.loading = false;
     }, 1200);
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.onresizeFn();
+      }, 100);
+    });
+  
   }
-  public beforeDestroy() {
+  private beforeDestroy() {
     window.removeEventListener("resize", this.onresizeFn);
   }
-  public onresizeFn() {
+  private onresizeFn() {
     this.xsFn();
     window.addEventListener("resize", throttle(this.xsFn, 200));
   }
-  public xsFn() {
-    const dom: any = this.$refs.panelGroup;
-    if (dom.offsetWidth) {
-      dom.offsetWidth <= 500 ? (this.xs = 24) : (this.xs = 12);
-    }
+  private xsFn() {
+    this.$el.clientWidth <= 500 ? (this.xs = 24) : (this.xs = 12);
   }
 }
 </script>

@@ -24,7 +24,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Prop, Component, Inject } from "vue-property-decorator";
+import { Vue, Prop, Component, Inject, Watch } from "vue-property-decorator";
 @Component({
   name: "sidebarTreeMenu"
 })

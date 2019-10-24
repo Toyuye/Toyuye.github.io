@@ -10,7 +10,7 @@ export const constantRoutes: RouteConfig[] = [
     path: "/login",
     name: "Login",
     component: () =>
-      import(/* webpackChunkName: "home" */ "../views/login/Login.vue"),
+      import(/* webpackChunkName: "login" */ "../views/login/Login.vue"),
     meta: {
       hidden: true,
       title: "登录Toyuye",
@@ -51,7 +51,7 @@ export const constantRoutes: RouteConfig[] = [
           hidden: false,
           title: "分析页",
           icon: false,
-          isLogin: false,
+          isLogin: true,
           roles: ["admin"]
         },
         component: () =>

@@ -7,7 +7,7 @@ interface InPemissionState {
 }
 
 const state: InPemissionState = {
-  routes: [],
+  routes: constantRoutes,
   addRoutes: []
 };
 

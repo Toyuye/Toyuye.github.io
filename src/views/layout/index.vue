@@ -1,12 +1,17 @@
 <template>
-  <div style="height:100%;">
-    <el-container style="height:100%;min-height:100%;">
-      <div class="toyuye-layout-left">
+  <div class="min-height-view">
+    <el-container class="min-height-view">
+      <div class="toyuye-layout-left min-height-view">
         <el-aside :width="isCollapse ? '64px' : '256px'">
           <Aside :isCollapse="isCollapse"></Aside>
         </el-aside>
       </div>
-      <div class="toyuye-layout-right">
+      <div
+        class="toyuye-layout-right"
+        :style="{
+          width: isCollapse ? 'calc(100% - 256px)' : 'calc(100% - 64px)'
+        }"
+      >
         <el-header height="64px">
           <Header
             :isCollapse="isCollapse"
@@ -98,11 +103,14 @@ export default class Layout extends Vue {
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   position: relative;
   z-index: 2;
+  width: 100%;
 }
 .el-main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 .el-menu {
   border: 0;
@@ -124,9 +132,14 @@ export default class Layout extends Vue {
 </style>
 
 <style lang="scss" scoped>
+.min-height-view {
+  height: 100%;
+  min-height: 100%;
+}
 .toyuye-layout-right {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  flex: 1;
 }
 </style>
