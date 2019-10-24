@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row :gutter="0" class="panel-group" v-loading="loading">
+    <el-row :gutter="0" class="panel-group">
       <el-col :xs="xs" :sm="12" :lg="6" class="card-panel-col">
         <el-card class="card">
           <div class="card-heard">
@@ -74,7 +74,7 @@
             <span>6,560</span>
           </div>
           <div class="card-canvas">
-            <div class="canvas-item-box"> 
+            <div class="canvas-item-box">
               <BarChart :chartData="[]"></BarChart>
             </div>
           </div>
@@ -127,10 +127,9 @@
     </el-row>
   </div>
 </template>
-
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { throttle } from "@/utils";
+import { throttle } from "../../../utils";
 import AreaChart from "./AreaChart.vue";
 import BarChart from "./BarChart.vue";
 @Component({
@@ -141,18 +140,13 @@ import BarChart from "./BarChart.vue";
   }
 })
 export default class PanelGroup extends Vue {
-  private loading: Boolean = true;
   private xs: Number = 12;
   private mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 1200);
     this.$nextTick(() => {
       setTimeout(() => {
         this.onresizeFn();
       }, 100);
     });
-  
   }
   private beforeDestroy() {
     window.removeEventListener("resize", this.onresizeFn);
@@ -168,7 +162,8 @@ export default class PanelGroup extends Vue {
 </script>
 <style lang="scss" scoped>
 .panel-group {
-  width: 100%;
+  width: calc(100% + 24px);
+  left: -12px;
   .card-panel-col {
     padding: 0 12px;
     margin-bottom: 24px;

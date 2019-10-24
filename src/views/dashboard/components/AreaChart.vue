@@ -5,7 +5,7 @@
 import echarts, { EChartOption } from "echarts";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
-import resizeChart from "@/components/Charts/resizeChart";
+import resizeChart from "../../../components/Charts/resizeChart";
 @Component({
   name: "AreaChart"
 })
@@ -22,7 +22,7 @@ export default class extends mixins(resizeChart) {
     this.$nextTick(() => {
       setTimeout(() => {
         this.initChart();
-      },500)
+      }, 500);
     });
   }
   beforeDestroy() {
@@ -42,7 +42,7 @@ export default class extends mixins(resizeChart) {
         grid: {
           bottom: -19,
           left: -35,
-          right: 10,
+          right: 5,
           containLabel: true
         },
         tooltip: {

@@ -5,7 +5,7 @@
 import echarts, { EChartOption } from "echarts";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
-import resizeChart from "@/components/Charts/resizeChart";
+import resizeChart from "../../../components/Charts/resizeChart";
 @Component({
   name: "BarChart"
 })
@@ -22,7 +22,7 @@ export default class extends mixins(resizeChart) {
     this.$nextTick(() => {
       setTimeout(() => {
         this.initChart();
-      },500)
+      }, 500);
     });
   }
   beforeDestroy() {
@@ -86,7 +86,7 @@ export default class extends mixins(resizeChart) {
           {
             data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: "bar",
-            animation: false,
+            animation: true,
             barWidth: "30%",
             large: true,
             itemStyle: {

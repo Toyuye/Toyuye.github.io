@@ -53,7 +53,7 @@ export default class extends Vue {
   }
 
   private initSidebarResizeEvent() {
-    this.sidebarElm = document.getElementsByClassName("sidebar-container")[0];
+    this.sidebarElm = document.getElementsByClassName("el-aside")[0];
     if (this.sidebarElm) {
       this.sidebarElm.addEventListener("transitionend", this
         .sidebarResizeHandler as EventListener);
