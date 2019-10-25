@@ -22,7 +22,7 @@ export default class extends mixins(resizeChart) {
     this.$nextTick(() => {
       setTimeout(() => {
         this.initChart();
-      }, 500);
+      }, 600);
     });
   }
   beforeDestroy() {

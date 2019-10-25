@@ -4,139 +4,172 @@
     element-loading-background="rgba(0, 0, 0, 0.9)"
   >
     <PanelGroup></PanelGroup>
-    <el-card class="sales-card">
-      <div slot="header" class="tabs-card">
-        <div class="tabs-card-left">
-          <ul>
-            <li
-              v-for="(item, index) in ['销售额', '访问量']"
-              :key="index"
-              :class="{ active: index == salesVisitIndex }"
-              @click="clickSalesVisit(index)"
-            >
-              {{ item }}
-            </li>
-          </ul>
+    <SalesVisit></SalesVisit>
+    <el-row style="margin: 20px -10px 0px -10px;">
+      <el-col :xs="24" :sm="24" :lg="12" style="margin-bottom: 20px;">
+        <div style="padding:0 10px;">
+          <el-card class="box-card">
+            <div slot="header">
+              <el-row
+                type="flex"
+                align="middle"
+                justify="space-between"
+                style="height:28px;"
+              >
+                <span>线上热门搜索</span>
+                <el-dropdown>
+                  <i class="iconfont icon-ellipsis-vertical"></i>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>操作1</el-dropdown-item>
+                    <el-dropdown-item>操作2</el-dropdown-item>
+                    <el-dropdown-item>操作3</el-dropdown-item>
+                    <el-dropdown-item>操作4</el-dropdown-item>
+                    <el-dropdown-item>操作5</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </el-row>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{ "列表内容 " + o }}
+            </div>
+          </el-card>
         </div>
-        <div class="tabs-card-right">
-          <ul>
-            <li
-              v-for="(item, index) in ['今日', '本周', '本月', '全年']"
-              :key="index"
-              :class="{ active: index == 0 }"
-              @click="clickSelectDate(index)"
-            >
-              {{ item }}
-            </li>
-          </ul>
-          <div class="block">
-            <el-date-picker
-              value-format="yyyy-MM-dd"
-              size="small"
-              v-model="dateValue"
-              type="daterange"
-              range-separator="至"
-              start-placeholder="开始月份"
-              end-placeholder="结束月份"
-            >
-            </el-date-picker>
-          </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="12" style="margin-bottom:20px;">
+        <div style="padding:0 10px;">
+          <el-card class="box-card">
+            <div slot="header">
+              <el-row
+                type="flex"
+                align="middle"
+                justify="space-between"
+                style="height:28px;"
+              >
+                <span>销售额类别占比</span>
+                <el-button-group class="sales-group">
+                  <el-button
+                    size="mini"
+                    v-for="(item, index) in ['全部渠道', '线上', '门店']"
+                    :key="index"
+                    :class="{ active: index == salesGroupIndex }"
+                    @click="clickSalesAnalogy(index)"
+                    >{{ item }}</el-button
+                  >
+                </el-button-group>
+              </el-row>
+            </div>
+            <h4>{{ ["全部渠道", "线上", "门店"][salesGroupIndex] }}销售额</h4>
+            <el-row type="flex" align="middle" justify="space-between">
+              <SalesGroupPieChart :chartData="[]"></SalesGroupPieChart>
+              <ul class="sales-group-classify">
+                <li
+                  v-for="(item, index) in [
+                    {
+                      name: '家用电器',
+                      percent: '10.90%',
+                      value: '￥99',
+                      color: 'rgb(24, 144, 255)'
+                    },
+                    {
+                      name: '食用酒水',
+                      percent: '10.90%',
+                      value: '￥99',
+                      color: 'rgb(170, 170, 170)'
+                    }
+                  ]"
+                  :key="index"
+                >
+                  <span class="dot" :style="{ background: item.color }"></span>
+                  <span>{{ item.name }}</span>
+                  <el-divider direction="vertical"></el-divider>
+                  <span class="percent">{{ item.percent }}</span>
+                  <span class="value">{{ item.value }}</span>
+                </li>
+              </ul>
+            </el-row>
+          </el-card>
         </div>
-      </div>
-    </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { throttle } from "../../utils";
 import PanelGroup from "./components/panelGroup.vue";
+import SalesVisit from "./components/SalesVisit.vue";
+import SalesGroupPieChart from "./components/SalesGroupPieChart.vue";
 @Component({
   name: "Analysis",
   components: {
-    PanelGroup
+    PanelGroup,
+    SalesVisit,
+    SalesGroupPieChart
   }
 })
 export default class Analysis extends Vue {
+  private salesGroupIndex: Number = 0;
   private loading: Boolean = true;
-  private dateValue: String = "";
-  private salesVisitIndex: Number = 0;
   private mounted() {
     setTimeout(() => {
       this.loading = false;
     }, 1200);
   }
-  private clickSalesVisit(val) {
-    this.salesVisitIndex = val;
-  }
-  private clickSelectDate(val) {
-    console.log(this.dateValue);
+  private clickSalesAnalogy(val: Number) {
+    this.salesGroupIndex = val;
   }
 }
 </script>
 <style lang="scss" scoped>
-.sales-card {
-  .tabs-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .tabs-card-left {
-      height: 100%;
-      ul {
-        height: 100%;
-        display: flex;
-        cursor: default;
-        li {
-          cursor: pointer;
-          height: 100%;
-          padding: 0 16px;
-          position: relative;
-          &.active {
-            color: #1890ff;
-            font-weight: 500;
-            transition: all 1s linear;
-          }
-          &.active::before {
-            content: "";
-            display: block;
-            position: absolute;
-            left: 0;
-            bottom: -18px;
-            height: 2px;
-            width: 100%;
-            background: #1890ff;
-            border-radius: 2px;
-            transition: all 1s linear;
-          }
-        }
+.sales-group-classify {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  min-width: 200px;
+  margin: 0 20px;
+  padding: 0;
+  list-style: none;
+  transform: translateY(-50%);
+  li {
+    height: 22px;
+    margin-bottom: 16px;
+    line-height: 22px;
+    cursor: pointer;
+    span {
+      &.dot {
+        position: relative;
+        top: -1px;
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 8px;
+        border-radius: 8px;
       }
-    }
-    .tabs-card-right {
-      display: flex;
-      ul {
-        width: 208px;
-        display: flex;
-        justify-content: space-between;
-        cursor: default;
-        margin-right: 24px;
-        align-items: center;
-        li {
-          cursor: pointer;
-          &.active {
-            color: #1890ff;
-            font-weight: 500;
-          }
-        }
+      &.percent {
+        color: rgba(0, 0, 0, 0.45);
+      }
+      &.value {
+        position: absolute;
+        right: 0;
       }
     }
   }
 }
 </style>
-
 <style lang="scss">
-.sales-card {
-  .el-card__header {
-    padding: 12px 20px;
+.sales-group {
+  .el-button:hover {
+    border-color: #1890ff;
+  }
+  .active {
+    border-color: #1890ff;
+    z-index: 100;
+    &:hover {
+      border-color: #1890ff;
+    }
+    span {
+      color: #1890ff;
+    }
   }
 }
 </style>

@@ -22,7 +22,7 @@ export default class extends mixins(resizeChart) {
     this.$nextTick(() => {
       setTimeout(() => {
         this.initChart();
-      }, 500);
+      }, 600);
     });
   }
   beforeDestroy() {
@@ -87,7 +87,7 @@ export default class extends mixins(resizeChart) {
             data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: "bar",
             animation: true,
-            barWidth: "30%",
+            barWidth: 12,
             large: true,
             itemStyle: {
               normal: { color: "#409EFF" }

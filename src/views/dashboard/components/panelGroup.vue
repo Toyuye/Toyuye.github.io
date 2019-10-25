@@ -144,14 +144,14 @@ export default class PanelGroup extends Vue {
   private mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
-        this.onresizeFn();
+        this.onResize();
       }, 100);
     });
   }
   private beforeDestroy() {
-    window.removeEventListener("resize", this.onresizeFn);
+    window.removeEventListener("resize", this.onResize);
   }
-  private onresizeFn() {
+  private onResize() {
     this.xsFn();
     window.addEventListener("resize", throttle(this.xsFn, 200));
   }
@@ -163,7 +163,7 @@ export default class PanelGroup extends Vue {
 <style lang="scss" scoped>
 .panel-group {
   width: calc(100% + 24px);
-  left: -12px;
+  margin-left: -12px;
   .card-panel-col {
     padding: 0 12px;
     margin-bottom: 24px;
