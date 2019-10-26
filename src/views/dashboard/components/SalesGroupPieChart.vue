@@ -40,14 +40,19 @@ export default class extends mixins(resizeChart) {
     if (this.chart) {
       this.chart.setOption({
         tooltip: {
-          trigger: "item"
+          trigger: "item",
+          formatter: params => {
+            const par: any = params;
+            return `${par["marker"]} ${par["name"]}   ${par["percent"]}%`;
+          }
         },
         series: [
           {
             name: "访问来源",
             type: "pie",
-            radius: ["50%", "70%"],
+            radius: ["74%", "96%"],
             avoidLabelOverlap: false,
+            hoverAnimation: false,
             label: {
               normal: {
                 show: false,
@@ -70,16 +75,21 @@ export default class extends mixins(resizeChart) {
               {
                 name: "家用电器",
                 percent: "10.90%",
-                value: "￥99",
+                value: 99,
                 color: "rgb(24, 144, 255)"
               },
               {
                 name: "食用酒水",
                 percent: "10.90%",
-                value: "￥99",
+                value: 88,
                 color: "rgb(170, 170, 170)"
               }
-            ]
+            ],
+            itemStyle: {
+              color: (params: any) => {
+                return params.data.color;
+              }
+            }
           }
         ]
       } as EChartOption<any>);
