@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="margin: 20px -10px 0 10px;flex-wrap:wrap" type="flex">
+    <el-row style="margin: 20px -10px 0 -10px;flex-wrap:wrap" type="flex">
       <el-col :xs="24" :sm="24" :lg="12" style="margin-bottom: 20px;">
         <div style="padding:0 10px;">
           <el-card class="box-card">
@@ -25,7 +25,7 @@
               </el-row>
             </div>
             <el-row style="margin: 0 -16px;">
-              <el-col :span="12" class="number-info">
+              <el-col :xs="24" :sm="12" class="number-info">
                 <div class="number-info-title">
                   <span
                     >搜索用户数<i class="iconfont icon-exclamation-circle"></i
@@ -41,7 +41,7 @@
                 </div>
                 <div style="height:45px;background:red"></div>
               </el-col>
-              <el-col :span="12" class="number-info">
+              <el-col :xs="24" :sm="12" class="number-info">
                 <div class="number-info-title">
                   <span
                     >人均搜索次数<i class="iconfont icon-exclamation-circle"></i
@@ -68,7 +68,7 @@
                   size="small"
                   :stripe="true"
                 >
-                  <el-table-column type="index" width="60" label="排名">
+                  <el-table-column type="index" width="60" label="排名" fixed>
                   </el-table-column>
                   <el-table-column prop="keywords" label="搜索关键字">
                   </el-table-column>
@@ -79,7 +79,7 @@
                 </el-table>
                 <div class="paginnation-box">
                   <el-pagination
-                    size="small"
+                    size="mini"
                     background
                     layout="prev, pager, next"
                     :total="100"
@@ -243,6 +243,8 @@ export default class SearchSales extends Vue {
   }
 }
 .paginnation-box {
+  overflow: hidden;
+  overflow-x: auto;
   margin: 16px 0;
   display: flex;
   justify-content: flex-end;
@@ -314,6 +316,9 @@ export default class SearchSales extends Vue {
 }
 
 @media (max-width: 768px) {
+  .paginnation-box {
+    padding-bottom: 16px;
+  }
   .sales-group-dropdown {
     display: block;
   }
@@ -332,6 +337,9 @@ export default class SearchSales extends Vue {
 }
 </style>
 <style lang="scss">
+.el-pagination {
+  max-width: 100%;
+}
 .sales-group {
   .el-button:hover {
     border-color: #1890ff;
