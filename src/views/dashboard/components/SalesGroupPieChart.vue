@@ -51,6 +51,7 @@ export default class extends mixins(resizeChart) {
             name: "访问来源",
             type: "pie",
             radius: ["74%", "96%"],
+            animation: true,
             avoidLabelOverlap: false,
             hoverAnimation: false,
             label: {
