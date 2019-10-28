@@ -141,5 +141,6 @@ export default class Layout extends Vue {
   flex-direction: column;
   box-sizing: border-box;
   flex: 1;
+  overflow: hidden;
 }
 </style>

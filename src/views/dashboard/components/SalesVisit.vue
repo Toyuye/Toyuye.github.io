@@ -49,6 +49,7 @@
         <el-col :xs="24" :sm="14" :md="15" :lg="16">
           <div class="sales-data-charts">
             <h4 style="margin-bottom:20px;">销售趋势</h4>
+
             <SalesBarChart
               :chartsData="chartsData"
               :height="'254px'"

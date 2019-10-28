@@ -3,6 +3,7 @@
     <PanelGroup></PanelGroup>
     <SalesVisit></SalesVisit>
     <SearchSales></SearchSales>
+    <StoreTraffic></StoreTraffic>
   </div>
 </template>
 
@@ -11,13 +12,15 @@ import { Vue, Component } from "vue-property-decorator";
 import PanelGroup from "./components/panelGroup.vue";
 import SalesVisit from "./components/SalesVisit.vue";
 import SearchSales from "./components/SearchSales.vue";
+import StoreTraffic from "./components/StoreTraffic.vue";
 
 @Component({
   name: "Analysis",
   components: {
     PanelGroup,
     SalesVisit,
-    SearchSales
+    SearchSales,
+    StoreTraffic
   }
 })
 export default class Analysis extends Vue {
