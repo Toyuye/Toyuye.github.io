@@ -39,7 +39,11 @@
                       style="color: rgb(245, 34, 45)"
                   /></span>
                 </div>
-                <div style="height:45px;background:red"></div>
+                <div style="height:45px;position:relative;">
+                  <div style="position:absolute;left:0;bottom:0;width:100%;">
+                    <SearchAreaChart :chartData="[]"></SearchAreaChart>
+                  </div>
+                </div>
               </el-col>
               <el-col :xs="24" :sm="12" class="number-info">
                 <div class="number-info-title">
@@ -55,7 +59,12 @@
                       style="color: rgb(82, 196, 26)"
                   /></span>
                 </div>
-                <div style="height:45px;background:green"></div>
+
+                <div style="height:45px;position:relative;">
+                  <div style="position:absolute;left:0;bottom:0;width:100%;">
+                    <SearchAreaChart :chartData="[]"></SearchAreaChart>
+                  </div>
+                </div>
               </el-col>
               <el-col :span="24" class="number-table">
                 <el-table
@@ -176,11 +185,13 @@
 <script lang="ts">
 import { Vue, Prop, Component } from "vue-property-decorator";
 import SalesGroupPieChart from "./SalesGroupPieChart.vue";
+import SearchAreaChart from "./SearchAreaChart.vue";
 import { throttle } from "../../../utils";
 @Component({
   name: "SearchSales",
   components: {
-    SalesGroupPieChart
+    SalesGroupPieChart,
+    SearchAreaChart
   }
 })
 export default class SearchSales extends Vue {

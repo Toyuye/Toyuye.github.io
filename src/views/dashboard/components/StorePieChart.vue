@@ -42,8 +42,7 @@ export default class extends mixins(resizeChart) {
         tooltip: {
           trigger: "item",
           formatter: params => {
-            const par: any = params;
-            return `${par["marker"]} ${par["name"]}   ${par["percent"]}%`;
+            return "";
           }
         },
         series: [
@@ -75,13 +74,13 @@ export default class extends mixins(resizeChart) {
             data: [
               {
                 name: "家用电器",
-                value: 100,
+                value: 99,
                 color: "rgb(24, 144, 255)"
               },
               {
                 name: "食用酒水",
-                value: 20,
-                color: "rgb(170, 170, 170)"
+                value: 88,
+                color: "#ccc"
               }
             ],
             itemStyle: {

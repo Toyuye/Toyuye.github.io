@@ -102,6 +102,36 @@ export const constantRoutes: RouteConfig[] = [
           import(
             /* webpackChunkName: "step-form" */ "../views/exception/403.vue"
           )
+      },
+      {
+        path: "404",
+        name: "404",
+        meta: {
+          hidden: false,
+          title: "404",
+          icon: false,
+          isLogin: true,
+          roles: ["admin"]
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "step-form" */ "../views/exception/404.vue"
+          )
+      },
+      {
+        path: "500",
+        name: "500",
+        meta: {
+          hidden: false,
+          title: "500",
+          icon: false,
+          isLogin: true,
+          roles: ["admin"]
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "step-form" */ "../views/exception/500.vue"
+          )
       }
     ]
   },

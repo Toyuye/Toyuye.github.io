@@ -4,13 +4,21 @@
       <div class="store-group">
         <div class="container-scrolling">
           <span
-            :class="{ 'arrow-show': true, prev: true, disable: prevDisable }"
+            :class="{
+              'arrow-show': true,
+              prev: true,
+              disable: this.transitionWidth === 0
+            }"
             @click="clickChangeArrowShow('prev')"
           >
             <i class="iconfont icon-angle-left"></i>
           </span>
           <span
-            :class="{ 'arrow-show': true, next: true, disable: nextDisable }"
+            :class="{
+              'arrow-show': true,
+              next: true,
+              disable: this.transitionWidth === this.maxTransitionWidth
+            }"
           >
             <i
               class="iconfont icon-angle-right"
@@ -27,15 +35,27 @@
                 <ul>
                   <li
                     v-for="(item, index) in 15"
-                    style="width:170px;height:140px;"
                     :key="index"
+                    @click="clickSelectStore(item)"
                   >
-                    {{ item }}
+                    <div class="conten-box">
+                      <div class="content-left">
+                        <div class="number-title">Store{{ item }}</div>
+                        <div class="number-sub-title">{{ "转化率" }}</div>
+                        <div class="number-info-value">{{ 2 + item }}%</div>
+                      </div>
+                      <div class="content-right">
+                        <StorePieChart :chartData="[]"></StorePieChart>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
+        </div>
+        <div class="container-line-chart">
+          <StoreLineChart :chartData="[]"></StoreLineChart>
         </div>
       </div>
       <div></div>
@@ -44,15 +64,21 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import StoreLineChart from "./StoreLineChart.vue";
+import StorePieChart from "./StorePieChart.vue";
 @Component({
-  name: "StoreTraffic"
+  name: "StoreTraffic",
+  components: {
+    StoreLineChart,
+    StorePieChart
+  }
 })
 export default class StoreTraffic extends Vue {
+  private storeData: any[] = [{ storeName: "store" }];
   private transitionWidth: number = 0;
+  private maxTransitionWidth: number = -1;
   private tabsNavScrollDom: any = null;
   private tabsNavDom: any = null;
-  private nextDisable = false;
-  private prevDisable = true;
   private mounted() {
     this.inItStyle();
   }
@@ -61,44 +87,42 @@ export default class StoreTraffic extends Vue {
       setTimeout(() => {
         this.tabsNavScrollDom = this.$refs.tabsNavScroll;
         this.tabsNavDom = this.$refs.tabsNav;
-        if (this.tabsNavDom.offsetWidth <= this.tabsNavScrollDom.offsetWidth) {
-          this.nextDisable = true;
-        }
-      }, 500);
+        this.maxTransitionWidth =
+          this.tabsNavDom.offsetWidth <= this.tabsNavScrollDom.offsetWidth
+            ? 0
+            : this.tabsNavDom.offsetWidth - this.tabsNavScrollDom.offsetWidth;
+      }, 1000);
     });
   }
   private clickChangeArrowShow(value: string) {
     if (value === "prev") {
-      this.transitionWidth === 0
-        ? (this.prevDisable = true)
-        : (this.prevDisable = false);
-      if (this.prevDisable) {
-        return;
-      }
       this.transitionWidth =
         this.transitionWidth - this.tabsNavScrollDom.offsetWidth < 0
           ? 0
           : this.transitionWidth - this.tabsNavScrollDom.offsetWidth;
     }
     if (value === "next") {
-      if (this.nextDisable) {
-        return;
-      }
-      this.transitionWidth = (this.transitionWidth + this.tabsNavScrollDom.offsetWidth > this.tabsNavDom.offsetWidth) ?  0 : 1
+      this.transitionWidth =
+        this.transitionWidth + this.tabsNavScrollDom.offsetWidth >=
+        this.maxTransitionWidth
+          ? this.maxTransitionWidth
+          : this.transitionWidth + this.tabsNavScrollDom.offsetWidth;
     }
+  }
+  private clickSelectStore(item: any) {
+    window.confirm("切换店铺,更改数据");
   }
 }
 </script>
 <style lang="scss" scoped>
 .store-group {
-  margin: 0 0 16px;
   outline: 0;
   transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   .container-scrolling {
     padding: 0 40px;
     position: relative;
     box-sizing: border-box;
-    margin-bottom: -1px;
+    margin-bottom: 16px;
     overflow: hidden;
     font-size: 14px;
     line-height: 1.5;
@@ -158,11 +182,58 @@ export default class StoreTraffic extends Vue {
             li {
               font-size: 12px;
               display: inline-block;
+              padding: 12px 16px;
+              margin-right: 32px;
+              .conten-box {
+                display: flex;
+                width: 138px;
+                .content-left {
+                  width: 50%;
+                  padding: 0 4px;
+                  .number-title {
+                    margin-bottom: 16px;
+                    color: rgba(0, 0, 0, 0.65);
+                    font-size: 16px;
+                    transition: all 0.3s;
+                  }
+                  .number-sub-title {
+                    height: 22px;
+                    overflow: hidden;
+                    color: rgba(0, 0, 0, 0.45);
+                    font-size: 14px;
+                    line-height: 22px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    word-break: break-all;
+                  }
+                  .number-info-value {
+                    margin-top: 2px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    word-break: break-all;
+                    height: 32px;
+
+                    color: rgba(0, 0, 0, 0.85);
+                    font-size: 24px;
+                    line-height: 32px;
+                  }
+                }
+                .content-right {
+                  width: 50%;
+                  padding: 0 4px;
+                  padding-top: 36px;
+                }
+              }
             }
           }
         }
       }
     }
+  }
+  .container-line-chart {
+    padding-left: 24px;
+    height: 430px;
   }
 }
 </style>
