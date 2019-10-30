@@ -205,6 +205,7 @@ export default class StoreTraffic extends Vue {
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     word-break: break-all;
+                    width: 100%;
                   }
                   .number-info-value {
                     margin-top: 2px;

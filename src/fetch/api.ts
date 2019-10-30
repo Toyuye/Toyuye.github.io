@@ -22,3 +22,10 @@ export const logout = () => {
     method: "post"
   });
 };
+
+export const accountCenter = () => {
+  return fetch({
+    url: "Users/center",
+    method: "get"
+  });
+};

@@ -50,7 +50,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "分析页",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -65,7 +65,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "监控页",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -94,7 +94,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "403",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -109,7 +109,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "404",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -124,7 +124,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "500",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -154,7 +154,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "个人中心",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -169,7 +169,7 @@ export const constantRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "个人设置",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -202,7 +202,7 @@ export const asyncRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "基础表单",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
@@ -217,7 +217,7 @@ export const asyncRoutes: RouteConfig[] = [
         meta: {
           hidden: false,
           title: "分布表单页",
-          icon: false,
+          icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },

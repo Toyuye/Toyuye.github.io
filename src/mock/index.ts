@@ -1,6 +1,7 @@
 import Mock from "mockjs";
 
 import { getParams, getParamsObj, hasUersFn } from "./mockMixin";
+import { accountCenterData } from "./accountCenterData";
 
 const asscessToken = "TOYUYEASSCESSTOKEN";
 
@@ -56,7 +57,18 @@ const logout = (opt: any) => {
   };
   return data;
 };
+const accountCenter = () => {
+  let data = {
+    code: "0000",
+    data: accountCenterData,
+    msg: "suceess"
+  };
+  return data;
+};
 Mock.mock(/\/Users\/login/, "post", loginToken);
 Mock.mock(/\/Users\/info/, "post", userInfo);
 Mock.mock(/\/Users\/logout/, "post", logout);
+
+Mock.mock(/\/Users\/center/, "get", accountCenter);
+
 export default Mock;

@@ -75,6 +75,15 @@ const checkPhone = (num: string): Boolean => {
   let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
   return Reg.test(num);
 };
+
+const addComma = (num: number) => {
+  num >= 10000 ? (num = num / 10000) : "";
+  let reg =
+    num.toString().indexOf(".") > -1
+      ? /(\d)(?=(\d{3})+\.)/g
+      : /(\d)(?=(\d{3})+$)/g;
+  return num.toString().replace(reg, "$1,");
+};
 export {
   getCookie,
   setCookie,
@@ -88,5 +97,6 @@ export {
   getToken,
   setToken,
   removeToken,
-  clearStorage
+  clearStorage,
+  addComma
 };
