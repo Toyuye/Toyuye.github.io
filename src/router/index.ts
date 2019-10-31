@@ -23,8 +23,9 @@ export const constantRoutes: RouteConfig[] = [
     path: "/",
     name: "Layout",
     component: Layout,
+    redirect: "/dashboard/analysis",
     meta: {
-      hidden: false,
+      hidden: true,
       title: "首页",
       icon: "home",
       isLogin: true,
@@ -38,7 +39,7 @@ export const constantRoutes: RouteConfig[] = [
     redirect: "/dashboard/analysis",
     meta: {
       hidden: false,
-      title: "数据页",
+      title: "Dashboard",
       icon: "chart-line",
       isLogin: false,
       roles: ["admin"]

@@ -2,7 +2,7 @@ import Mock from "mockjs";
 
 import { getParams, getParamsObj, hasUersFn } from "./mockMixin";
 import { accountCenterData } from "./accountCenterData";
-
+import { accountSettingData } from "./accountSettingData";
 const asscessToken = "TOYUYEASSCESSTOKEN";
 
 const userList = [
@@ -65,10 +65,19 @@ const accountCenter = () => {
   };
   return data;
 };
+const accountSetting = () => {
+  let data = {
+    code: "0000",
+    data: accountSettingData,
+    msg: "suceess"
+  };
+  return data;
+};
 Mock.mock(/\/Users\/login/, "post", loginToken);
 Mock.mock(/\/Users\/info/, "post", userInfo);
 Mock.mock(/\/Users\/logout/, "post", logout);
 
 Mock.mock(/\/Users\/center/, "get", accountCenter);
+Mock.mock(/\/Users\/setting/, "get", accountSetting);
 
 export default Mock;

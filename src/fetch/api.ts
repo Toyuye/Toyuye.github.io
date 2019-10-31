@@ -29,3 +29,10 @@ export const accountCenter = () => {
     method: "get"
   });
 };
+
+export const accountSetting = () => {
+  return fetch({
+    url: "Users/setting",
+    method: "get"
+  });
+};
