@@ -87,10 +87,12 @@ export default class StoreTraffic extends Vue {
       setTimeout(() => {
         this.tabsNavScrollDom = this.$refs.tabsNavScroll;
         this.tabsNavDom = this.$refs.tabsNav;
-        this.maxTransitionWidth =
-          this.tabsNavDom.offsetWidth <= this.tabsNavScrollDom.offsetWidth
-            ? 0
-            : this.tabsNavDom.offsetWidth - this.tabsNavScrollDom.offsetWidth;
+        if (this.tabsNavScrollDom && this.tabsNavDom) {
+          this.maxTransitionWidth =
+            this.tabsNavDom.offsetWidth <= this.tabsNavScrollDom.offsetWidth
+              ? 0
+              : this.tabsNavDom.offsetWidth - this.tabsNavScrollDom.offsetWidth;
+        }
       }, 1000);
     });
   }

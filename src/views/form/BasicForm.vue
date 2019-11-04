@@ -7,51 +7,51 @@
     >
     <div class="form-container">
       <el-form :model="basicFromData" :rules="dataRules" ref="form">
-        <el-form-item size="small" prop="title">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label for="title">标题：</label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label for="title">标题：</label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small" prop="title">
               <el-input
                 id="title"
                 v-model="basicFromData.title"
                 placeholder="给目标起个名字"
               ></el-input>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small" prop="date">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label for="date">起止时间：</label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label for="date">起止时间：</label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small" prop="date">
               <el-date-picker
                 id="date"
                 v-model="basicFromData.date"
                 type="daterange"
-                range-separator="至"
+                range-separator="~"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
                 style="width:100%"
               >
               </el-date-picker>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small" prop="goal">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label for="goal">目标描述：</label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label for="goal">目标描述：</label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small" prop="goal">
               <el-input
                 id="goal"
                 type="textarea"
@@ -59,17 +59,17 @@
                 v-model="basicFromData.goal"
                 placeholder="请输入你的阶段性工作目标"
               ></el-input>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small" prop="standard">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label for="standard">衡量标准：</label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label for="standard">衡量标准：</label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small" prop="standard">
               <el-input
                 id="standard"
                 type="textarea"
@@ -77,61 +77,61 @@
                 v-model="basicFromData.standard"
                 placeholder="请输入衡量标准"
               ></el-input>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label for="client"
-                  >客户
-                  <span
-                    >(选填)
-                    <el-tooltip
-                      effect="dark"
-                      content="目标服务对象"
-                      placement="top"
-                    >
-                      <i class="iconfont icon-info-circle"></i>
-                    </el-tooltip> </span
-                  >：
-                </label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label for="client"
+                >客户
+                <span
+                  >(选填)
+                  <el-tooltip
+                    effect="dark"
+                    content="目标服务对象"
+                    placement="top"
+                  >
+                    <i class="iconfont icon-info-circle"></i>
+                  </el-tooltip> </span
+                >：
+              </label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small">
               <el-input
                 id="client"
                 v-model="basicFromData.client"
                 placeholder="请描述你服务的客户，内部客户直接 @姓名／工号"
               ></el-input>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label for="invites">邀评人 <span>(选填)</span>： </label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label for="invites">邀评人 <span>(选填)</span>： </label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small">
               <el-input
                 id="invites"
                 v-model="basicFromData.invites"
                 placeholder="请描述你服务的客户，内部客户直接 @姓名／工号"
               ></el-input>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label>权重 <span>(选填)</span>： </label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label>权重 <span>(选填)</span>： </label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small">
               <el-input-number
                 v-model="basicFromData.weight"
                 controls-position="right"
@@ -139,17 +139,17 @@
                 :max="100"
               ></el-input-number>
               <span style="margin-left:10px">%</span>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small">
-          <el-row>
-            <el-col :xs="24" :sm="8">
-              <div class="label-box">
-                <label>目标公开：</label>
-              </div>
-            </el-col>
-            <el-col :xs="24" :sm="10">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="8">
+            <div class="label-box">
+              <label>目标公开：</label>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="10">
+            <el-form-item size="small">
               <div>
                 <div>
                   <el-radio v-model="basicFromData.public" :label="1"
@@ -167,18 +167,18 @@
                   <span>客户、邀评人默认被分享</span>
                 </div>
               </div>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item size="small">
-          <el-row>
-            <el-col :xs="24" :sm="10" :offset="8" class="el-col-offset-0">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" :sm="10" :offset="8" class="el-col-offset-0">
+            <el-form-item size="small">
               <el-button type="primary" @click="subBasicInfoClick('form')"
                 >提交</el-button
               >
-            </el-col>
-          </el-row>
-        </el-form-item>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
     </div>
   </div>
@@ -232,6 +232,7 @@ export default class BasicForm extends Vue {
   .label-box {
     text-align: right;
     padding-right: 6px;
+    line-height: 32px;
   }
 }
 @media (max-width: 768px) {
