@@ -24,7 +24,7 @@ import StoreTraffic from "./components/StoreTraffic.vue";
   }
 })
 export default class Analysis extends Vue {
-  private loading: Boolean = true;
+  private loading: boolean = true;
   private mounted() {
     setTimeout(() => {
       this.loading = false;

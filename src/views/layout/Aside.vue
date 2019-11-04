@@ -37,7 +37,7 @@ const permissionModule = namespace("permission");
 })
 export default class Aside extends Vue {
   private $router$: any;
-  @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
+  @Prop({ default: false, type: Boolean }) isCollapse!: boolean;
   @permissionModule.Getter("routes") routes!: any[];
 }
 </script>

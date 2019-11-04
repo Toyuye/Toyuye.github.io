@@ -11,9 +11,9 @@ import resizeChart from "../../../components/Charts/resizeChart";
 })
 export default class extends mixins(resizeChart) {
   @Prop({ required: true }) chartData!: any[];
-  @Prop({ default: "chart" }) className!: String;
-  @Prop({ default: "100%" }) width!: String;
-  @Prop({ default: "100%" }) height!: String;
+  @Prop({ default: "chart" }) className!: string;
+  @Prop({ default: "100%" }) width!: string;
+  @Prop({ default: "100%" }) height!: string;
   @Watch("chartData", { deep: true })
   private onChartDataChange(value: any[]) {
     this.setOptions(value);

@@ -84,18 +84,18 @@ const userModule = namespace("user");
 
 @Component({})
 export default class Header extends Vue {
-  @userModule.Getter("username") username!: String;
-  @userModule.Getter("avatar") avatar!: String;
+  @userModule.Getter("username") username!: string;
+  @userModule.Getter("avatar") avatar!: string;
   @userModule.Action("Logout") Logout!: Function;
-  @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
+  @Prop({ default: false, type: Boolean }) isCollapse!: boolean;
   @Emit("sendIsCollaps")
-  sendIsCollapse(val: Boolean) {
+  sendIsCollapse(val: boolean) {
     return val;
   }
   public logout() {
     this.Logout().then((data: any) => {
       if (data.code === "0000") {
-        this.$router.push("/login");
+        this["$router"].push("/login");
       }
     });
   }

@@ -195,8 +195,8 @@ import { throttle } from "../../../utils";
   }
 })
 export default class SearchSales extends Vue {
-  private salesGroupIndex: Number = 0;
-  private clickSalesAnalogy(val: Number) {
+  private salesGroupIndex: number = 0;
+  private clickSalesAnalogy(val: number) {
     this.salesGroupIndex = val;
   }
 }

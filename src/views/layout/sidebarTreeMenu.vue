@@ -29,9 +29,9 @@ import { Vue, Prop, Component, Inject, Watch } from "vue-property-decorator";
   name: "sidebarTreeMenu"
 })
 export default class TreeMenu extends Vue {
-  @Prop({ default: false, type: Boolean }) isCollapse!: Boolean;
+  @Prop({ default: false, type: Boolean }) isCollapse!: boolean;
   @Prop({ default: [], type: Array }) routes!: Array<any>;
-  private hasOneShowingChildren(children: Array<any>): Boolean {
+  private hasOneShowingChildren(children: Array<any>): boolean {
     const showingChildren = children.filter(item => {
       return !item.meta.hidden;
     });

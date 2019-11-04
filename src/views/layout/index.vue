@@ -45,14 +45,14 @@ import Aside from "./Aside.vue";
   }
 })
 export default class Layout extends Vue {
-  @Provide() isCollapse: Boolean = false;
+  @Provide() isCollapse: boolean = false;
   public mounted(): void {
     this.onresizeFn();
   }
   /**
    * getIsCollaps
    */
-  public getIsCollaps(val: Boolean) {
+  public getIsCollaps(val: boolean) {
     this.isCollapse = val;
   }
   /**

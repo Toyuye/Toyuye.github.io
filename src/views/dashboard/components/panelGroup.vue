@@ -140,7 +140,7 @@ import BarChart from "./BarChart.vue";
   }
 })
 export default class PanelGroup extends Vue {
-  private xs: Number = 12;
+  private xs: number = 12;
   private mounted() {
     this.$nextTick(() => {
       setTimeout(() => {

@@ -87,10 +87,10 @@ import SalesBarChart from "./SalesBarChart.vue";
   }
 })
 export default class SalesVisit extends Vue {
-  private dateValue: String = "";
-  private salesVisitIndex: Number = 0;
-  private selectDateIndex: Number = 0;
-  private showDateIndex: Boolean = true;
+  private dateValue: string = "";
+  private salesVisitIndex: number = 0;
+  private selectDateIndex: number = 0;
+  private showDateIndex: boolean = true;
   private chartsData: any[] = [
     10,
     52,
@@ -122,7 +122,7 @@ export default class SalesVisit extends Vue {
     this.listenerShowDate();
     window.addEventListener("resize", throttle(this.listenerShowDate, 200));
   }
-  private clickSalesVisit(val: Number) {
+  private clickSalesVisit(val: number) {
     this.salesVisitIndex = val;
     if (val == 0) {
       this.chartsData = [100, 522, 20, 334, 30, 330, 220, 220, 33, 44, 555, 55];

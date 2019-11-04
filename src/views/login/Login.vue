@@ -105,8 +105,8 @@ import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 const userModule = namespace("user");
 
 interface USERINFO {
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 }
 
 @Component({
@@ -117,15 +117,15 @@ export default class Login extends Vue {
     username: "",
     password: ""
   };
-  Signing: Boolean = false;
-  isErrorMsg: Boolean = false;
-  errorMsg: String = "Incorrect username or password.";
+  Signing: boolean = false;
+  isErrorMsg: boolean = false;
+  errorMsg: string = "Incorrect username or password.";
   @userModule.Action("Login") Login!: Function;
 
   private submitUserInfo(): any {
     this.Signing = true;
-    let isKong: Boolean = Object.values(this.userInfo).some(
-      (val: String): Boolean => {
+    let isKong: boolean = Object.values(this.userInfo).some(
+      (val: string): boolean => {
         return val === "";
       }
     );

@@ -11,9 +11,9 @@ import { Component, Prop, Watch } from "vue-property-decorator";
   name: "SalesBarChart"
 })
 export default class extends mixins(resizeChart) {
-  @Prop({ default: "chart" }) private className!: String;
-  @Prop({ default: "100%" }) private width!: String;
-  @Prop({ default: "100%" }) private height!: String;
+  @Prop({ default: "chart" }) private className!: string;
+  @Prop({ default: "100%" }) private width!: string;
+  @Prop({ default: "100%" }) private height!: string;
   @Prop({ required: true }) private chartsData!: any[];
   @Watch("chartsData", { deep: true })
   private onChartDataChange(value: any[]) {

@@ -217,7 +217,7 @@ export const asyncRoutes: RouteConfig[] = [
         name: "Step-form",
         meta: {
           hidden: false,
-          title: "分布表单页",
+          title: "分布表单",
           icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
