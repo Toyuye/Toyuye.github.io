@@ -4,6 +4,8 @@ function resolve(dir) {
   return path.join(__dirname, "./");
 }
 module.exports = {
+  publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
+  assetsDir: "./",
   devServer: {
     port: 8888,
     open: true,
