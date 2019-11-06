@@ -298,7 +298,8 @@ export default class StepForm extends Vue {
     password: [{ required: true, message: "请输入支付密码", trigger: "blur" }]
   };
   private nextClick() {
-    this.$refs["stepsForm1"]["validate"](valid => {
+    const domStepsForm1: any = this.$refs["stepsForm1"];
+    domStepsForm1.validate((valid: boolean) => {
       if (valid) {
         this.stepActive++;
       }
@@ -308,7 +309,8 @@ export default class StepForm extends Vue {
     this.stepActive--;
   }
   private onSubmit() {
-    this.$refs["stepsForm2"]["validate"](valid => {
+    const domStepsForm2: any = this.$refs["stepsForm2"];
+    domStepsForm2.validate((valid: boolean) => {
       if (valid) {
         this.submitLoading = true;
         setTimeout(() => {

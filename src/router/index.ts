@@ -61,77 +61,18 @@ export const constantRoutes: RouteConfig[] = [
           )
       },
       {
-        path: "monitor",
-        name: "Monitor",
+        path: "workplace",
+        name: "workplace",
         meta: {
           hidden: false,
-          title: "监控页",
+          title: "工作台",
           icon: "wind-smile",
           isLogin: true,
           roles: ["admin"]
         },
         component: () =>
           import(
-            /* webpackChunkName: "monitor" */ "../views/dashboard/Monitor.vue"
-          )
-      }
-    ]
-  },
-  {
-    path: "/exception",
-    name: "Exception",
-    component: Layout,
-    meta: {
-      hidden: false,
-      title: "异常页",
-      icon: "new-releases",
-      isLogin: true,
-      roles: ["admin"]
-    },
-    children: [
-      {
-        path: "403",
-        name: "403",
-        meta: {
-          hidden: false,
-          title: "403",
-          icon: "wind-smile",
-          isLogin: true,
-          roles: ["admin"]
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "step-form" */ "../views/exception/403.vue"
-          )
-      },
-      {
-        path: "404",
-        name: "404",
-        meta: {
-          hidden: false,
-          title: "404",
-          icon: "wind-smile",
-          isLogin: true,
-          roles: ["admin"]
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "step-form" */ "../views/exception/404.vue"
-          )
-      },
-      {
-        path: "500",
-        name: "500",
-        meta: {
-          hidden: false,
-          title: "500",
-          icon: "wind-smile",
-          isLogin: true,
-          roles: ["admin"]
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "step-form" */ "../views/exception/500.vue"
+            /* webpackChunkName: "workplace" */ "../views/dashboard/Workplace.vue"
           )
       }
     ]
@@ -228,6 +169,76 @@ export const asyncRoutes: RouteConfig[] = [
           )
       }
     ]
+  },
+  {
+    path: "/exception",
+    name: "Exception",
+    component: Layout,
+    meta: {
+      hidden: false,
+      title: "异常页",
+      icon: "new-releases",
+      isLogin: true,
+      roles: ["admin"]
+    },
+    children: [
+      {
+        path: "403",
+        name: "403",
+        meta: {
+          hidden: false,
+          title: "403",
+          icon: "wind-smile",
+          isLogin: true,
+          roles: ["admin"]
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "step-form" */ "../views/exception/403.vue"
+          )
+      },
+      {
+        path: "404",
+        name: "404",
+        meta: {
+          hidden: false,
+          title: "404",
+          icon: "wind-smile",
+          isLogin: true,
+          roles: ["admin"]
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "step-form" */ "../views/exception/404.vue"
+          )
+      },
+      {
+        path: "500",
+        name: "500",
+        meta: {
+          hidden: false,
+          title: "500",
+          icon: "wind-smile",
+          isLogin: true,
+          roles: ["admin"]
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "step-form" */ "../views/exception/500.vue"
+          )
+      }
+    ]
+  },
+  {
+    path: "*",
+    redirect: "exception/404",
+    meta: {
+      hidden: true,
+      title: "404",
+      icon: "wind-smile",
+      isLogin: true,
+      roles: []
+    }
   }
 ];
 
