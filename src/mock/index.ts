@@ -3,6 +3,7 @@ import Mock from "mockjs";
 import { getParams, getParamsObj, hasUersFn } from "./mockMixin";
 import { accountCenterData } from "./accountCenterData";
 import { accountSettingData } from "./accountSettingData";
+import { workplaceData } from "./workplaceData";
 const asscessToken = "TOYUYEASSCESSTOKEN";
 
 const userList = [
@@ -73,11 +74,19 @@ const accountSetting = () => {
   };
   return data;
 };
+const workplace = () => {
+  let data = {
+    code: "0000",
+    data: workplaceData,
+    msg: "suceess"
+  };
+  return data;
+};
 Mock.mock(/\/Users\/login/, "post", loginToken);
 Mock.mock(/\/Users\/info/, "post", userInfo);
 Mock.mock(/\/Users\/logout/, "post", logout);
 
 Mock.mock(/\/Users\/center/, "get", accountCenter);
 Mock.mock(/\/Users\/setting/, "get", accountSetting);
-
+Mock.mock(/\/Dashboard\/workplace/, "get", workplace);
 export default Mock;

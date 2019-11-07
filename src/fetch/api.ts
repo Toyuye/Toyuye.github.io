@@ -36,3 +36,10 @@ export const accountSetting = () => {
     method: "get"
   });
 };
+
+export const workplace = () => {
+  return fetch({
+    url: "Dashboard/workplace",
+    method: "get"
+  });
+};
