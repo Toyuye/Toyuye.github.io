@@ -129,6 +129,30 @@
             <div slot="header" class="clearfix">
               <span style="font-size:15px">XX 指数</span>
             </div>
+            <div class="radar-content-box">
+              <div style="height:263px;width:100%;position: relative;"></div>
+              <div class="radar-legend">
+                <el-row>
+                  <el-col
+                    class="radar-legend-item-box"
+                    :span="8"
+                    v-for="(item, idx) in workplaceData.radar"
+                    :key="idx"
+                  >
+                    <div class="radar-legend-item">
+                      <p>
+                        <span
+                          class="dot"
+                          :style="{ background: item.color }"
+                        ></span>
+                        <span>{{ item.name }}</span>
+                      </p>
+                      <h6>{{ item.value }}</h6>
+                    </div>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
           </el-card>
           <el-card style="margin-bottom:20px;">
             <div slot="header" class="clearfix">
@@ -159,6 +183,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import PageHeader from "../../components/PageHeader.vue";
+
 @Component({
   name: "Workplace",
   components: {
@@ -286,6 +311,11 @@ export default class Workplace extends Vue {
         createdName: "品牌迭代",
         hoursAgo: "1小时前"
       }
+    ],
+    radar: [
+      { name: "个人", color: "rgb(24, 144, 255)", value: "34" },
+      { name: "团队", color: "rgb(250, 204, 20)", value: "24" },
+      { name: "部门", color: "rgb(47, 194, 91)", value: "22" }
     ],
     team: [
       {
@@ -505,6 +535,53 @@ export default class Workplace extends Vue {
       font-size: 14px;
       &:hover {
         color: #1890ff;
+      }
+    }
+  }
+  .radar-content-box {
+    padding: 20px;
+    zoom: 1;
+    .radar-legend {
+      margin-top: 16px;
+      .radar-legend-item-box {
+        &:last-child {
+          .radar-legend-item {
+            border: 0;
+          }
+        }
+      }
+      .radar-legend-item {
+        color: rgba(0, 0, 0, 0.45);
+        line-height: 22px;
+        text-align: center;
+        cursor: pointer;
+        border-right: 1px solid #e8e8e8;
+        p {
+          span {
+            color: rgba(0, 0, 0, 0.45);
+            line-height: 22px;
+            text-align: center;
+            cursor: pointer;
+            &.dot {
+              position: relative;
+              top: -1px;
+              display: inline-block;
+              width: 6px;
+              height: 6px;
+              margin-right: 6px;
+              border-radius: 6px;
+              background: red;
+            }
+          }
+        }
+        h6 {
+          margin-top: 4px;
+          margin-bottom: 0;
+          padding-left: 16px;
+          color: rgba(0, 0, 0, 0.85);
+          font-size: 24px;
+          line-height: 32px;
+        }
       }
     }
   }
