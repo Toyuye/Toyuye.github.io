@@ -150,9 +150,9 @@ export default class Tim extends Vue {
     this.addShowInput = false;
   }
   created() {
-    okzyApi().then((res:any) => {
-      console.log(res)
-    })
+    okzyApi().then((res: any) => {
+      console.log(res);
+    });
   }
 }
 </script>

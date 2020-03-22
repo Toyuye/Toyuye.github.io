@@ -44,7 +44,6 @@ export const workplace = () => {
   });
 };
 
-
 export const okzyApi = () => {
   return fetch({
     url: "https://api.okzy.tv/api.php/provide/vod/at/json/",
@@ -53,5 +52,5 @@ export const okzyApi = () => {
       ac: "list",
       pg: 1
     }
-  })
-}
+  });
+};
