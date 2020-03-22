@@ -9,9 +9,10 @@ const service: any = axios.create({
 // request
 service.interceptors.request.use(
   (config: any) => {
-    if (user.state.token) {
-      config.headers["X-Access-Toyuye-Token"] = getToken();
-    }
+    // tim 网站 暂时去掉
+    // if (user.state.token) {
+    //   config.headers["X-Access-Toyuye-Token"] = getToken();
+    // }
     if (config.method === "form") {
       config.method = "post";
       config.data = qs.stringify(config.data);

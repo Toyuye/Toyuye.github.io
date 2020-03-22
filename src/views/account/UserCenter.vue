@@ -593,6 +593,7 @@ export default class UserInfo extends Vue {
             p {
               font-size: 24px;
               line-height: 32px;
+              height: 32px;
               width: 100%;
               overflow: hidden;
               text-overflow: ellipsis;

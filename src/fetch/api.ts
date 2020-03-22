@@ -39,7 +39,19 @@ export const accountSetting = () => {
 
 export const workplace = () => {
   return fetch({
-    url: "Dashboard/workplace",
+    url: "/Dashboard/workplace",
     method: "get"
   });
 };
+
+
+export const okzyApi = () => {
+  return fetch({
+    url: "https://api.okzy.tv/api.php/provide/vod/at/json/",
+    method: "post",
+    data: {
+      ac: "list",
+      pg: 1
+    }
+  })
+}
