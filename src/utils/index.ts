@@ -49,7 +49,7 @@ const $storage = () => {
     return storage;
   } catch (error) {
     storage.setItem = (key: string, value: string) => {
-      setCookie(key, value, "M1");
+      setCookie(key, value, "d1");
     };
     storage.getItem = (key: string, value: string) => {
       return getCookie(key);
