@@ -8,17 +8,21 @@
         <el-col :span="24">
           <el-input
             placeholder="Tim-邀您输入搜索关键字"
-            v-model="searcForm.content"
+            v-model="searcForm.wd"
             class="input-with-select"
           >
             <el-select
-              v-model="searcForm.type"
+              v-model="searcForm.t"
               slot="prepend"
               placeholder="请选择"
+              style="width:90px;"
             >
-              <el-option label="餐厅名" value="1"></el-option>
-              <el-option label="订单号" value="2"></el-option>
-              <el-option label="用户电话" value="3"></el-option>
+              <el-option
+                :label="item.type_name"
+                :value="String(item.type_id)"
+                v-for="item in classData"
+                :key="item.type_id"
+              ></el-option>
             </el-select>
             <el-button
               slot="append"
@@ -29,9 +33,9 @@
         </el-col>
       </el-row>
     </header>
-    <div>
+    <div class="tim-app-view">
       <el-row style="margin:0 -6px;">
-        <el-col :xs="24" :md="7" style="padding:0 6px;">
+        <el-col :xs="24" :md="24" style="padding:0 6px;">
           <div class="card-box">
             <el-card>
               <div class="user-name-container">
@@ -42,7 +46,7 @@
                 >
                 </el-avatar>
                 <div class="user-name">{{ "TimFUN" }}</div>
-                <div>{{ "屌丝" }}</div>
+                <div>{{ "欢迎来到TimFUN小站" }}</div>
               </div>
               <div class="user-detaile-container">
                 <p>
@@ -63,10 +67,12 @@
                 <h6>标签</h6>
                 <span
                   class="tag"
-                  v-for="(item, index) in accountCenterData.tag"
-                  :key="index"
-                  >{{ item }}</span
+                  v-for="item in classData"
+                  :key="item.type_id"
+                  @click="handleClickActiveName({ name: String(item.type_id) })"
                 >
+                  {{ item.type_name }}
+                </span>
                 <span
                   class="tag add-tag-plus"
                   v-if="!addShowInput"
@@ -110,8 +116,52 @@
             </el-card>
           </div>
         </el-col>
-        <el-col :xs="24" :md="17" style="padding:0 6px;">
-          <div class="tab-pane-container">111111</div>
+        <el-col :xs="24" :md="24" style="padding:0 6px;">
+          <div class="tab-pane-container">
+            <el-tabs
+              v-model="activeName"
+              type="card"
+              @tab-click="handleClickActiveName"
+            >
+              <el-tab-pane
+                v-for="item in classData"
+                :label="item.type_name"
+                :name="String(item.type_id)"
+                :key="item.type_id"
+              >
+                <div v-if="activeName == String(item.type_id)">
+                  <el-table :data="searchListData" border style="width: 100%">
+                    <el-table-column fixed prop="vod_name" label="影片名称">
+                    </el-table-column>
+                    <el-table-column
+                      fixed
+                      prop="type_name"
+                      label="影片类型"
+                      align="center"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                      fixed
+                      prop="vod_time"
+                      label="更新时间"
+                      align="center"
+                    >
+                    </el-table-column>
+                    <el-table-column fixed="right" label="操作" width="50">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click="LookHandleClick(scope.row)"
+                          type="text"
+                          size="small"
+                          >查看</el-button
+                        >
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -122,25 +172,38 @@ import { Vue, Component, Provide } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 import { okzyApi } from "../../fetch/api";
 interface SearcForm {
-  content: string;
-  type: string;
+  ac: string; // list | detail
+  wd: string; //搜索关键字
+  t: string; // 类型
+  pg: string; // 页码
+  h: string; // 几小时内的数据
+  ids: string; // 逗号分隔 详情id
 }
-
+// CK播放器解析接口： https://www.dplayer.tv/?url=
+// DP播放器解析接口： https://www.dplayer.tv/dp/?url=
 @Component({
   name: "Tim"
 })
 export default class Tim extends Vue {
+  private firstLookPage: number = 1;
+  private activeName: string = "99999";
+  private classData: Array<any> = [];
+  private searchListData: Array<any> = [];
   private addShowInput: boolean = false;
   private addTagInput: string = "";
   private accountCenterData: any = {
     tag: []
   };
   private searcForm: SearcForm = {
-    content: "",
-    type: ""
+    ac: "",
+    wd: "",
+    t: "",
+    pg: "1",
+    h: "",
+    ids: ""
   };
   private searchSubmit() {
-    console.log(this.searcForm);
+    this.getokzyData();
   }
   private addTagBlur() {
     this.addTagInput !== ""
@@ -149,14 +212,40 @@ export default class Tim extends Vue {
     this.addTagInput = "";
     this.addShowInput = false;
   }
-  created() {
-    okzyApi().then((res: any) => {
-      console.log(res);
+  private getokzyData() {
+    okzyApi(this.searcForm).then(({ data }: any) => {
+      if (this.firstLookPage <= 1) {
+        this.classData = data.class.slice(5, 31);
+        this.classData.unshift({
+          type_id: "99999",
+          type_name: "首页"
+        });
+        this.firstLookPage++;
+      }
+      this.searchListData = data.list;
     });
+  }
+  private handleClickActiveName(tab: any) {
+    this.activeName = tab.name;
+    this.activeName == "99999"
+      ? (this.searcForm.t = "")
+      : (this.searcForm.t = this.activeName);
+    this.getokzyData();
+  }
+  private LookHandleClick(data: any) {
+    console.log(data);
+  }
+  created() {
+    this.getokzyData();
   }
 }
 </script>
 <style lang="scss" scoped>
+.tim-app-view {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 76px;
+}
 .search-head {
   height: 64px;
   background: #fff;
@@ -169,6 +258,9 @@ export default class Tim extends Vue {
   padding: 0 12px;
   box-sizing: border-box;
   margin-bottom: 12px;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 .toyuye-divider {
   background: 0 0;
@@ -291,6 +383,6 @@ export default class Tim extends Vue {
   overflow: hidden;
   -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  padding: 0 12px;
+  padding: 12px;
 }
 </style>

@@ -44,13 +44,10 @@ export const workplace = () => {
   });
 };
 
-export const okzyApi = () => {
+export const okzyApi = (data: any) => {
   return fetch({
     url: "https://api.okzy.tv/api.php/provide/vod/at/json/",
     method: "post",
-    data: {
-      ac: "list",
-      pg: 1
-    }
+    data
   });
 };
