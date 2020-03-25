@@ -16,6 +16,7 @@
               slot="prepend"
               placeholder="请选择"
               style="width:90px;"
+              @change="typeSearchSelect"
             >
               <el-option
                 :label="item.type_name"
@@ -35,7 +36,7 @@
     </header>
     <div class="tim-app-view">
       <el-row style="margin:0 -6px;">
-        <el-col :xs="24" :md="24" style="padding:0 6px;">
+        <el-col :xs="24" :md="6" style="padding:0 6px;">
           <div class="card-box">
             <el-card>
               <div class="user-name-container">
@@ -48,7 +49,7 @@
                 <div class="user-name">{{ "TimFUN" }}</div>
                 <div>{{ "欢迎来到TimFUN小站" }}</div>
               </div>
-              <div class="user-detaile-container">
+              <!-- <div class="user-detaile-container">
                 <p>
                   <i class="title"></i>
                   {{ "accountCenterData.title" }}
@@ -61,7 +62,7 @@
                   <i class="address"></i>
                   {{ "accountCenterData.location" }}
                 </p>
-              </div>
+              </div> -->
               <div class="toyuye-divider"></div>
               <div class="user-tags-container">
                 <h6>标签</h6>
@@ -92,8 +93,8 @@
                   v-if="addShowInput"
                 ></el-input>
               </div>
-              <div class="toyuye-divider"></div>
-              <div class="user-team-container">
+              <!-- <div class="toyuye-divider"></div> -->
+              <!-- <div class="user-team-container">
                 <h6>团队</h6>
                 <el-row style="margin: 0 -18px;">
                   <el-col
@@ -112,17 +113,13 @@
                     </router-link>
                   </el-col>
                 </el-row>
-              </div>
+              </div> -->
             </el-card>
           </div>
         </el-col>
-        <el-col :xs="24" :md="24" style="padding:0 6px;">
+        <el-col :xs="24" :md="18" style="padding:0 6px;">
           <div class="tab-pane-container">
-            <el-tabs
-              v-model="activeName"
-              type="card"
-              @tab-click="handleClickActiveName"
-            >
+            <el-tabs v-model="activeName" @tab-click="handleClickActiveName">
               <el-tab-pane
                 v-for="item in classData"
                 :label="item.type_name"
@@ -153,7 +150,7 @@
                           @click="LookHandleClick(scope.row)"
                           type="text"
                           size="small"
-                          >查看</el-button
+                          >详情</el-button
                         >
                       </template>
                     </el-table-column>
@@ -202,8 +199,12 @@ export default class Tim extends Vue {
     h: "",
     ids: ""
   };
-  private searchSubmit() {
-    this.getokzyData();
+  private typeSearchSelect(value: any) {
+    this.handleClickActiveName({ name: value });
+  }
+  private async searchSubmit() {
+    await this.getokzyData();
+    this.searcForm.wd = "";
   }
   private addTagBlur() {
     this.addTagInput !== ""
@@ -212,7 +213,7 @@ export default class Tim extends Vue {
     this.addTagInput = "";
     this.addShowInput = false;
   }
-  private getokzyData() {
+  private async getokzyData() {
     okzyApi(this.searcForm).then(({ data }: any) => {
       if (this.firstLookPage <= 1) {
         this.classData = data.class.slice(5, 31);
@@ -284,30 +285,30 @@ export default class Tim extends Vue {
       line-height: 28px;
     }
   }
-  .user-detaile-container {
-    p {
-      position: relative;
-      margin-bottom: 8px;
-      padding-left: 26px;
-      i {
-        position: absolute;
-        top: 4px;
-        left: 0;
-        width: 14px;
-        height: 14px;
-        background: url("https://gw.alipayobjects.com/zos/rmsportal/pBjWzVAHnOOtAUvZmZfy.svg");
-        &.title {
-          background-position: 0 0;
-        }
-        &.group {
-          background-position: 0 -22px;
-        }
-        &.address {
-          background-position: 0 -44px;
-        }
-      }
-    }
-  }
+  // .user-detaile-container {
+  //   p {
+  //     position: relative;
+  //     margin-bottom: 8px;
+  //     padding-left: 26px;
+  //     i {
+  //       position: absolute;
+  //       top: 4px;
+  //       left: 0;
+  //       width: 14px;
+  //       height: 14px;
+  //       background: url("https://gw.alipayobjects.com/zos/rmsportal/pBjWzVAHnOOtAUvZmZfy.svg");
+  //       &.title {
+  //         background-position: 0 0;
+  //       }
+  //       &.group {
+  //         background-position: 0 -22px;
+  //       }
+  //       &.address {
+  //         background-position: 0 -44px;
+  //       }
+  //     }
+  //   }
+  // }
   .user-tags-container {
     h6 {
       margin-bottom: 12px;
@@ -342,35 +343,35 @@ export default class Tim extends Vue {
       }
     }
   }
-  .user-team-container {
-    h6 {
-      margin-bottom: 12px;
-      color: rgba(0, 0, 0, 0.85);
-      font-weight: 500;
-    }
-    .item-p {
-      margin-bottom: 24px;
-      overflow: hidden;
-      color: rgba(0, 0, 0, 0.65);
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      word-break: break-all;
-      transition: color 0.3s;
-      display: block;
-      height: 24px;
-      line-height: 24px;
-      &:hover {
-        color: #1890ff;
-      }
-      img {
-        border-radius: 100%;
-        float: left;
-        margin-right: 12px;
-        height: 24px;
-        width: 24px;
-      }
-    }
-  }
+  // .user-team-container {
+  //   h6 {
+  //     margin-bottom: 12px;
+  //     color: rgba(0, 0, 0, 0.85);
+  //     font-weight: 500;
+  //   }
+  //   .item-p {
+  //     margin-bottom: 24px;
+  //     overflow: hidden;
+  //     color: rgba(0, 0, 0, 0.65);
+  //     white-space: nowrap;
+  //     text-overflow: ellipsis;
+  //     word-break: break-all;
+  //     transition: color 0.3s;
+  //     display: block;
+  //     height: 24px;
+  //     line-height: 24px;
+  //     &:hover {
+  //       color: #1890ff;
+  //     }
+  //     img {
+  //       border-radius: 100%;
+  //       float: left;
+  //       margin-right: 12px;
+  //       height: 24px;
+  //       width: 24px;
+  //     }
+  //   }
+  // }
 }
 
 .tab-pane-container {
