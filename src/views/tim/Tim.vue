@@ -120,6 +120,18 @@
                       </template>
                     </el-table-column>
                   </el-table>
+                  <div
+                    style="dispaly:flex;justify-content: end;padding: 12px 0;overflow:hidden;"
+                  >
+                    <el-pagination
+                      background
+                      layout="prev,pager,next"
+                      :total="1000"
+                      :current-page="Number(searcForm.pg)"
+                      @current-change="changeCurrentPg"
+                    >
+                    </el-pagination>
+                  </div>
                 </div>
               </el-tab-pane>
             </el-tabs>
@@ -196,6 +208,7 @@ export default class Tim extends Vue {
     this.activeName == "99999"
       ? (this.searcForm.t = "")
       : (this.searcForm.t = this.activeName);
+    this.searcForm.pg = "1";
     this.getokzyData();
   }
   private LookHandleClick(data: any) {
@@ -205,6 +218,10 @@ export default class Tim extends Vue {
         ids: data.vod_id
       }
     });
+  }
+  private changeCurrentPg(val: number) {
+    this.searcForm.pg = String(val);
+    this.getokzyData();
   }
   created() {
     if (this.$route.query.wd) {
@@ -242,6 +259,40 @@ export default class Tim extends Vue {
   position: fixed;
   top: 0;
   z-index: 100;
+}
+.user-tags-container {
+  h6 {
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+  }
+  .tag {
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    font-feature-settings: "tnum";
+    display: inline-block;
+    height: auto;
+    margin: 0 8px 0 0;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    cursor: default;
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    margin-bottom: 8px;
+    &.add-tag-plus {
+      background: rgb(255, 255, 255);
+      border-style: dashed;
+    }
+  }
 }
 .toyuye-divider {
   background: 0 0;
