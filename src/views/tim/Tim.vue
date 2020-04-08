@@ -50,7 +50,7 @@
                 <div>{{ "关注公众号：TimelyFun" }}</div>
               </div>
               <div class="toyuye-divider"></div>
-              <div class="user-tags-container">
+              <!-- <div class="user-tags-container">
                 <h6>标签</h6>
                 <span
                   class="tag"
@@ -78,7 +78,7 @@
                   @blur="addTagBlur"
                   v-if="addShowInput"
                 ></el-input>
-              </div>
+              </div> -->
             </el-card>
           </div>
         </el-col>
@@ -126,7 +126,7 @@
                     <el-pagination
                       background
                       layout="prev,pager,next"
-                      :total="1000"
+                      :total="totalNum"
                       :current-page="Number(searcForm.pg)"
                       @current-change="changeCurrentPg"
                     >
@@ -165,6 +165,7 @@ export default class Tim extends Vue {
   private searchListData: Array<any> = [];
   private addShowInput: boolean = false;
   private addTagInput: string = "";
+  private totalNum: number = 0;
   private accountCenterData: any = {
     tag: []
   };
@@ -201,6 +202,7 @@ export default class Tim extends Vue {
         this.firstLookPage++;
       }
       this.searchListData = data.list;
+      this.totalNum = data.total;
     });
   }
   private handleClickActiveName(tab: any) {
