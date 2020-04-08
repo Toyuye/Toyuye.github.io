@@ -33,6 +33,7 @@ module.exports = {
     config.when(process.env.NODE_ENV !== "development", config => {
       config.optimization.splitChunks({
         chunks: "all",
+        minSize: 10,
         cacheGroups: {
           libs: {
             name: "chunk-libs",
