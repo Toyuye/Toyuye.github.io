@@ -23,7 +23,20 @@ export const constantRoutes: RouteConfig[] = [
     path: "/tim",
     name: "Tim",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/tim/Tim.vue"),
+      import(/* webpackChunkName: "tim" */ "../views/tim/Tim.vue"),
+    meta: {
+      hidden: true,
+      title: "TimFUN小站<>",
+      icon: "user-group-fill",
+      isLogin: false,
+      roles: []
+    }
+  },
+  {
+    path: "/tim/detail",
+    name: "TimDetail",
+    component: () =>
+      import(/* webpackChunkName: "timdetail" */ "../views/tim/TimDetail.vue"),
     meta: {
       hidden: true,
       title: "TimFUN小站<>",

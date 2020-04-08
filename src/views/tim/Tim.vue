@@ -49,20 +49,6 @@
                 <div class="user-name">{{ "TimFUN" }}</div>
                 <div>{{ "欢迎来到TimFUN小站" }}</div>
               </div>
-              <!-- <div class="user-detaile-container">
-                <p>
-                  <i class="title"></i>
-                  {{ "accountCenterData.title" }}
-                </p>
-                <p>
-                  <i class="group"></i>
-                  {{ "accountCenterData.organization" }}
-                </p>
-                <p>
-                  <i class="address"></i>
-                  {{ "accountCenterData.location" }}
-                </p>
-              </div> -->
               <div class="toyuye-divider"></div>
               <div class="user-tags-container">
                 <h6>标签</h6>
@@ -93,27 +79,6 @@
                   v-if="addShowInput"
                 ></el-input>
               </div>
-              <!-- <div class="toyuye-divider"></div> -->
-              <!-- <div class="user-team-container">
-                <h6>团队</h6>
-                <el-row style="margin: 0 -18px;">
-                  <el-col
-                    :xs="24"
-                    :sm="24"
-                    :md="12"
-                    :lg="12"
-                    v-for="(item, index) in []"
-                    :key="index"
-                    style="padding: 0 18px;"
-                  >
-                    <router-link to="/">
-                      <p class="item-p">
-                        <img :src="item.url" alt="" />{{ item.name }}
-                      </p>
-                    </router-link>
-                  </el-col>
-                </el-row>
-              </div> -->
             </el-card>
           </div>
         </el-col>
@@ -234,10 +199,25 @@ export default class Tim extends Vue {
     this.getokzyData();
   }
   private LookHandleClick(data: any) {
-    console.log(data);
+    this.$router.push({
+      path: "/tim/detail",
+      query: {
+        ids: data.vod_id
+      }
+    });
   }
   created() {
-    this.getokzyData();
+    if (this.$route.query.wd) {
+      this.searcForm.wd = this.$route.query.wd;
+      this.$router.replace({
+        query: {
+          wd: ""
+        }
+      });
+      this.searchSubmit();
+    } else {
+      this.getokzyData();
+    }
   }
 }
 </script>
@@ -285,95 +265,7 @@ export default class Tim extends Vue {
       line-height: 28px;
     }
   }
-  // .user-detaile-container {
-  //   p {
-  //     position: relative;
-  //     margin-bottom: 8px;
-  //     padding-left: 26px;
-  //     i {
-  //       position: absolute;
-  //       top: 4px;
-  //       left: 0;
-  //       width: 14px;
-  //       height: 14px;
-  //       background: url("https://gw.alipayobjects.com/zos/rmsportal/pBjWzVAHnOOtAUvZmZfy.svg");
-  //       &.title {
-  //         background-position: 0 0;
-  //       }
-  //       &.group {
-  //         background-position: 0 -22px;
-  //       }
-  //       &.address {
-  //         background-position: 0 -44px;
-  //       }
-  //     }
-  //   }
-  // }
-  .user-tags-container {
-    h6 {
-      margin-bottom: 12px;
-      color: rgba(0, 0, 0, 0.85);
-      font-weight: 500;
-    }
-    .tag {
-      box-sizing: border-box;
-      color: rgba(0, 0, 0, 0.65);
-      font-size: 14px;
-      font-variant: tabular-nums;
-      line-height: 1.5;
-      list-style: none;
-      font-feature-settings: "tnum";
-      display: inline-block;
-      height: auto;
-      margin: 0 8px 0 0;
-      padding: 0 7px;
-      font-size: 12px;
-      line-height: 20px;
-      white-space: nowrap;
-      background: #fafafa;
-      border: 1px solid #d9d9d9;
-      border-radius: 4px;
-      cursor: default;
-      opacity: 1;
-      transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-      margin-bottom: 8px;
-      &.add-tag-plus {
-        background: rgb(255, 255, 255);
-        border-style: dashed;
-      }
-    }
-  }
-  // .user-team-container {
-  //   h6 {
-  //     margin-bottom: 12px;
-  //     color: rgba(0, 0, 0, 0.85);
-  //     font-weight: 500;
-  //   }
-  //   .item-p {
-  //     margin-bottom: 24px;
-  //     overflow: hidden;
-  //     color: rgba(0, 0, 0, 0.65);
-  //     white-space: nowrap;
-  //     text-overflow: ellipsis;
-  //     word-break: break-all;
-  //     transition: color 0.3s;
-  //     display: block;
-  //     height: 24px;
-  //     line-height: 24px;
-  //     &:hover {
-  //       color: #1890ff;
-  //     }
-  //     img {
-  //       border-radius: 100%;
-  //       float: left;
-  //       margin-right: 12px;
-  //       height: 24px;
-  //       width: 24px;
-  //     }
-  //   }
-  // }
 }
-
 .tab-pane-container {
   order: 1px solid #ebeef5;
   background-color: #fff;
