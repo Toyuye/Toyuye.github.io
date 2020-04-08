@@ -46,8 +46,8 @@
                   :src="require('../../assets/timfun.jpg')"
                 >
                 </el-avatar>
-                <div class="user-name">{{ "TimFUN" }}</div>
-                <div>{{ "欢迎来到TimFUN小站" }}</div>
+                <!-- <div class="user-name">{{ "公众号TimelyFun" }}</div> -->
+                <div>{{ "关注公众号：TimelyFun" }}</div>
               </div>
               <div class="toyuye-divider"></div>
               <div class="user-tags-container">
