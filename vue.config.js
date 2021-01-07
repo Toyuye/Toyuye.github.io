@@ -27,9 +27,9 @@ module.exports = {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     // https://webpack.js.org/configuration/devtool/#development
-    config.when(process.env.NODE_ENV === "development", config =>
-      config.devtool("cheap-source-map")
-    );
+    // config.when(process.env.NODE_ENV === "development", config =>
+    //   config.devtool("cheap-source-map")
+    // );
     config.when(process.env.NODE_ENV !== "development", config => {
       config.optimization.splitChunks({
         chunks: "all",
