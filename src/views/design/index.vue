@@ -75,6 +75,7 @@ import ModuleComponent from "./ModuleComponent.vue";
 import AttributeComponent from "./AttributeComponent.vue";
 
 const designModule = namespace("design");
+
 @Component({
   name: "Design",
   components: {
@@ -215,11 +216,11 @@ export default class Design extends Vue {
     width: 320px;
     min-width: 320px;
   }
-  
   &-mobile {
     width: calc(100vw - 320px - 360px);
     min-width: 475px;
     background: pink;
+    height: 100%;
   }
 
   &-attribute {

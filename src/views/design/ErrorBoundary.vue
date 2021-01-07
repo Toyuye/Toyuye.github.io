@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{overflowY: 'auto', overflowX: 'hidden', height: '100%'}">
     <div v-if="childError">
       {{ tips }}
     </div>

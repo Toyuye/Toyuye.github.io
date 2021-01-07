@@ -18,7 +18,7 @@ const actions: ActionTree<any, any> = {
   getDesignPage({ dispatch }: { dispatch: Dispatch }, payload: any) {
     return new Promise((resolve, reject) => {
       console.log(1111);
-      dispatch("updateComponentList", [1, 2]);
+      dispatch("updateComponentList", [1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
       dispatch("updatePageSetting", {});
       dispatch("updateComponentSetting", {});
       setTimeout(() => {
