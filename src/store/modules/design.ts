@@ -18,7 +18,29 @@ const actions: ActionTree<any, any> = {
   getDesignPage({ dispatch }: { dispatch: Dispatch }, payload: any) {
     return new Promise((resolve, reject) => {
       console.log(1111);
-      dispatch("updateComponentList", [1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
+      dispatch("updateComponentList", [
+        { name: "文本", id: 1 },
+        { name: "文本", id: 2 },
+        { name: "文本", id: 3 },
+        { name: "文本", id: 4 },
+        { name: "文本", id: 5 },
+        { name: "文本", id: 6 },
+        { name: "文本", id: 7 },
+        { name: "文本", id: 8 },
+        { name: "文本", id: 9 },
+        { name: "文本", id: 10 },
+        { name: "文本", id: 11 },
+        { name: "文本", id: 12 },
+        { name: "文本", id: 13 },
+        { name: "文本", id: 14 },
+        { name: "文本", id: 15 },
+        { name: "文本", id: 16 },
+        { name: "文本", id: 17 },
+        { name: "文本", id: 18 },
+        { name: "文本", id: 19 },
+        { name: "文本", id: 20 },
+        { name: "文本", id: 21 }
+      ]);
       dispatch("updatePageSetting", {});
       dispatch("updateComponentSetting", {});
       setTimeout(() => {

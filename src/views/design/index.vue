@@ -6,61 +6,80 @@
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.5)"
   >
-    <div class="design-layout-header">
-      <div class="design-layout-header-template">
-        <div class="template-change-handle" @click="onChangeTemplate">
-          <i class="iconfont icon-folder-open"></i>
-          切换模板
-          <i class="iconfont icon-switch"></i>
-        </div>
-      </div>
-      <div class="design-layout-header-title">{{ "-----title-----" }}</div>
-      <div class="design-layout-header-setting">
-        <div class="layout-header-setting-item" @click="onDesignGuide">
-          <i class="iconfont icon-paper-plane"></i>
-          指南
-        </div>
-        <div class="layout-header-setting-item" @click="onDesignPreview">
-          <i class="iconfont icon-external-link"></i>
-          预览
-        </div>
-        <div class="layout-header-setting-item" @click="onDesignSave">
-          <i class="iconfont icon-save"></i>
-          保存
-        </div>
-        <div class="layout-header-setting-item">
-          <el-dropdown
-            size="small"
-            split-button
-            type="primary"
-            @command="vCommand => this[vCommand]()"
-          >
-            发布
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="onDesignPublishNow"
-                >立即发布</el-dropdown-item
-              >
-              <el-dropdown-item command="onDesignRegularRelease"
-                >定时发布</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div>
-    </div>
+    <HeaderComponent></HeaderComponent>
     <div class="design-layout-main">
       <div class="design-layout-main-module">
-        <ModuleComponent></ModuleComponent>
+        <div v-if="moduleComponent.length == 0" style="height: 100%">
+          <div class="module-tabs-wrap">
+            <div
+              @click="() => onModuleTabsChange(tabItem.name)"
+              :class="{
+                'module-tabs-item': true,
+                'module-tabs-item-active': activeTabsComponent == tabItem.name
+              }"
+              v-for="tabItem in moduleTabs"
+              :key="tabItem.name"
+            >
+              <el-tooltip
+                effect="dark"
+                :content="tabItem.tips"
+                placement="bottom"
+                :tabindex="-1"
+              >
+                <div class="tips-wrap">
+                  <i :class="`iconfont icon-${tabItem.iconName}`"></i>
+                </div>
+              </el-tooltip>
+            </div>
+          </div>
+          <div
+            class="module-create-package-wrap"
+            v-if="
+              activeTabsComponent == 'ModulePackageComponent' ||
+                activeTabsComponent == 'ModuleManagementComponent'
+            "
+          >
+            <div class="module-create-package-title">
+              {{
+                activeTabsComponent == "ModulePackageComponent"
+                  ? "我的组件包"
+                  : "组件管理"
+              }}
+            </div>
+            <div class="module-create-package-tips">
+              {{
+                activeTabsComponent == "ModulePackageComponent"
+                  ? "拖拽至中间使用"
+                  : "上下拖动可重新排序"
+              }}
+            </div>
+            <div class="module-create-package" @click="onCreatePackage">
+              创建组件包
+            </div>
+          </div>
+          <component :is="activeTabsComponent"></component>
+          <div class="module-feedback-footer">意见反馈</div>
+        </div>
+        <div v-else class="module-tabs-nodata">
+          <div class="iconfont icon-mobile-error"></div>
+          <div class="module-tabs-nodata-tips">该模板可用组件为空</div>
+        </div>
       </div>
       <div class="design-layout-main-mobile">
-        <ErrorBoundary tips="moblieComponent item error">
+        <OverlayScrollbarsComponent
+          :options="{ scrollbars: { autoHide: 'scroll' } }"
+          :style="{ height: '100%' }"
+        >
           <MoblieComponent></MoblieComponent>
-        </ErrorBoundary>
+        </OverlayScrollbarsComponent>
       </div>
       <div class="design-layout-main-attribute">
-        <ErrorBoundary tips="moblieAttribute item error">
+        <OverlayScrollbarsComponent
+          :options="{ scrollbars: { autoHide: 'scroll' } }"
+          :style="{ height: '100%' }"
+        >
           <AttributeComponent></AttributeComponent>
-        </ErrorBoundary>
+        </OverlayScrollbarsComponent>
       </div>
     </div>
   </div>
@@ -68,10 +87,13 @@
 <script lang="ts">
 import { Vue, Component, Provide } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
-
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
+import HeaderComponent from "./HeaderComponent.vue";
 import ErrorBoundary from "./ErrorBoundary.vue";
 import MoblieComponent from "./MobileComponent.vue";
 import ModuleComponent from "./ModuleComponent.vue";
+import ModulePackageComponent from "./ModulePackageComponent.vue";
+import ModuleManagementComponent from "./ModuleManagementComponent.vue";
 import AttributeComponent from "./AttributeComponent.vue";
 
 const designModule = namespace("design");
@@ -79,13 +101,32 @@ const designModule = namespace("design");
 @Component({
   name: "Design",
   components: {
+    OverlayScrollbarsComponent,
+    HeaderComponent,
     ErrorBoundary,
     MoblieComponent,
     ModuleComponent,
+    ModulePackageComponent,
+    ModuleManagementComponent,
     AttributeComponent
   }
 })
 export default class Design extends Vue {
+  moduleComponent: any[] = [];
+  moduleTabs: any[] = [
+    { name: "ModuleComponent", iconName: "database-set", tips: "组件库" },
+    {
+      name: "ModulePackageComponent",
+      iconName: "database-set",
+      tips: "我的组件包"
+    },
+    {
+      name: "ModuleManagementComponent",
+      iconName: "database-set",
+      tips: "组件管理"
+    }
+  ];
+  activeTabsComponent: string = "ModuleComponent";
   loading: boolean = true;
   @designModule.Action("getDesignPage") getDesignPage!: Function;
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
@@ -97,23 +138,11 @@ export default class Design extends Vue {
     });
     this.loading = false;
   }
-  public onChangeTemplate() {
-    alert("=====>>>> 切换模板");
+  public onModuleTabsChange(activeName: string) {
+    this.activeTabsComponent = activeName;
   }
-  public onDesignGuide() {
-    console.log("guide");
-  }
-  public onDesignPreview() {
-    console.log("preview");
-  }
-  public onDesignSave() {
-    console.log("save");
-  }
-  public onDesignPublishNow() {
-    console.log("publish now");
-  }
-  public onDesignRegularRelease() {
-    console.log("regular release");
+  public onCreatePackage() {
+    console.log("创建组件包--------------->>>>");
   }
 }
 </script>
@@ -124,88 +153,93 @@ export default class Design extends Vue {
   overflow: hidden;
   position: relative;
 }
-.design-layout-header {
-  width: 100%;
+
+.module-tabs-wrap {
+  height: 30px;
+  background: #f8f9fa;
   display: flex;
   align-items: center;
-  height: 50px;
-  display: flex;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9e7ec;
-  box-shadow: 2px 6px 6px #eee;
-  position: relative;
-  z-index: 100;
-  &-template {
-    padding-left: 20px;
-    width: 320px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    min-width: 320px;
-    overflow: hidden;
-    .template-change-handle {
-      font-size: 14px;
-      color: #595961;
-      cursor: pointer;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      border-radius: 6px;
-      transition: all 0.3s;
-      &:hover {
-        background: #eef0f4;
-      }
-      > i {
-        margin: 0 5px;
-        &:first-child {
-          margin-left: 0;
-        }
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-  &-title {
-    background: pink;
+  padding: 10px;
+  .module-tabs-item {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 475px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  &-setting {
-    display: flex;
-    justify-content: flex-end;
-    width: 360px;
-    box-sizing: border-box;
-    padding-right: 20px;
-    align-items: center;
-    min-width: 360px;
-    .layout-header-setting-item {
-      cursor: pointer;
-      color: #595961;
-      &:not(:last-child) {
-        height: 32px;
-        width: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        margin-right: 10px;
-        transition: all 0.3s;
-        > i {
-          margin-right: 5px;
-        }
-        &:hover {
-          background: #eef0f4;
-        }
+    height: 100%;
+    border: 1px solid #e8e8e8;
+    &-active {
+      background-color: #2589ff;
+      color: #fff;
+      border-color: #2589ff;
+    }
+    &:first-child {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    &:last-child {
+      border-bottom-right-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+    &:not(:first-child) {
+      border-left: 0;
+    }
+    .tips-wrap {
+      width: 80%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i {
+        font-size: 16px;
       }
     }
+  }
+}
+.module-create-package-wrap {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e3e2e5;
+  box-sizing: border-box;
+  height: 40px;
+  justify-content: space-between;
+  margin: 0 20px 0 10px;
+  padding-left: 5px;
+  font-size: 12px;
+  .module-create-package-title {
+    font-weight: 600;
+    color: #595961;
+    width: 70px;
+  }
+  .module-create-package-tips {
+    flex: 1;
+    padding-left: 5px;
+    font-size: 12px;
+    color: #9797a1;
+  }
+  .module-create-package {
+    cursor: pointer;
+    color: #2589ff;
+  }
+}
+.module-feedback-footer {
+  box-sizing: border-box;
+  border-top: 1px solid #e3e2e5;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+.module-tabs-nodata {
+  text-align: center;
+  .icon-mobile-error {
+    margin-top: 60px;
+    font-size: 60px;
+    color: #9797a1;
+  }
+  &-tips {
+    color: #9797a1;
+    margin: 10px auto;
   }
 }
 .design-layout-main {
@@ -215,11 +249,12 @@ export default class Design extends Vue {
   &-module {
     width: 320px;
     min-width: 320px;
+    background-color: #f8f9fa;
   }
   &-mobile {
     width: calc(100vw - 320px - 360px);
     min-width: 475px;
-    background: pink;
+    background: #f0f2f5;
     height: 100%;
   }
 
@@ -229,6 +264,8 @@ export default class Design extends Vue {
     position: absolute;
     right: 0;
     top: 0;
+    height: 100%;
+    background-color: #f8f9fa;
   }
 }
 </style>

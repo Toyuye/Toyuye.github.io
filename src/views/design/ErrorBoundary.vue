@@ -1,5 +1,5 @@
 <template>
-  <div :style="{overflowY: 'auto', overflowX: 'hidden', height: '100%'}">
+  <div class="error-boundary-container">
     <div v-if="childError">
       {{ tips }}
     </div>
@@ -10,8 +10,12 @@
 <script lang="ts">
 import { Vue, Component, Provide, Prop } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 @Component({
-  name: "ErrorBoundary"
+  name: "ErrorBoundary",
+  components: {
+    OverlayScrollbarsComponent
+  }
 })
 export default class ErrorBoundary extends Vue {
   childError: boolean = false;

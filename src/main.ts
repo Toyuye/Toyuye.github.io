@@ -7,6 +7,9 @@ import "./assets/_reset.css";
 import "./assets/iconfonts/iconfont.css";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+
+import "overlayscrollbars/css/OverlayScrollbars.css";
+
 import "./mock";
 import "./utils/permission";
 Vue.config.productionTip = false;
