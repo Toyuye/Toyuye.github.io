@@ -6,6 +6,13 @@
       minHeight: moblieSize.minHeight + 'px'
     }"
   >
+    <div class="moblie-component-item">
+      <ErrorBoundary>
+        <MobileAsyncComponent
+          :data="{ name: 'header', id: 0, moduleSign: 'topNavModule' }"
+        ></MobileAsyncComponent>
+      </ErrorBoundary>
+    </div>
     <Draggable
       v-model="RenderComponent"
       class="drag-component-wrap"
@@ -22,7 +29,9 @@
         v-for="component in RenderComponent"
         :key="component.id"
       >
-        {{ component.name }} {{ component.id }}
+        <ErrorBoundary>
+          <MobileAsyncComponent :data="component"></MobileAsyncComponent>
+        </ErrorBoundary>
       </div>
     </Draggable>
   </div>
@@ -30,14 +39,17 @@
 <script lang="ts">
 import { Vue, Component, Provide, Prop } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
-
+import MobileAsyncComponent from "./MobileAsyncComponent.vue";
 import Draggable from "vuedraggable";
+import ErrorBoundary from "./ErrorBoundary.vue";
 const designModule = namespace("design");
 
 @Component({
   name: "MoblieComponent",
   components: {
-    Draggable
+    Draggable,
+    MobileAsyncComponent,
+    ErrorBoundary
   }
 })
 export default class MoblieComponent extends Vue {
@@ -83,29 +95,18 @@ export default class MoblieComponent extends Vue {
     console.log(move, "start");
     this.drag = true;
   }
-  onDraggableAdd(move: any) {
-    console.log(move, "add----------->>");
-    if (move.newIndex == 0) {
-      alert("不能添加第一项");
-    }
-    console.log(move.newIndex, "-------------->>>newIndex");
-  }
+  onDraggableAdd(move: any) {}
 
   onDraggableMove(move: any) {
     console.log(move, "移动");
-    if (move.draggedContext.futureIndex == 0) {
-      return false;
-    }
-
-    if (move.draggedContext.index == 0) {
-      return false;
-    }
-
     return true;
   }
   onDraggableEnd(move: any) {
     console.log(move, "完了");
     this.drag = false;
+  }
+  mounted() {
+    console.log(this, "---------->>D");
   }
 }
 </script>
@@ -124,7 +125,6 @@ $DesignDraft: 750;
   background: #fff;
   .mobile-component-item {
     cursor: pointer;
-    height: 40px;
     background: #fff;
     border-bottom: 1px solid #ececec;
   }

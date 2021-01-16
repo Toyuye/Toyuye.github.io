@@ -13,8 +13,8 @@ import "overlayscrollbars/css/OverlayScrollbars.css";
 import "./mock";
 import "./utils/permission";
 Vue.config.productionTip = false;
-
 Vue.use(ElementUI);
+
 /**
  *@auth Toyuye
  */

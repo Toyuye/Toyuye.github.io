@@ -19,27 +19,27 @@ const actions: ActionTree<any, any> = {
     return new Promise((resolve, reject) => {
       console.log(1111);
       dispatch("updateComponentList", [
-        { name: "文本", id: 1 },
-        { name: "文本", id: 2 },
-        { name: "文本", id: 3 },
-        { name: "文本", id: 4 },
-        { name: "文本", id: 5 },
-        { name: "文本", id: 6 },
-        { name: "文本", id: 7 },
-        { name: "文本", id: 8 },
-        { name: "文本", id: 9 },
-        { name: "文本", id: 10 },
-        { name: "文本", id: 11 },
-        { name: "文本", id: 12 },
-        { name: "文本", id: 13 },
-        { name: "文本", id: 14 },
-        { name: "文本", id: 15 },
-        { name: "文本", id: 16 },
-        { name: "文本", id: 17 },
-        { name: "文本", id: 18 },
-        { name: "文本", id: 19 },
-        { name: "文本", id: 20 },
-        { name: "文本", id: 21 }
+        { name: "文本", id: 1, moduleSign: "ImgModule" },
+        { name: "文本", id: 2, moduleSign: "VideoModule" },
+        { name: "文本", id: 3, moduleSign: "VideoModule" },
+        { name: "文本", id: 4, moduleSign: "ImgModule" },
+        { name: "文本", id: 5, moduleSign: "ImgModule" },
+        { name: "文本", id: 6, moduleSign: "ImgModule" },
+        { name: "文本", id: 7, moduleSign: "ImgModule" },
+        { name: "文本", id: 8, moduleSign: "ImgModule" },
+        { name: "文本", id: 9, moduleSign: "ImgModule" },
+        { name: "文本", id: 10, moduleSign: "ImgModule" },
+        { name: "文本", id: 11, moduleSign: "ImgModule" },
+        { name: "文本", id: 12, moduleSign: "ImgModule" },
+        { name: "文本", id: 13, moduleSign: "ImgModule" },
+        { name: "文本", id: 14, moduleSign: "ImgModule" },
+        { name: "文本", id: 15, moduleSign: "ImgModule" },
+        { name: "文本", id: 16, moduleSign: "ImgModule" },
+        { name: "文本", id: 17, moduleSign: "ImgModule" },
+        { name: "文本", id: 18, moduleSign: "ImgModule" },
+        { name: "文本", id: 19, moduleSign: "ImgModule" },
+        { name: "文本", id: 20, moduleSign: "ImgModule" },
+        { name: "文本", id: 21, moduleSign: "ImgModule" }
       ]);
       dispatch("updatePageSetting", {});
       dispatch("updateComponentSetting", {});
