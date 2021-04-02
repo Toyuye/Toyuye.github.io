@@ -1,8 +1,6 @@
 <template>
   <div class="attribute-component-wrap">
-    <ErrorBoundary>
-      <div :style="{ height: '1000px' }">{{ a }}</div>
-    </ErrorBoundary>
+    <div :style="{ height: '1000px' }">{{ a }}</div>
   </div>
 </template>
 <script lang="ts">
@@ -16,7 +14,7 @@ import ErrorBoundary from './ErrorBoundary.vue';
   }
 })
 export default class AttributeComponent extends Vue {
-  a: string = "attribute";
+  a: string = "attributePage";
   mounted() {}
 }
 </script>

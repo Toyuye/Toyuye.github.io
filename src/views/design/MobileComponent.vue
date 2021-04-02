@@ -6,7 +6,10 @@
       minHeight: moblieSize.minHeight + 'px'
     }"
   >
-    <div class="moblie-component-item">
+    <div
+      class="mobile-component-item"
+      @click="()=> onActiveClick({ name: 'header', id: 0, moduleSign: 'topNavModule' })"
+    >
       <ErrorBoundary>
         <MobileAsyncComponent
           :data="{ name: 'header', id: 0, moduleSign: 'topNavModule' }"
@@ -23,14 +26,16 @@
       @add="onDraggableAdd"
       @end="onDraggableEnd"
       @change="onDraggableChange"
+      
     >
       <div
         class="mobile-component-item"
         v-for="component in RenderComponent"
         :key="component.id"
+        @click="()=> onActiveClick(component)"
       >
         <ErrorBoundary>
-          <MobileAsyncComponent :data="component"></MobileAsyncComponent>
+          <MobileAsyncComponent :data="Object.assign({},component)"></MobileAsyncComponent>
         </ErrorBoundary>
       </div>
     </Draggable>
@@ -62,14 +67,16 @@ export default class MoblieComponent extends Vue {
   };
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
   @designModule.Action("updateComponentList") updateComponentList!: Function;
+  @designModule.Action('updateActiveComponent') updateActiveComponent!: Function;
+
   get dragOptions(): object {
     return {
+      delay: 200,
       animation: 200,
       group: "StoreClone",
-
       disabled: false,
       ghostClass: "ghost-component",
-      forceFallback: true
+      forceFallback: true,
     };
   }
 
@@ -104,6 +111,10 @@ export default class MoblieComponent extends Vue {
   onDraggableEnd(move: any) {
     console.log(move, "完了");
     this.drag = false;
+  }
+  onActiveClick(activeComponent: any) {
+    this.updateActiveComponent(activeComponent);
+    console.log(activeComponent,'--------------->>active click')
   }
   mounted() {
     console.log(this, "---------->>D");

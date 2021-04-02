@@ -6,12 +6,16 @@ interface InDesignState {
   renderComponentList: any[];
   renderPageAttribute: object;
   renderComponentAttribute: object;
+  activeComponent:object;
+  isActiveAttribute: 'page' | 'component',
 }
 
 const state: InDesignState = {
   renderComponentList: [],
   renderPageAttribute: {},
-  renderComponentAttribute: {}
+  renderComponentAttribute: {},
+  activeComponent: {},
+  isActiveAttribute: 'page'
 };
 
 const actions: ActionTree<any, any> = {
@@ -68,6 +72,21 @@ const actions: ActionTree<any, any> = {
       commit("SET_COMPONENTSETTING", payload);
       resolve(true);
     });
+  },
+  updateActiveComponent({ commit, dispatch }: { commit: Commit, dispatch: Dispatch }, payload: any) {
+    return new Promise((resolve, reject) => {
+      console.log('active------->>component',payload);
+      commit("SET_ACTIVECOMPONENT", payload);
+      dispatch('updateActiveAttribute', 'component');
+      resolve(true);
+    })
+  },
+  updateActiveAttribute({ commit }: { commit: Commit }, payload: any) {
+    return new Promise((resolve, reject) => {
+      console.log('active------->>component',payload);
+      commit("SET_ACTIVEATTRIBUTE", payload);
+      resolve(true);
+    })
   }
 };
 
@@ -77,7 +96,12 @@ const getters: GetterTree<any, any> = {
   renderPageAttribute: (state: InDesignState): object =>
     state.renderPageAttribute,
   renderComponentAttribute: (state: InDesignState): object =>
-    state.renderComponentAttribute
+    state.renderComponentAttribute,
+  activeComponent:(state: InDesignState): object =>
+    state.activeComponent,
+  isActiveAttribute: (state: InDesignState): 'page' | 'component' => 
+    state.isActiveAttribute
+ 
 };
 
 const mutations: MutationTree<any> = {
@@ -89,6 +113,12 @@ const mutations: MutationTree<any> = {
   },
   SET_COMPONENTSETTING: (state, payload: object) => {
     state.renderComponentAttribute = payload;
+  },
+  SET_ACTIVECOMPONENT:(state, payload: object) => {
+    state.activeComponent = payload;
+  },
+  SET_ACTIVEATTRIBUTE:(state, payload: 'page' | 'component')=>{
+    state.isActiveAttribute = payload
   }
 };
 

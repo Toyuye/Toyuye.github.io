@@ -78,7 +78,9 @@
           :options="{ scrollbars: { autoHide: 'scroll' } }"
           :style="{ height: '100%' }"
         >
-          <AttributeComponent></AttributeComponent>
+
+          <AttributePageComponent v-if="RenderIsActiveAttribute == 'page'"></AttributePageComponent>
+          <AttributeComponent v-else></AttributeComponent>
         </OverlayScrollbarsComponent>
       </div>
     </div>
@@ -95,7 +97,7 @@ import ModuleComponent from "./ModuleComponent.vue";
 import ModulePackageComponent from "./ModulePackageComponent.vue";
 import ModuleManagementComponent from "./ModuleManagementComponent.vue";
 import AttributeComponent from "./AttributeComponent.vue";
-
+import AttributePageComponent from "./AttributePageComponent.vue";
 const designModule = namespace("design");
 
 @Component({
@@ -108,7 +110,8 @@ const designModule = namespace("design");
     ModuleComponent,
     ModulePackageComponent,
     ModuleManagementComponent,
-    AttributeComponent
+    AttributeComponent,
+    AttributePageComponent
   }
 })
 export default class Design extends Vue {
@@ -130,6 +133,7 @@ export default class Design extends Vue {
   loading: boolean = true;
   @designModule.Action("getDesignPage") getDesignPage!: Function;
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
+  @designModule.Getter('isActiveAttribute') isActiveAttribute!: 'page'| 'component';
   async mounted() {
     await this.getDesignPage().then((onloadService: boolean) => {
       if (onloadService) {
@@ -137,6 +141,7 @@ export default class Design extends Vue {
       }
     });
     this.loading = false;
+
   }
   public onModuleTabsChange(activeName: string) {
     this.activeTabsComponent = activeName;
@@ -144,6 +149,11 @@ export default class Design extends Vue {
   public onCreatePackage() {
     console.log("创建组件包--------------->>>>");
   }
+  // 计算--------->> show page or component
+  get RenderIsActiveAttribute() {
+    return this.isActiveAttribute;
+  }
+  
 }
 </script>
 <style lang="scss" scoped>
