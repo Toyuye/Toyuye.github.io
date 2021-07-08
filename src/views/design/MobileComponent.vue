@@ -10,12 +10,12 @@
       class="mobile-component-item"
       @click="
         () =>
-          onActiveClick({ name: 'header', id: 0, moduleSign: 'topNavModule' })
+          onActiveClick({ name: 'header', id: 0, moduleSign: 'TopNavModule' })
       "
     >
       <ErrorBoundary>
         <MobileAsyncComponent
-          :data="{ name: 'header', id: 0, moduleSign: 'topNavModule' }"
+          :data="{ name: 'header', id: 0, moduleSign: 'TopNavModule' }"
         ></MobileAsyncComponent>
       </ErrorBoundary>
     </div>
@@ -69,8 +69,7 @@ export default class MoblieComponent extends Vue {
   };
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
   @designModule.Action("updateComponentList") updateComponentList!: Function;
-  @designModule.Action("updateActiveComponent")
-  updateActiveComponent!: Function;
+  @designModule.Action("updateActiveComponent") updateActiveComponent!: Function;
 
   get dragOptions(): object {
     return {
@@ -84,7 +83,7 @@ export default class MoblieComponent extends Vue {
   }
 
   get RenderComponent() {
-    console.log("render----------变化");
+    console.log("render----------变化", this.renderComponentList);
     return this.renderComponentList;
   }
   set RenderComponent(v) {

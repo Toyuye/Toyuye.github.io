@@ -36,7 +36,7 @@
             class="module-create-package-wrap"
             v-if="
               activeTabsComponent == 'ModulePackageComponent' ||
-                activeTabsComponent == 'ModuleManagementComponent'
+              activeTabsComponent == 'ModuleManagementComponent'
             "
           >
             <div class="module-create-package-title">
@@ -58,7 +58,7 @@
             </div>
           </div>
           <component :is="activeTabsComponent"></component>
-          <div class="module-feedback-footer">意见反馈</div>
+          <div class="module-feedback-footer">意见反馈{{RenderActiveComponent}}</div>
         </div>
         <div v-else class="module-tabs-nodata">
           <div class="iconfont icon-mobile-error"></div>
@@ -75,16 +75,15 @@
         </OverlayScrollbarsComponent>
       </div>
       <div class="design-layout-main-attribute">
-        <!-- <OverlayScrollbarsComponent
-          :options="{ scrollbars: { autoHide: 'scroll' } }"
-          :style="{ height: '100%' }"
-        > -->
-
+        
         <AttributePageComponent
           v-if="RenderIsActiveAttribute == 'page'"
         ></AttributePageComponent>
-        <AttributeComponent v-else></AttributeComponent>
-        <!-- </OverlayScrollbarsComponent> -->
+
+        <AttributeComponent 
+          v-else
+        ></AttributeComponent>
+        
       </div>
     </div>
   </div>
@@ -120,7 +119,11 @@ const designModule = namespace("design");
 export default class Design extends Vue {
   moduleComponent: any[] = [];
   moduleTabs: any[] = [
-    { name: "ModuleComponent", iconName: "database-set", tips: "组件库" },
+    {
+      name: "ModuleComponent",
+      iconName: "database-set",
+      tips: "组件库"
+    },
     {
       name: "ModulePackageComponent",
       iconName: "database-set",
@@ -136,16 +139,18 @@ export default class Design extends Vue {
   loading: boolean = true;
   @designModule.Action("getDesignPage") getDesignPage!: Function;
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
+  @designModule.Getter("activeComponent") activeComponent!: object;
   @designModule.Getter("isActiveAttribute") isActiveAttribute!:
     | "page"
     | "component";
   async mounted() {
     await this.getDesignPage().then((onloadService: boolean) => {
       if (onloadService) {
-        console.log(this.renderComponentList, "-------------->>>");
+        this.loading = false;
+        console.log(this.renderComponentList, "-------------->>>获取组件");
       }
     });
-    this.loading = false;
+    
   }
   public onModuleTabsChange(activeName: string) {
     this.activeTabsComponent = activeName;
@@ -156,6 +161,11 @@ export default class Design extends Vue {
   // 计算--------->> show page or component
   get RenderIsActiveAttribute() {
     return this.isActiveAttribute;
+  }
+
+  get RenderActiveComponent() {
+    console.log(this.activeComponent,'00000000000000000')
+    return this.activeComponent
   }
 }
 </script>
