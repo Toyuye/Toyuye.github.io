@@ -71,17 +71,20 @@
           :style="{ height: '100%' }"
         >
           <MoblieComponent></MoblieComponent>
+          <div style="padding-bottom: 1px"></div>
         </OverlayScrollbarsComponent>
       </div>
       <div class="design-layout-main-attribute">
-        <OverlayScrollbarsComponent
+        <!-- <OverlayScrollbarsComponent
           :options="{ scrollbars: { autoHide: 'scroll' } }"
           :style="{ height: '100%' }"
-        >
+        > -->
 
-          <AttributePageComponent v-if="RenderIsActiveAttribute == 'page'"></AttributePageComponent>
-          <AttributeComponent v-else></AttributeComponent>
-        </OverlayScrollbarsComponent>
+        <AttributePageComponent
+          v-if="RenderIsActiveAttribute == 'page'"
+        ></AttributePageComponent>
+        <AttributeComponent v-else></AttributeComponent>
+        <!-- </OverlayScrollbarsComponent> -->
       </div>
     </div>
   </div>
@@ -133,7 +136,9 @@ export default class Design extends Vue {
   loading: boolean = true;
   @designModule.Action("getDesignPage") getDesignPage!: Function;
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
-  @designModule.Getter('isActiveAttribute') isActiveAttribute!: 'page'| 'component';
+  @designModule.Getter("isActiveAttribute") isActiveAttribute!:
+    | "page"
+    | "component";
   async mounted() {
     await this.getDesignPage().then((onloadService: boolean) => {
       if (onloadService) {
@@ -141,7 +146,6 @@ export default class Design extends Vue {
       }
     });
     this.loading = false;
-
   }
   public onModuleTabsChange(activeName: string) {
     this.activeTabsComponent = activeName;
@@ -153,7 +157,6 @@ export default class Design extends Vue {
   get RenderIsActiveAttribute() {
     return this.isActiveAttribute;
   }
-  
 }
 </script>
 <style lang="scss" scoped>
@@ -260,7 +263,10 @@ export default class Design extends Vue {
     width: 320px;
     min-width: 320px;
     background-color: #f8f9fa;
+    position: relative;
+    z-index: 2;
   }
+
   &-mobile {
     width: calc(100vw - 320px - 360px);
     min-width: 475px;

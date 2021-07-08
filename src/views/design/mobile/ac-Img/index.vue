@@ -5,7 +5,6 @@
 import { Vue, Component, Provide, Prop } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 
-
 @Component({
   name: "ImgModule"
 })

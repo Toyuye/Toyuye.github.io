@@ -59,7 +59,7 @@ export default class ModuleComponent extends Vue {
         put: false
       },
       disabled: false,
-      ghostClass: "ghost-module-item",
+      //ghostClass: "ghost-module-item",
       forceFallback: true
     };
   }
@@ -229,8 +229,10 @@ export default class ModuleComponent extends Vue {
   }
   .module-item {
     padding: 10px 5px 0px 5px;
-    &:last-child {
-      padding-bottom: 10px;
+    cursor: move;
+    &.sortable-fallback {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 4px;
     }
     &-content {
       width: 90px;
@@ -297,5 +299,9 @@ export default class ModuleComponent extends Vue {
   .el-collapse-item__content {
     padding-bottom: 0px;
   }
+}
+
+.ghost-module-item {
+  background: #fff;
 }
 </style>

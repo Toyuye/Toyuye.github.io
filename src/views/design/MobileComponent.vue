@@ -8,7 +8,10 @@
   >
     <div
       class="mobile-component-item"
-      @click="()=> onActiveClick({ name: 'header', id: 0, moduleSign: 'topNavModule' })"
+      @click="
+        () =>
+          onActiveClick({ name: 'header', id: 0, moduleSign: 'topNavModule' })
+      "
     >
       <ErrorBoundary>
         <MobileAsyncComponent
@@ -26,16 +29,15 @@
       @add="onDraggableAdd"
       @end="onDraggableEnd"
       @change="onDraggableChange"
-      
     >
       <div
         class="mobile-component-item"
         v-for="component in RenderComponent"
         :key="component.id"
-        @click="()=> onActiveClick(component)"
+        @click="() => onActiveClick(component)"
       >
         <ErrorBoundary>
-          <MobileAsyncComponent :data="Object.assign({},component)"></MobileAsyncComponent>
+          <MobileAsyncComponent :data="component"></MobileAsyncComponent>
         </ErrorBoundary>
       </div>
     </Draggable>
@@ -67,16 +69,17 @@ export default class MoblieComponent extends Vue {
   };
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
   @designModule.Action("updateComponentList") updateComponentList!: Function;
-  @designModule.Action('updateActiveComponent') updateActiveComponent!: Function;
+  @designModule.Action("updateActiveComponent")
+  updateActiveComponent!: Function;
 
   get dragOptions(): object {
     return {
-      delay: 200,
+      delay: 60,
       animation: 200,
       group: "StoreClone",
       disabled: false,
       ghostClass: "ghost-component",
-      forceFallback: true,
+      forceFallback: true
     };
   }
 
@@ -114,7 +117,7 @@ export default class MoblieComponent extends Vue {
   }
   onActiveClick(activeComponent: any) {
     this.updateActiveComponent(activeComponent);
-    console.log(activeComponent,'--------------->>active click')
+    console.log(activeComponent, "--------------->>active click");
   }
   mounted() {
     console.log(this, "---------->>D");
@@ -130,12 +133,13 @@ $DesignDraft: 750;
 </style>
 <style lang="scss" scoped>
 .mobile-component-wrap {
-  margin: 0 auto;
+  margin: 60px auto;
   width: 375px;
   min-height: 667px;
   background: #fff;
+  box-shadow: 0 0 28px 0px #ccc;
   .mobile-component-item {
-    cursor: pointer;
+    cursor: move;
     background: #fff;
     border-bottom: 1px solid #ececec;
   }

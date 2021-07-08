@@ -184,7 +184,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import PageHeader from "../../components/PageHeader.vue";
+import PageHeader from "@/components/PageHeader.vue";
 import RadarChart from "./components/RadarChart.vue";
 import { workplace } from "../../fetch/api";
 @Component({
