@@ -45,8 +45,6 @@ const actions: ActionTree<any, any> = {
         { name: "文本", id: 20, moduleSign: "ImgModule", moduleJson: "{}"  },
         { name: "文本", id: 21, moduleSign: "ImgModule", moduleJson: "{}"  }
       ]);
-      dispatch("updatePageSetting", {});
-      dispatch("updateComponentSetting", {});
       setTimeout(() => {
         resolve(true);
       }, 1000);
@@ -56,20 +54,6 @@ const actions: ActionTree<any, any> = {
     console.log(1, payload);
     return new Promise((resolve, reject) => {
       commit("SET_COMPONENTLIST", payload);
-      resolve(true);
-    });
-  },
-  updatePageSetting({ commit }: { commit: Commit }, payload: any) {
-    console.log(2, payload);
-    return new Promise((resolve, reject) => {
-      commit("SET_PAGESETTING", payload);
-      resolve(true);
-    });
-  },
-  updateComponentSetting({ commit }: { commit: Commit }, payload: any) {
-    console.log(3, payload);
-    return new Promise((resolve, reject) => {
-      commit("SET_COMPONENTSETTING", payload);
       resolve(true);
     });
   },

@@ -58,7 +58,7 @@
             </div>
           </div>
           <component :is="activeTabsComponent"></component>
-          <div class="module-feedback-footer">意见反馈{{RenderActiveComponent}}</div>
+          <div class="module-feedback-footer">意见反馈</div>
         </div>
         <div v-else class="module-tabs-nodata">
           <div class="iconfont icon-mobile-error"></div>

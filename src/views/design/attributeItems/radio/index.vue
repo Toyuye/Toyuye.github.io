@@ -13,10 +13,10 @@ interface BaseRadioProps {
   wrapStyle: object;
 }
 @Component({
-  name: "BaseRadio",
+  name: "Radio",
   components: {}
 })
-export default class BaseRadio extends Vue {
+export default class Radio extends Vue {
   @Prop({
     default: {
       wrapStyle: {},
