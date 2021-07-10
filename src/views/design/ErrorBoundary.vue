@@ -21,7 +21,7 @@ export default class ErrorBoundary extends Vue {
   childError: boolean = false;
   @Prop({ default: "error", type: String }) tips!: string;
   errorCaptured(err: any, vm: any, info: string) {
-    console.log(err, vm, info, "------------>>> error tips");
+    console.log(err, vm, info, " ------------>>> error tips");
     this.childError = true;
     return false;
   }
