@@ -36,7 +36,7 @@
             class="module-create-package-wrap"
             v-if="
               activeTabsComponent == 'ModulePackageComponent' ||
-              activeTabsComponent == 'ModuleManagementComponent'
+                activeTabsComponent == 'ModuleManagementComponent'
             "
           >
             <div class="module-create-package-title">
@@ -75,15 +75,11 @@
         </OverlayScrollbarsComponent>
       </div>
       <div class="design-layout-main-attribute">
-        
         <AttributePageComponent
           v-if="RenderIsActiveAttribute == 'page'"
         ></AttributePageComponent>
 
-        <AttributeComponent 
-          v-else
-        ></AttributeComponent>
-        
+        <AttributeComponent v-else></AttributeComponent>
       </div>
     </div>
   </div>
@@ -150,7 +146,6 @@ export default class Design extends Vue {
         console.log(this.renderComponentList, "-------------->>>获取组件");
       }
     });
-    
   }
   public onModuleTabsChange(activeName: string) {
     this.activeTabsComponent = activeName;
@@ -164,8 +159,8 @@ export default class Design extends Vue {
   }
 
   get RenderActiveComponent() {
-    console.log(this.activeComponent,'00000000000000000')
-    return this.activeComponent
+    console.log(this.activeComponent, "00000000000000000");
+    return this.activeComponent;
   }
 }
 </script>

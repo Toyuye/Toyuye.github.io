@@ -23,6 +23,9 @@ module.exports = {
       }
     }
   },
+  pwa:{
+
+  },
   chainWebpack(config) {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
@@ -31,8 +34,12 @@ module.exports = {
     //   config.devtool("cheap-source-map")
     // );
     // config.resolve.alias.set('@', path.resolve(__dirname, './src'));
+    // console.log(config.plugin('workbox'),'0000000000000000000000000')
     
+    // console.log(process,'------------------sssssssssssssssss')
+    // console.log(config,'00000000000000000000sssssssssssssssss')
     config.when(process.env.NODE_ENV !== "development", config => {
+    
       config.optimization.splitChunks({
         chunks: "all",
         minSize: 10,

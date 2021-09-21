@@ -69,7 +69,8 @@ export default class MoblieComponent extends Vue {
   };
   @designModule.Getter("renderComponentList") renderComponentList!: any[];
   @designModule.Action("updateComponentList") updateComponentList!: Function;
-  @designModule.Action("updateActiveComponent") updateActiveComponent!: Function;
+  @designModule.Action("updateActiveComponent")
+  updateActiveComponent!: Function;
 
   get dragOptions(): object {
     return {

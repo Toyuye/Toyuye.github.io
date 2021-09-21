@@ -71,6 +71,8 @@ const setPageTitle = (to: any): void => {
   });
   document.title = t.join("-") + "-欢迎来到Toyuye系统";
 };
+ 
+
 const checkPhone = (num: string): Boolean => {
   let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
   return Reg.test(num);

@@ -1,55 +1,59 @@
 <template>
   <div class="attribute-component-wrap" :style="{ height: '100vh' }">
-    <div class="attribute-component-title">{{data.name}}</div>
+    <div class="attribute-component-title">{{ data.name }}</div>
     <div class="attribute-component-settings">
-      <el-tabs 
-        v-model="TabsActiveName"
-        :stretch="true"
-      >
-        <el-tab-pane
-          label="内容设置"
-          name="content"
-        >
-          <div class="attribute-component-content" style="height: calc(100vh - 50px - 51px - 40px)">
+      <el-tabs v-model="TabsActiveName" :stretch="true">
+        <el-tab-pane label="内容设置" name="content">
+          <div
+            class="attribute-component-content"
+            style="height: calc(100vh - 50px - 51px - 40px)"
+          >
             <OverlayScrollbarsComponent
               :options="{ scrollbars: { autoHide: 'scroll' } }"
               :style="{ height: '100%' }"
             >
-              <div
-                v-for="item in RenderActiveGroups"
-                :key="item.key"
-              >
-                <div 
+              <div v-for="item in RenderActiveGroups" :key="item.key">
+                <div
                   class="attribute-component-item"
-                  v-for="(attributeItem, attributeIdx) in item.settingsLayout.content"
+                  v-for="(attributeItem, attributeIdx) in item.settingsLayout
+                    .content"
                   :key="attributeIdx"
                 >
-                  
-                  <div 
-                    class="block"
-                    v-if="attributeItem.type == 'block'"
+                  <div
+                    :class="{
+                      noblock: true,
+                      block: attributeItem.type !== 'block'
+                    }"
                   >
-                    1
-                  </div>
-                  <div v-else>
-
+                    <div>{{ attributeItem.title }}</div>
+                    <div
+                      v-for="componentItem in attributeItem.interfaceApi"
+                      :key="componentItem"
+                    >
+                      <component
+                        :is="item.interfaceApi[componentItem].components.type"
+                        :data="
+                          cloneData({
+                            skey: componentItem,
+                            value: item.interfaceApi[componentItem].value,
+                            ...item.interfaceApi[componentItem].components.props
+                          })
+                        "
+                        @onChangeValue="onChangeValue"
+                      ></component>
+                    </div>
                   </div>
                 </div>
-              </div> 
+              </div>
             </OverlayScrollbarsComponent>
           </div>
-
         </el-tab-pane>
-        <el-tab-pane
-          label="样式设置"
-          name="styles"
-        >
+        <el-tab-pane label="样式设置" name="styles">
           <div class="attribute-component-styles">
             <OverlayScrollbarsComponent
               :options="{ scrollbars: { autoHide: 'scroll' } }"
               :style="{ height: '100%' }"
             >
-          
             </OverlayScrollbarsComponent>
           </div>
         </el-tab-pane>
@@ -62,14 +66,26 @@ import { Vue, Component, Provide, Prop } from "vue-property-decorator";
 import { State, Mutation, Getter, Action, namespace } from "vuex-class";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import ErrorBoundary from "./ErrorBoundary.vue";
-
-
+import { cloneDeep } from "lodash";
+const componentsContext = (require as any).context(
+  "./attributeItems/",
+  true,
+  /\.vue$/
+);
+const AttributeItems: any = {};
+componentsContext.keys().forEach((componentItem: any) => {
+  const config = componentsContext(componentItem);
+  const ctr = config.default || config;
+  console.log(config, "ssssssssssssssssss");
+  AttributeItems[ctr.name] = ctr;
+});
 
 @Component({
   name: "AttributeComponent",
   components: {
     ErrorBoundary,
     OverlayScrollbarsComponent,
+    ...AttributeItems
   }
 })
 export default class AttributeComponent extends Vue {
@@ -81,38 +97,45 @@ export default class AttributeComponent extends Vue {
         name: "图片组件",
         asyncComponentUrl: null,
         $$schema: {
-          title: '图片',
+          title: "图片",
           groupActiveKey: 1,
           groups: [
             {
               key: 1,
-              title: '横向滚动',
-              icon: '',
-              settingsApi: {
+              title: "横向滚动",
+              icon: "",
+              interfaceApi: {
                 ImgItems: {
-                  value: [],
+                  value: 1,
                   rules: [],
                   components: {
-                    type: 'Radio',
-                    options: {
-
-                    },
-                  },
-                },
+                    type: "Radio",
+                    props: {
+                      wrapStyle: {},
+                      label: "Label",
+                      options: [
+                        { text: "样式1", value: 1 },
+                        { text: "样式2", value: 2 }
+                      ]
+                    }
+                  }
+                }
               },
               settingsLayout: {
                 content: [
                   {
-                    type: 'block',
-                    title: 'title',
-                    settings: ['ImgItems']
+                    visible: true,
+                    type: "block",
+                    title: "title",
+                    interfaceApi: ["ImgItems"]
                   }
                 ],
                 styles: [
                   {
-                    type: 'block',
-                    title: 'title',
-                    settings: ['ImgItems']
+                    visible: false,
+                    type: "block",
+                    title: "title",
+                    settings: ["ImgItems"]
                   }
                 ]
               },
@@ -121,15 +144,15 @@ export default class AttributeComponent extends Vue {
                 data: {
                   groupActiveKey: 1,
                   content: {
-                    ImgItems: [{name: 'xxx', url: 'xxxx'}],
+                    ImgItems: [{ name: "xxx", url: "xxxx" }]
                   },
                   styles: {
-                    ImgItems: [{name: 'xxx', url: 'xxxx'}]
+                    ImgItems: [{ name: "xxx", url: "xxxx" }]
                   }
-                },
-              },
-            },
-          ],
+                }
+              }
+            }
+          ]
         }
       };
     },
@@ -142,10 +165,25 @@ export default class AttributeComponent extends Vue {
     asyncComponentUrl: string;
     $$schema: any;
   };
-  TabsActiveName: 'content' | 'styles' = 'content';
-  
+  TabsActiveName: "content" | "styles" = "content";
+
+  cloneData<T>(data: T): T {
+    return cloneDeep(data);
+  }
+
+  onChangeValue(skey: string, value: any): void {
+    this.data.$$schema.groups.forEach((item: any) => {
+      if (item.key == this.data.$$schema.groupActiveKey) {
+        item.interfaceApi[skey].value = value;
+      }
+    });
+    console.log(this.data);
+  }
+
   get RenderActiveGroups() {
-    return this.data.$$schema.groups.filter( item => item.key == this.data.$$schema.groupActiveKey);
+    return this.data.$$schema.groups.filter(
+      (item: any) => item.key == this.data.$$schema.groupActiveKey
+    );
   }
   mounted() {}
 }
@@ -163,39 +201,40 @@ export default class AttributeComponent extends Vue {
     color: #333;
   }
   .attribute-component-settings {
-    .block {
+    .noblock {
       margin: 0 10px 10px 10px;
+    }
+    .block {
       background-color: #f0f2f5;
       border-radius: 4px;
       padding: 10px 10px 10px 10px;
     }
   }
 }
- 
 </style>
 
 <style lang="scss">
-  .attribute-component-wrap {
-    .el-tabs__header {
-      padding: 0 5px;
-    }
-    .el-tabs__nav-wrap {
-      display: flex;
-      justify-content: center;
-    }
-    .el-tabs__nav-scroll {
-      width: 70%;
-    }
-    .el-tabs__active-bar {
-      background-color: #333;
-      height: 3px;
-      border-radius: 1px;
-    }
-    .el-tabs__item {
-      font-size: 12px;
-      &.is-active {
-        color: #333;
-      }
+.attribute-component-wrap {
+  .el-tabs__header {
+    padding: 0 5px;
+  }
+  .el-tabs__nav-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .el-tabs__nav-scroll {
+    width: 70%;
+  }
+  .el-tabs__active-bar {
+    background-color: #333;
+    height: 3px;
+    border-radius: 1px;
+  }
+  .el-tabs__item {
+    font-size: 12px;
+    &.is-active {
+      color: #333;
     }
   }
+}
 </style>
